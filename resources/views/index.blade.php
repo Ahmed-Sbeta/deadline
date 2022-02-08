@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       dir="ltr">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible"
@@ -14,45 +13,45 @@
         <meta name="robots"
               content="noindex">
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7COswald:300,400,500,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+        <link href="{{asset('https://fonts.googleapis.com/css?family=Lato:400,700%7COswald:300,400,500,700%7CRoboto:400,500%7CExo+2:600&display=swap')}}"
               rel="stylesheet">
 
         <!-- Perfect Scrollbar -->
         <link type="text/css"
-              href="assets/vendor/perfect-scrollbar.css"
+              href="{{asset('assets/vendor/perfect-scrollbar.css')}}"
               rel="stylesheet">
 
         <!-- Material Design Icons -->
         <link type="text/css"
-              href="assets/css/material-icons.css"
+              href="{{asset('assets/css/material-icons.css')}}"
               rel="stylesheet">
 
         <!-- Font Awesome Icons -->
         <link type="text/css"
-              href="assets/css/fontawesome.css"
+              href="{{asset('assets/css/fontawesome.css')}}"
               rel="stylesheet">
 
         <!-- Preloader -->
         <link type="text/css"
-              href="assets/vendor/spinkit.css"
+              href="{{asset('assets/vendor/spinkit.css')}}"
               rel="stylesheet">
         <link type="text/css"
-              href="assets/css/preloader.css"
+              href="{{asset('assets/css/preloader.css')}}"
               rel="stylesheet">
 
         <!-- App CSS -->
         <link type="text/css"
-              href="assets/css/app.css"
+              href="{{asset('assets/css/app.css')}}"
               rel="stylesheet">
 
         <!-- Dark Mode CSS (optional) -->
         <link type="text/css"
-              href="assets/css/dark-mode.css"
+              href="{{asset('assets/css/dark-mode.css')}}"
               rel="stylesheet">
 
         <!-- Vector Maps -->
         <link type="text/css"
-              href="assets/vendor/jqvmap/jqvmap.min.css"
+              href="{{asset('assets/vendor/jqvmap/jqvmap.min.css')}}"
               rel="stylesheet">
 
     </head>
@@ -136,24 +135,28 @@
                                data-toggle="dropdown">
                                 <img width="32"
                                      height="32"
-                                     class="rounded-circle mr-8pt"
-                                     src="assets/images/people/50/guy-3.jpg"
+                                     class="rounded-circle mr-8pt "
+                                     src="{{asset(Storage::url(Auth::user()->image))}}"
                                      alt="account" />
                                 <span class="flex d-flex flex-column mr-8pt">
-                                    <span class="navbar-text-100">Laza Bogdan</span>
-                                    <small class="navbar-text-50">Administrator</small>
+                                    <span class="navbar-text-100">{{Auth::user()->name}}</span>
+                                    <small class="navbar-text-50">{{Auth::user()->role}}</small>
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-header"><strong>Account</strong></div>
                                 <a class="dropdown-item"
-                                   href="edit-account.html">Edit Account</a>
+                                   href="\edit-account">Edit Account</a>
                                 <a class="dropdown-item"
-                                   href="billing.html">Billing</a>
+                                   href="\subscription">Billing</a>
                                 <a class="dropdown-item"
-                                   href="billing-history.html">Payments</a>
+                                   href="\billing-history">Payments</a>
                                 <a class="dropdown-item"
-                                   href="login.html">Logout</a>
+                                href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
 
@@ -300,7 +303,7 @@
                         <!-- // END Notifications dropdown -->
                     </div>
 
-                    
+
                 </div>
 
                 <!-- // END Header -->
@@ -313,11 +316,11 @@
                                 <h2 class="mb-0">Welcome to your dashboard !</h2>
 
                                 <ol class="breadcrumb p-0 m-0">
-                                   
+
 
                                     <li class="breadcrumb-item active">
 
-                                        @User Name
+                                        {{Auth::user()->name}}
 
                                     </li>
 
@@ -325,7 +328,7 @@
 
                             </div>
 
-                            
+
                         </div>
 
 
@@ -333,12 +336,12 @@
                         <div class="row"
                         role="tablist">
                        <div class="col-auto d-flex flex-column">
-                           <h6 class="m-0">&dollar;12.3k</h6>
-                           <p class="text-50 mb-0 d-flex align-items-center">
-                               Date and time
+                           <h6 class="m-0">{{ Carbon\Carbon::now()->format('H:i')}}</h6>
+                           <p class="text-50 mb-0 pr-1 d-flex align-items-center">
+                               {{ Carbon\Carbon::now()->toDateString()}}
                            </p>
                        </div>
-                      
+
                        </div>
 
                         <div class="row"
@@ -355,19 +358,16 @@
                 <div class="container-fluid page__container">
                     <div class="page-section">
 
-                        
+
                         <div class="card mb-lg-32pt">
                             <div class="card-header d-flex align-items-center">
                                 <strong>Announcments</strong>
-                               
+
                             </div>
                             <div class="card-body">
-                                
-                               <a href="discussion.html"><h1 style="color: #00BCC2;">Important Announcment!</h1>Click here to view announcments details 
-                                Click here to view announcments details Click here to view announcments details
-                                Click here to view announcments details Click here to view announcments details
-                                Click here to view announcments details Click here to view announcments details
-                                Click here to view announcments details Click here to view announcments details
+
+                               <a href="/announcement-details/{{$announcement->id}}"><h2 style="color: #00BCC2;">{{$announcement->title}}</h2>
+                                 {{$announcement->discription}}
                                </a><p></p>
                             </div>
                         </div>
@@ -378,7 +378,7 @@
                         <div class="card mb-lg-32pt">
                             <div class="card-header py-12pt d-flex align-items-center">
                                 <strong>Projects</strong>
-                                
+
                             </div>
                             <div class="progress rounded-0"
                                  style="height: 4px;">
@@ -402,7 +402,7 @@
 
                                             <th style="width: 18px;"
                                                 class="pr-0">
-                                               
+
                                             </th>
 
                                             <th>
@@ -419,18 +419,19 @@
                                     <tbody class="list"
                                            id="tasks">
 
+                                           @foreach($project as $proj)
                                         <tr class="selected">
 
                                             <td class="pr-0">
-                                               
+
                                             </td>
 
                                             <td>
 
                                                 <div class="d-flex align-items-center">
-                                                    <strong class="flex js-lists-values-name">Add Fluid Layout Featuring A Vertical Menu With Icons Only</strong>
+                                                    <strong class="flex js-lists-values-name">{{$proj->title}}</strong>
 
-                                                    
+
 
                                                 </div>
 
@@ -438,225 +439,34 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
 
-                                                   
+
 
                                                 </div>
                                             </td>
                                             <td>
-                                                <small class="js-lists-values-date text-50">02/01/20</small>
+                                                <small class="js-lists-values-date text-50">{{$proj->dueOn}}</small>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar-group flex mr-8pt">
-
+                                                      @foreach($project_workers as $worker)
+                                                        @if($worker->project_id == $proj->id)
                                                         <div class="avatar avatar-xs"
                                                              data-toggle="tooltip"
                                                              data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_luke-porter-261779-unsplash.jpg"
+                                                             title="{{$user->find($worker->user_id)->name}}">
+                                                            <a href=""><img src="{{asset(Storage::url($user->find($worker->user_id)->image))}}"
                                                                      alt="Avatar"
                                                                      class="avatar-img rounded-circle"></a>
                                                         </div>
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_michael-dam-258165-unsplash.jpg"
-                                                                     alt="Avatar"
-                                                                     class="avatar-img rounded-circle"></a>
-                                                        </div>
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_rsz_1andy-lee-642320-unsplash.jpg"
-                                                                     alt="Avatar"
-                                                                     class="avatar-img rounded-circle"></a>
-                                                        </div>
+                                                        @endif
+                                                        @endforeach
 
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
-
-                                        <tr>
-
-                                            <td class="pr-0">
-                                              
-                                            </td>
-
-                                            <td>
-
-                                                <div class="d-flex align-items-center">
-                                                    <strong class="flex js-lists-values-name">Add Initial Documentation Covering Basic Features</strong>
-
-                                                </div>
-
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-
-                                                    
-
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <small class="js-lists-values-date text-50">03/01/20</small>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar-group flex mr-8pt">
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_michael-dam-258165-unsplash.jpg"
-                                                                     alt="Avatar"
-                                                                     class="avatar-img rounded-circle"></a>
-                                                        </div>
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_luke-porter-261779-unsplash.jpg"
-                                                                     alt="Avatar"
-                                                                     class="avatar-img rounded-circle"></a>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            
-                                        </tr>
-
-                                        <tr>
-
-                                            <td class="pr-0">
-                                                
-                                            </td>
-
-                                            <td>
-
-                                                <div class="d-flex align-items-center">
-                                                    <strong class="flex js-lists-values-name">Refactor HTML Markup To Be More SEO Friendly</strong>
-
-                                                   
-
-                                                </div>
-
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-
-                                                   
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <small class="js-lists-values-date text-50">03/01/20</small>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar-group flex mr-8pt">
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="LB">
-                                                            <a href=""><span class="avatar-title bg-white border text-black-100 rounded-circle">LB</span></a>
-                                                        </div>
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="AD">
-                                                            <a href=""><span class="avatar-title bg-white border text-black-100 rounded-circle">AD</span></a>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            
-                                        </tr>
-
-                                        <tr>
-
-                                            <td class="pr-0">
-                                             
-                                            </td>
-
-                                            <td>
-
-                                                <div class="media flex-nowrap align-items-center"
-                                                     style="white-space: nowrap;">
-                                                    <div class="avatar avatar-32pt mr-8pt">
-
-                                                        <img src="assets/images/stories/256_rsz_jared-rice-388260-unsplash.jpg"
-                                                             alt="Avatar"
-                                                             class="avatar-img rounded">
-
-                                                    </div>
-                                                    <div class="media-body">
-
-                                                        <div class="d-flex align-items-center">
-                                                            <strong class="flex js-lists-values-name">Add Layout Options</strong>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-
-                                                   
-
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <small class="js-lists-values-date text-50">04/01/20</small>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar-group flex mr-8pt">
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_rsz_1andy-lee-642320-unsplash.jpg"
-                                                                     alt="Avatar"
-                                                                     class="avatar-img rounded-circle"></a>
-                                                        </div>
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_michael-dam-258165-unsplash.jpg"
-                                                                     alt="Avatar"
-                                                                     class="avatar-img rounded-circle"></a>
-                                                        </div>
-
-                                                        <div class="avatar avatar-xs"
-                                                             data-toggle="tooltip"
-                                                             data-placement="top"
-                                                             title="Janell D.">
-                                                            <a href=""><img src="assets/images/256_luke-porter-261779-unsplash.jpg"
-                                                                     alt="Avatar"
-                                                                     class="avatar-img rounded-circle"></a>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -718,7 +528,7 @@
 </div>
 
 <div class="row mb-lg-8pt">
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-6 col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -729,7 +539,7 @@
                         <canvas width="48"
                                 height="48"
                                 class="chart-canvas position-relative z-1 js-update-chart-progress"
-                                id="inTimeProgressChart"
+                                id="openProgressChart"
                                 data-chart-line-background-color="primary;gray"
                                 data-chart-disable-tooltips="true"></canvas>
                     </div>
@@ -741,7 +551,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-6 col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -752,7 +562,7 @@
                         <canvas width="48"
                                 height="48"
                                 class="chart-canvas position-relative z-1 js-update-chart-progress-accent"
-                                id="lateProgressChart"
+                                id="inProgressChart"
                                 data-chart-line-background-color="accent;gray"
                                 data-chart-disable-tooltips="true"></canvas>
                     </div>
@@ -764,7 +574,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-6 col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -775,7 +585,7 @@
                         <canvas width="48"
                                 height="48"
                                 class="chart-canvas position-relative z-1"
-                                id="absentsProgressChart"
+                                id="closedProgressChart"
                                 data-chart-line-background-color="yellow;gray"
                                 data-chart-disable-tooltips="true"></canvas>
                     </div>
@@ -787,31 +597,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="position-relative mr-16pt">
-                        <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                            <small>1%</small>
-                        </div>
-                        <canvas width="48"
-                                height="48"
-                                class="chart-canvas position-relative z-1"
-                                id="vacationProgressChart"
-                                data-chart-line-background-color="yellow;gray"
-                                data-chart-disable-tooltips="true"></canvas>
-                    </div>
-                    <div class="flex">
-                        <strong>Total</strong>
-                    </div>
-                    <div class="text-50">1</div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
-<p></p>         
+<p></p>
 
 
 <!--Tasks Overview-->
@@ -822,7 +610,7 @@
 
 
 <div class="row mb-lg-8pt">
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-6 col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -845,7 +633,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-6 col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -868,7 +656,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-6 col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -891,35 +679,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="position-relative mr-16pt">
-                        <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                            <small>1%</small>
-                        </div>
-                        <canvas width="48"
-                                height="48"
-                                class="chart-canvas position-relative z-1"
-                                id="vacationProgressChart"
-                                data-chart-line-background-color="yellow;gray"
-                                data-chart-disable-tooltips="true"></canvas>
-                    </div>
-                    <div class="flex">
-                        <strong>Total</strong>
-                    </div>
-                    <div class="text-50">1</div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 
-<p></p>         
+<p></p>
 
 
-                       
+
                     </div>
                 </div>
 
@@ -945,11 +711,11 @@
                                                      width="24"
                                                      height="24"
                                                      alt="Facebook"></a>
-    
+
                                              <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="assets/images/icon/footer/youtube-square@2x.png"
                                                  width="24"
-                                                  height="24" 
-                                                  alt="YouTube"></a> 
+                                                  height="24"
+                                                  alt="YouTube"></a>
                                         </nav>
                                     </div>
                                     <div class="col-md-6 col-sm-4 mb-24pt mb-md-0 d-flex align-items-center">
@@ -984,10 +750,10 @@
                             <span class="material-icons">sync_alt</span>
                         </a>
 
-                        <a href="index.html"
+                        <a href="\"
                            class="sidebar-brand ">
                             <img
-                                 src="assets/images/logo/logo.png"
+                                 src="{{asset('assets/images/logo/logo.png')}}"
                                  alt="Deadline">
 
                         </a>
@@ -1000,73 +766,41 @@
                                 <img width="32"
                                      height="32"
                                      class="rounded-circle mr-8pt"
-                                     src="assets/images/people/50/guy-3.jpg"
+                                     src="{{asset(Storage::url(Auth::user()->image))}}"
                                      alt="account" />
                                 <span class="flex d-flex flex-column mr-8pt">
-                                    <span class="text-black-100">Laza Bogdan</span>
-                                    <small class="text-black-50">Administrator</small>
+                                    <span class="text-black-100">{{Auth::user()->name}}</span>
+                                    <small class="text-black-50">{{Auth::user()->role}}</small>
                                 </span>
                                 <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
                                 <div class="dropdown-header"><strong>Account</strong></div>
                                 <a class="dropdown-item"
-                                   href="edit-account.html">Edit Account</a>
+                                   href="\edit-account">Edit Account</a>
                                 <a class="dropdown-item"
-                                   href="billing.html">Billing</a>
+                                   href="\subscription">Billing</a>
                                 <a class="dropdown-item"
-                                   href="billing-history.html">Payments</a>
-                                <a class="dropdown-item"
-                                   href="login.html">Logout</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-header"><strong>Select company</strong></div>
-                                <a href=""
-                                   class="dropdown-item active d-flex align-items-center">
-
-                                    <div class="avatar avatar-sm mr-8pt">
-
-                                        <span class="avatar-title rounded bg-primary">FM</span>
-
-                                    </div>
-
-                                    <small class="ml-4pt flex">
-                                        <span class="d-flex flex-column">
-                                            <strong class="text-black-100">FrontendMatter Inc.</strong>
-                                            <span class="text-black-50">Administrator</span>
-                                        </span>
-                                    </small>
-                                </a>
-                                <a href=""
-                                   class="dropdown-item d-flex align-items-center">
-
-                                    <div class="avatar avatar-sm mr-8pt">
-
-                                        <span class="avatar-title rounded bg-accent">HH</span>
-
-                                    </div>
-
-                                    <small class="ml-4pt flex">
-                                        <span class="d-flex flex-column">
-                                            <strong class="text-black-100">HumaHuma Inc.</strong>
-                                            <span class="text-black-50">Publisher</span>
-                                        </span>
-                                    </small>
-                                </a>
+                                   href="\billing-history">Payments</a>
+                                   <a class="dropdown-item"
+                                   href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                                   document.getElementById('logout-form').submit();">Logout</a>
+                                   <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                       @csrf
+                                   </form>
                             </div>
                         </div>
 
-                        <form action="index.html"
-                              class="search-form flex-shrink-0 search-form--black sidebar-m-b sidebar-p-l mx-16pt pr-0">
-                            <input type="text"
-                                   class="form-control pl-0"
-                                   placeholder="Search">
-                            <button class="btn"
-                                    type="submit"><i class="material-icons">search</i></button>
-                        </form>
 
                         <div class="sidebar-heading">Deadlines</div>
                         <ul class="sidebar-menu">
-                           
+                          <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button"
+                                   href="\">
+                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
+                                    <span class="sidebar-menu-text">Dashboard</span>
+                                </a>
+                            </li>
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    data-toggle="collapse"
@@ -1079,67 +813,30 @@
                                     id="productivity_menu">
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="projects.html">
+                                           href="/projects">
                                             <span class="sidebar-menu-text">Projects</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="tasks-board.html">
+                                           href="/tasks-board">
                                             <span class="sidebar-menu-text">Tasks Board</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="tasks-list.html">
+                                           href="/tasks-list">
                                             <span class="sidebar-menu-text">Tasks List</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="discussions-ask.html">
+                                           href="/reports">
                                             <span class="sidebar-menu-text">Reports</span>
                                         </a>
                                     </li>
-                                    
-                                    <!-- <li class="sidebar-menu-item">
-  <a class="sidebar-menu-button disabled" href="task-details.html">
-    <span class="sidebar-menu-text">Task Details</span>
-  </a>
-</li>
-<li class="sidebar-menu-item">
-  <a class="sidebar-menu-button disabled" href="team-members.html">
-    <span class="sidebar-menu-text">Team Members</span>
-  </a>
-</li> -->
                                 </ul>
                             </li>
-                            
-                            <!-- <li class="sidebar-menu-item">
-          <a class="sidebar-menu-button" data-toggle="collapse" href="#marketplace_menu">
-            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">assessment</span>
-            Marketplace
-            <span class="ml-auto sidebar-menu-toggle-icon"></span>
-          </a>
-          <ul class="sidebar-submenu collapse sm-indent" id="marketplace_menu">
-            <li class="sidebar-menu-item">
-  <a class="sidebar-menu-button disabled" href="digital-product.html">
-    <span class="sidebar-menu-text">Digital Product</span>
-  </a>
-</li>
-          </ul>
-        </li> -->
-                            <!-- <li class="sidebar-menu-item">
-          <a class="sidebar-menu-button" data-toggle="collapse" href="#education_menu">
-            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">layers</span>
-            Education
-            <span class="ml-auto sidebar-menu-toggle-icon"></span>
-          </a>
-          <ul class="sidebar-submenu collapse sm-indent" id="education_menu">
-            
-          </ul>
-        </li> -->
-                           
                               <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    data-toggle="collapse"
@@ -1150,21 +847,21 @@
                                 </a>
                                 <ul class="sidebar-submenu collapse show sm-indent"
                                     id="account_menu">
-                                    
+
                                    <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="edit-account.html">
+                                           href="/edit-account">
                                             <span class="sidebar-menu-text">Edit Account</span>
                                         </a>
                                     </li>
-                                    
+
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="billing.html">
+                                           href="/subscription">
                                             <span class="sidebar-menu-text">Subscription</span>
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                             </li>
                             <li class="sidebar-menu-item">
@@ -1179,26 +876,21 @@
                                     id="community_menu">
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="employees.html">
+                                           href="/employees">
                                             <span class="sidebar-menu-text">Employees</span>
                                         </a>
                                     </li>
-                                   
+
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="discussions.html">
+                                           href="/announcments">
                                             <span class="sidebar-menu-text">Announcments</span>
                                         </a>
                                     </li>
+
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="discussion.html">
-                                            <span class="sidebar-menu-text">Announcments Details</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="email.html">
+                                           href="/email">
                                             <span class="sidebar-menu-text">Email</span>
                                         </a>
                                     </li>
@@ -1206,33 +898,42 @@
                             </li>
                         </ul>
 
-                        
+
         <!-- App Settings FAB -->
-       
+
         <!-- jQuery -->
-        <script src="assets/vendor/jquery.min.js"></script>
+        <script src="{{asset('assets/vendor/jquery.min.js')}}"></script>
 
         <!-- Bootstrap -->
-        <script src="assets/vendor/popper.min.js"></script>
-        <script src="assets/vendor/bootstrap.min.js"></script>
+        <script src="{{asset('assets/vendor/popper.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/bootstrap.min.js')}}"></script>
 
         <!-- Perfect Scrollbar -->
-        <script src="assets/vendor/perfect-scrollbar.min.js"></script>
+        <script src="{{asset('assets/vendor/perfect-scrollbar.min.js')}}"></script>
 
         <!-- DOM Factory -->
-        <script src="assets/vendor/dom-factory.js"></script>
+        <script src="{{asset('assets/vendor/dom-factory.js')}}"></script>
 
         <!-- MDK -->
-        <script src="assets/vendor/material-design-kit.js"></script>
+        <script src="{{asset('assets/vendor/material-design-kit.js')}}"></script>
 
         <!-- App JS -->
-        <script src="assets/js/app.js"></script>
+        <script src="{{asset('assets/js/app.js')}}"></script>
 
         <!-- Highlight.js -->
-        <script src="assets/js/hljs.js"></script>
+        <script src="{{asset('assets/js/hljs.js')}}"></script>
 
         <!-- App Settings (safe to remove) -->
-        <script src="assets/js/app-settings.js"></script>
+        <script src="{{asset('assets/js/settings.js')}}"></script>
+        <script src="{{asset('assets/js/app-settings.js')}}"></script>
+
+        <!-- Chart.js -->
+        <script src="{{asset('assets/vendor/Chart.min.js')}}"></script>
+        <script src="{{asset('assets/js/chartjs.js')}}"></script>
+
+        <!-- Chart.js Samples -->
+        <script src="{{asset('assets/js/page.tasks-board.js')}}"></script>
+
     </body>
 
 </html>
