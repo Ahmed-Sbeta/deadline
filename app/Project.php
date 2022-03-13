@@ -15,4 +15,8 @@ class Project extends Model
     public function creater(){
       return $this->belongsTo('App\User','creator');
     }
+    Public function task(){
+      return $this->hasMany('App\Tasks');
+    }
 }
+

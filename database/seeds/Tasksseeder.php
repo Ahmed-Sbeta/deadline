@@ -18,6 +18,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 2,
           'project' => 2,
           'creator' => 4,
+          'dueOn' => '2022-03-15',
           'status' => "open"
       ]);
       $task2 = Tasks::create([
@@ -26,6 +27,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "open"
       ]);
       $task3 = Tasks::create([
@@ -33,6 +35,7 @@ class Tasksseeder extends Seeder
           'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
           'assignedTo' => 1,
           'project' => 2,
+          'dueOn' => '2022-03-15',
           'creator' => 1,
           'status' => "open"
       ]);
@@ -42,6 +45,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "open"
       ]);
       $task5 = Tasks::create([
@@ -50,6 +54,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 2,
+          'dueOn' => '2022-03-15',
           'status' => "closed"
       ]);
       $task6 = Tasks::create([
@@ -58,6 +63,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "closed"
       ]);
       $task7 = Tasks::create([
@@ -66,6 +72,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "inProgress"
       ]);
       $task8 = Tasks::create([
@@ -74,6 +81,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "inProgress"
       ]);
       $task9 = Tasks::create([
@@ -82,6 +90,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "inProgress"
       ]);
       $task10 = Tasks::create([
@@ -90,6 +99,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "inProgress"
       ]);
       $task11 = Tasks::create([
@@ -98,6 +108,7 @@ class Tasksseeder extends Seeder
           'assignedTo' => 1,
           'project' => 2,
           'creator' => 1,
+          'dueOn' => '2022-03-15',
           'status' => "closed"
       ]);
     }

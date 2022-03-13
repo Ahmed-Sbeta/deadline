@@ -396,11 +396,11 @@
                                      <div class="card-header d-flex">
                                          <div class="flex row">
                                              <div class="col-auto d-flex flex-column">
-                                                 <div class="h2 mb-0">{{$projects->count()}}</div>
+                                                 <div class="h2 mb-0">{{$projects->count()+ $archive->count()}}</div>
                                                  <p class="mb-0"><strong>Projects</strong></p>
                                              </div>
                                              <div class="col-auto border-left d-flex flex-column">
-                                                 <div class="h2 mb-0">2</div>
+                                                 <div class="h2 mb-0">{{$projects->count()}}</div>
                                                  <p class="mb-0"><strong>Active</strong></p>
                                              </div>
                                          </div>
@@ -448,7 +448,7 @@
                                  <div class="card card-group-row__card">
                                      <div class="card-header d-flex">
                                          <div class="flex d-flex align-items-center">
-                                             <div class="h2 mb-0 mr-3">2</div>
+                                             <div class="h2 mb-0 mr-3">{{$supervisers->count()}}</div>
                                              <div class="d-flex flex-column">
                                                  <p class="mb-0"><strong>Team Leaders</strong></p>
                                                  <small class="text-50">Feel free to contact</small>

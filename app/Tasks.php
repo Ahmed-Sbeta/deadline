@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Project;
+
 
 class Tasks extends Model
 {
@@ -14,5 +16,8 @@ class Tasks extends Model
     }
     public function worker(){
       return $this->belongsTo('App\User','assignedTo');
+    }
+    public function projects(){
+      return $this->belongsTo('App\Project','project');
     }
 }

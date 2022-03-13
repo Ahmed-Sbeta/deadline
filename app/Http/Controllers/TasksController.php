@@ -20,7 +20,8 @@ class TasksController extends Controller
     }
 
     public function list(){
-      $opened = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","open")->latest()->paginate(4);
+      $opened = Tasks::with('projects')->where("assignedTo" , "=" , Auth::id())->where("status","=","open")->latest()->paginate(4);
+        // dd($opened);
       $inProgress = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","inProgress")->latest()->paginate(4);
       $closed = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","closed")->latest()->paginate(4);
       $i=1; $j=1; $k=1;

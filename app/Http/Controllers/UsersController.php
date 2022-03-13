@@ -49,7 +49,7 @@ class UsersController extends Controller
     public function changeUserImage(){
       $user=Auth::user();
       $user->image = request()->file('image') ? request()->file('image')->store('public') : Auth::user()->image;
-      $user->name = request('profileName');
+      // $user->name = request('profileName');
       $user->about = request('about');
       $user->save();
       return redirect('/edit-account/profile');
