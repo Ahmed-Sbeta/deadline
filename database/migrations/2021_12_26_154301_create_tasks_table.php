@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->longText('discription');
             $table->string('file')->nullable();
+            $table->date('dueOn');
             $table->integer('creator')->references('id')->on('users');
             $table->integer('assignedTo')
             ->references('id')

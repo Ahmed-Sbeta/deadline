@@ -15,4 +15,7 @@ class Tasks extends Model
     public function worker(){
       return $this->belongsTo('App\User','assignedTo');
     }
+    public function projects(){
+      return $this->belongsTo('App\Project','project');
+    }
 }

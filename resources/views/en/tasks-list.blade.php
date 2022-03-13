@@ -419,13 +419,13 @@
                                                            value="{{$task->id}}"
                                                            id="customCheck1_tasks_{{$j}}">
                                                     <label class="custom-control-label"
-                                                           for="customCheck1_tasks_{{$j++}}"><span class="text-hide">{{$task->title}}</span></label>
+                                                           for="customCheck1_tasks_{{$j++}}"><span class="text-hide">Check</span></label>
                                                 </div>
                                             </td>
                                             <td>
 
                                                 <div class="d-flex align-items-center">
-                                                    <strong class="flex js-lists-values-name"><a href="tasks-details.html">Fluid Layout Featuring A Vertical Menu With Icons Only</a></strong>
+                                                    <strong class="flex js-lists-values-name"><a href="tasks-details.html">{{$task->title}}</a></strong>
 
 
 
@@ -436,14 +436,14 @@
                                                 <div class="d-flex align-items-center">
 
                                                     <a href="project-details.html"
-                                                       class="mr-4pt">Social Media</a>
+                                                       class="mr-4pt">{{$task->projects->title}}</a>
 
 
 
                                                 </div>
                                             </td>
                                             <td>
-                                                <small class="js-lists-values-date text-50">02/01/20</small>
+                                                <small class="js-lists-values-date text-50">{{$task->dueOn}}</small>
                                             </td>
                                             <td>
 
@@ -568,7 +568,7 @@
                                             <td>
 
                                                 <div class="d-flex align-items-center">
-                                                    <strong class="flex js-lists-values-name">Add Initial Documentation Covering Basic Features</strong>
+                                                    <strong class="flex js-lists-values-name">{{$task->title}}</strong>
 
                                                 </div>
 
@@ -577,12 +577,12 @@
                                                 <div class="d-flex align-items-center">
 
                                                     <a href="project-details.html"
-                                                       class="mr-4pt">Video Production</a>
+                                                       class="mr-4pt">{{$task->projects->title}}</a>
 
                                                 </div>
                                             </td>
                                             <td>
-                                                <small class="js-lists-values-date text-50">02/01/20</small>
+                                                <small class="js-lists-values-date text-50">{{$task->dueOn}}</small>
                                             </td>
                                             <td>
 
@@ -691,7 +691,7 @@
                                             <td>
 
                                                 <div class="d-flex align-items-center">
-                                                    <strong class="flex js-lists-values-name">Add Initial Documentation Covering Basic Features</strong>
+                                                    <strong class="flex js-lists-values-name">{{$task->title}}</strong>
 
                                                 </div>
 
@@ -700,12 +700,12 @@
                                                 <div class="d-flex align-items-center">
 
                                                     <a href="project-details.html"
-                                                       class="mr-4pt">Web Design</a>
+                                                       class="mr-4pt">{{$task->projects->title}}</a>
 
                                                 </div>
                                             </td>
                                             <td>
-                                                <small class="js-lists-values-date text-50">02/01/20</small>
+                                                <small class="js-lists-values-date text-50">{{$task->dueOn}}</small>
                                             </td>
                                             <td>
 
