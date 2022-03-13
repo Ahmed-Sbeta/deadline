@@ -22,6 +22,8 @@ Route::get('/download/{filename}','DashboardController@download');
 Route::get('/projects','ProjectsController@index');
 Route::get('/project/{id}','ProjectsController@view');
 Route::Post('/addproject','ProjectsController@addProject')->name('addProject');
+Route::post('/openedProjects-cheked','ProjectsController@activeCheckedprojects')->name("activecheked");
+
 
 Route::get('/tasks-board','TasksController@board');
 Route::Post('/addTask','TasksController@addTask')->name('addTask');
@@ -61,6 +63,65 @@ Route::get('/email','EmailController@index');
 Route::get('/compose-email','EmailController@compose');
 Route::get('/email-details/{id}','EmailController@emailView');
 Route::post('/sendemail','EmailController@sendEmail')->name('sendemail');
+Route::post('/forwardmail','EmailController@sendforward')->name('sendforward');
+Route::get('/email-forward/{id}','EmailController@forward');
+Route::post('/reply/{id}','EmailController@reply');
+
+Route::get('/events','eventsController@index');
+Route::post('/addevents','eventsController@addEvent')->name('addevent');
+
+
+//ar
+
+Route::get('/ar/', 'DashboardController@Arindex')->middleware('auth');
+Route::get('/ar/download/{filename}','DashboardController@download');
+
+Route::get('/ar/projects','ProjectsController@Arindex');
+Route::get('/ar/project/{id}','ProjectsController@Arview');
+Route::Post('/ar/addproject','ProjectsController@addProject')->name('addProject');
+
+Route::get('/ar/tasks-board','TasksController@Arboard');
+Route::Post('/ar/addTask','TasksController@AraddTask')->name('addTask');
+Route::get('/ar/task/{id}','TasksController@Arview');
+
+Route::get('/ar/tasks-list','TasksController@Arlist');
+Route::post('/ar/openedTasks-cheked','TasksController@openedCheckedTasks')->name("openedcheked");
+Route::post('/ar/inProgressTasks-cheked','TasksController@inProgressCheckedTasks')->name("inProgresscheked");
+Route::post('/ar/closedTasks-cheked','TasksController@closedCheckedTasks')->name("closedcheked");
+
+Route::get('/ar/reports','ReportsController@Arindex');
+Route::Post('/ar/addreport','ReportsController@addreport')->name('addReport');
+
+Route::get('/ar/edit-account','UsersController@Arindex');
+Route::Post('/ar/updateName' , 'UsersController@changeUserInfo')->name('updateName');
+
+Route::get('/ar/edit-account/profile','UsersController@Arprofile');
+Route::Post('/ar/updateImage','UsersController@changeUserImage')->name('updateImage');
+Route::get('/ar/edit-account/notifications','UsersController@Arnotifications');
+Route::get('/ar/edit-account/changepassword','UsersController@Archangepassword');
+
+
+Route::get('/ar/employees','UsersController@Aremployees');
+Route::post('/employeesthemonth','UsersController@eOfMonth')->name('EOM');
+
+Route::get('/ar/subscription','SubscriptionController@Arindex');
+Route::get('/ar/billing-history','SubscriptionController@ArbillingHistory');
+Route::get('/ar/billing-upgrade','SubscriptionController@ArbillingUpGrade');
+Route::get('/ar/billing-invoice','SubscriptionController@ArbillingInvoice');
+Route::get('/ar/billing-payment','SubscriptionController@ArbillingPayment');
+
+
+Route::get('/ar/announcments','AnnouncementController@Arindex');
+Route::Post('/ar/addAnnouncement','AnnouncementController@addAnnouncement')->name('addAnnouncement');
+Route::get('/ar/announcement-details/{id}','AnnouncementController@ArAnnouncement_details');
+
+Route::get('/ar/email','EmailController@Arindex');
+Route::get('/ar/compose-email','EmailController@Arcompose');
+Route::get('/ar/email-details/{id}','EmailController@AremailView');
+Route::post('/ar/sendemail','EmailController@sendEmail')->name('sendemail');
+Route::post('/ar/forwardmail','EmailController@sendforward')->name('sendforward');
+Route::get('/ar/email-forward/{id}','EmailController@Arforward');
+Route::post('/ar/reply/{id}','EmailController@Arreply');
 
 // Auth::routes();
 //

@@ -340,26 +340,26 @@
         <script src="{{asset('assets/vendor/jquery.min.js')}}"></script>
 
         <!-- Bootstrap -->
-        <script src="{{('assets/vendor/popper.min.js')}}"></script>
-        <script src="{{('assets/vendor/bootstrap.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/popper.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/bootstrap.min.js')}}"></script>
 
         <!-- Perfect Scrollbar -->
-        <script src="{{('assets/vendor/perfect-scrollbar.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/perfect-scrollbar.min.js')}}"></script>
 
         <!-- DOM Factory -->
-        <script src="{{('assets/vendor/dom-factory.js')}}"></script>
+        <script src="{{asset('assets/vendor/dom-factory.js')}}"></script>
 
         <!-- MDK -->
-        <script src="{{('assets/vendor/material-design-kit.js')}}"></script>
+        <script src="{{asset('assets/vendor/material-design-kit.js')}}"></script>
 
         <!-- App JS -->
-        <script src="{{('assets/js/app.js')}}"></script>
+        <script src="{{asset('assets/js/app.js')}}"></script>
 
         <!-- Highlight.js -->
-        <script src="{{('assets/js/hljs.js')}}"></script>
+        <script src="{{asset('assets/js/hljs.js')}}"></script>
 
         <!-- App Settings (safe to remove) -->
-        <script src="{{('assets/js/app-settings.js')}}"></script>
+        <script src="{{asset('assets/js/app-settings.js')}}"></script>
     </body>
 
 </html>

@@ -11,10 +11,12 @@ use App\User;
 class TasksController extends Controller
 {
     public function board(){
-      $users = User::all()->except(Auth::id());
+      $users = User::all()->where('company','=',Auth::user()->company)->except(Auth::id());
       $projects = Project::get();
-      $tasks = Tasks::latest()->paginate(12);
-      return view('tasks-board' , compact('tasks','projects','users'));
+      $tasks = Tasks::whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(12);
+      return view('en.tasks-board' , compact('tasks','projects','users'));
     }
 
     public function list(){
@@ -22,7 +24,7 @@ class TasksController extends Controller
       $inProgress = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","inProgress")->latest()->paginate(4);
       $closed = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","closed")->latest()->paginate(4);
       $i=1; $j=1; $k=1;
-      return view('tasks-list',compact('opened','inProgress','closed','i','k','j'));
+      return view('en.tasks-list',compact('opened','inProgress','closed','i','k','j'));
     }
 
     public function addTask(){
@@ -70,6 +72,28 @@ class TasksController extends Controller
     }
     public function closedCheckedTasks(Request $request){
         $cheks = $request->input('doneCheck');
+    }
 
+    //ar
+    public function Arboard(){
+      $users = User::all()->where('company','=',Auth::user()->company)->except(Auth::id());
+      $projects = Project::get();
+      $tasks = Tasks::whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(12);
+      return view('ar.tasks-board' , compact('tasks','projects','users'));
+    }
+
+    public function Arlist(){
+      $opened = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","open")->latest()->paginate(4);
+      $inProgress = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","inProgress")->latest()->paginate(4);
+      $closed = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","closed")->latest()->paginate(4);
+      $i=1; $j=1; $k=1;
+      return view('ar.tasks-list',compact('opened','inProgress','closed','i','k','j'));
+    }
+
+    public function Arview($id){
+      $task = Tasks::find($id);
+      return view('ar.tasks-details',compact('task'));
     }
 }

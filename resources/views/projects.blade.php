@@ -608,7 +608,7 @@
                                                      </div>
                                                      <div class="media-body">
                                                          <div class="d-flex flex-column">
-                                                             <small class="js-lists-values-project"><strong><a href="project-details.html">Social Media Api</a> </strong></small>
+                                                            <a href="#"><small class="js-lists-values-project"><strong>Social Media Api</strong></small></a>
                                                              <small class="js-lists-values-location text-50">Twitter</small>
                                                          </div>
                                                      </div>
@@ -2953,6 +2953,28 @@
 
         <!-- Highlight.js -->
         <script src="{{asset('assets/js/hljs.js')}}"></script>
+
+        <!-- Global Settings -->
+        <script src="{{asset('assets/js/settings.js')}}"></script>
+
+        <!-- Moment.js -->
+        <script src="{{asset('assets/vendor/moment.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/moment-range.js')}}"></script>
+
+        <!-- Chart.js -->
+        <script src="{{asset('assets/vendor/Chart.min.js')}}"></script>
+        <script src="{{asset('assets/js/chartjs.js')}}"></script>
+
+        <!-- Chart.js Samples -->
+        <script src="{{asset('assets/js/page.projects.js')}}"></script>
+
+        <!-- List.js -->
+        <script src="{{asset('assets/vendor/list.min.js')}}"></script>
+        <script src="{{asset('assets/js/list.js')}}"></script>
+
+        <!-- Tables -->
+        <script src="{{asset('assets/js/toggle-check-all.js')}}"></script>
+        <script src="{{asset('assets/js/check-selected-row.js')}}"></script>
 
         <!-- App Settings (safe to remove) -->
         <script src="{{asset('assets/js/app-settings.js')}}"></script>

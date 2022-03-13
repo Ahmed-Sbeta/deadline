@@ -17,7 +17,7 @@ class Tasksseeder extends Seeder
           'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
           'assignedTo' => 2,
           'project' => 2,
-          'creator' => 1,
+          'creator' => 4,
           'status' => "open"
       ]);
       $task2 = Tasks::create([

@@ -9,15 +9,18 @@ use App\Announcement;
 use App\Project;
 use App\user_project;
 use App\User;
+use Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
       $announcement = Announcement::latest('created_at')->first();
-      $project = Project::latest()->take(5)->get();
+      $project = Project::whereHas('creater', function ($query) {
+        return $query->where('company', '=', Auth::user()->company);
+      })->latest()->take(5)->get();
       $project_workers = user_project::all();
       $user = User::all();
-      return view('index',compact('announcement','project','project_workers','user'));
+      return view('en.index',compact('announcement','project','project_workers','user'));
     }
 
     public function download($filename){
@@ -37,4 +40,16 @@ class DashboardController extends Controller
     }
 }
 
+
+//ar
+
+public function Arindex(){
+  $announcement = Announcement::latest('created_at')->first();
+  $project = Project::whereHas('creater', function ($query) {
+    return $query->where('company', '=', Auth::user()->company);
+  })->latest()->take(5)->get();
+  $project_workers = user_project::all();
+  $user = User::all();
+  return view('ar.index',compact('announcement','project','project_workers','user'));
+}
 }

@@ -11,11 +11,21 @@ use App\User;
 class ProjectsController extends Controller
 {
     public function index(){
-      $projects = Project::all();
-      $closest = Project::orderBy('dueOn', 'ASC')->first();
-      $users = User::all()->except(Auth::id());
-      $supervisers = User::Where('role','=','suproviser')->get();
-      return view('projects',compact('users','closest','projects','supervisers'));
+      $projects = Project::where('active','=', true)->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->get();
+      $archive = Project::where('active','=', false)->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->get();
+      // dd($projects);
+      $closest = Project::where('active','=', true)->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->orderBy('dueOn', 'ASC')->first();
+
+      $users = User::all()->Where('company','=',Auth::user()->company)->except(Auth::id());
+      $supervisers = User::Where('role','=','suproviser')->Where('company','=',Auth::user()->company)->get();
+      $j=1;
+      return view('en.projects',compact('users','closest','projects','supervisers','j','archive'));
     }
     public function addProject(Request $request){
       $project = new Project;
@@ -33,5 +43,33 @@ class ProjectsController extends Controller
       $project->save();
       Project::find($project->id)->workers()->attach($request->contributors);
       return redirect('/projects');
+    }
+
+    public function activeCheckedprojects(Request $request){
+        $cheks = $request->input('doneCheck');
+        foreach($cheks as $check => $value){
+          $task = Project::find($value);
+          $task->active = false;
+          $task->save();
+        }
+        return redirect('/projects');
+
+    }
+
+
+    //ar
+
+    public function Arindex(){
+      $projects = Project::whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->get();
+      // dd($projects);
+      $closest = Project::whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->orderBy('dueOn', 'ASC')->first();
+
+      $users = User::all()->Where('company','=',Auth::user()->company)->except(Auth::id());
+      $supervisers = User::Where('role','=','suproviser')->Where('company','=',Auth::user()->company)->get();
+      return view('ar.projects',compact('users','closest','projects','supervisers'));
     }
 }

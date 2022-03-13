@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\reports;
 use App\User;
+use Auth;
 
 class ReportsController extends Controller
 {
     public function index(){
-      $creator = User::all();
-      $reports = reports::with('creater')->latest()->paginate(4);
+      $creator = User::all()->where('company','=',Auth::user()->company);
+      $reports = reports::with('creater')->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(4);
       // dd($reports);
-      return view('reports',compact('reports','creator'));
+      return view('en.reports',compact('reports','creator'));
     }
     public function addReport(){
       $report = new reports;
@@ -24,5 +27,16 @@ class ReportsController extends Controller
       $report->creator = 1;
       $report->save();
       return redirect('/reports');
+    }
+
+    //ar
+
+    public function index(){
+      $creator = User::all()->where('company','=',Auth::user()->company);
+      $reports = reports::with('creater')->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(4);
+      // dd($reports);
+      return view('ar.reports',compact('reports','creator'));
     }
 }

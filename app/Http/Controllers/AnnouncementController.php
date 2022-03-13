@@ -9,13 +9,15 @@ use Auth;
 class AnnouncementController extends Controller
 {
     public function index(){
-      $announcements = Announcement::with('creater')->latest()->paginate(5);
-      return view('Announcements',compact('announcements'));
+      $announcements = Announcement::with('creater')->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(5);
+      return view('en.Announcements',compact('announcements'));
     }
 
     public function Announcement_details($id){
       $announcement = Announcement::find($id);
-      return view('announcement-details',compact('announcement'));
+      return view('en.announcement-details',compact('announcement'));
     }
 
     public function addAnnouncement(){
@@ -32,4 +34,16 @@ class AnnouncementController extends Controller
       return redirect('/announcments');
     }
 
+    //ar
+    public function Arindex(){
+      $announcements = Announcement::with('creater')->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(5);
+      return view('en.Announcements',compact('announcements'));
+    }
+
+    public function ArAnnouncement_details($id){
+      $announcement = Announcement::find($id);
+      return view('en.announcement-details',compact('announcement'));
+    }
 }

@@ -20,6 +20,7 @@ class CreateProjectsTable extends Migration
             $table->date('dueOn');
             $table->float('budget');
             $table->string('file')->nullable();
+            $table->boolean('active')->default(true);
             $table->integer('creator')->references('id')->on('users');
             $table->timestamps();
         });

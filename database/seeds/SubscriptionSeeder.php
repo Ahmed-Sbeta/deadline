@@ -12,12 +12,16 @@ class SubscriptionSeeder extends Seeder
     public function run()
     {
       $sub1 = Subscription::create([
-          'name' => 'standard',
-          'price' => '19.99'
+          'name' => 'Basic',
+          'price' => '300'
       ]);
       $sub1 = Subscription::create([
-          'name' => 'expert',
-          'price' => '19.99'
+          'name' => 'standard',
+          'price' => '550'
+      ]);
+      $sub2 = Subscription::create([
+          'name' => 'Premium',
+          'price' => '850'
       ]);
     }
 }

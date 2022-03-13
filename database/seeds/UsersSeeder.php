@@ -21,6 +21,7 @@ class UsersSeeder extends Seeder
           'type' => 'contract',
           'department' => 'Design',
           'job' => 'Project manager',
+          'company' => '1',
           'about' => 'idk',
           'image' => 'public/avjdoquDeTDUi2WEBd78DKY6VHWEF0L4ZPy40Es6.jpg',
           'email' => 'admin@gmail.com',
@@ -35,6 +36,7 @@ class UsersSeeder extends Seeder
           'type' => 'part time',
           'department' => 'Design',
           'job' => 'Designer',
+          'company' => '1',
           'about' => 'idc',
           'image' => 'public/256_rsz_1andy-lee-642320-unsplash.jpg',
           'email' => 'suproviser@gmail.com',
@@ -48,6 +50,7 @@ class UsersSeeder extends Seeder
           'phoneNumber' => '0910000000',
           'type' => 'part time',
           'department' => 'Design',
+          'company' => '1',
           'job' => 'Designer',
           'about' => 'idc',
           'image' => 'public/256_rsz_1andy-lee-642320-unsplash.jpg',
@@ -67,6 +70,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/256_rsz_1andy-lee-642320-unsplash.jpg',
           'email' => 'suproviser2@gmail.com',
           'role' => 'suproviser',
+          'company' => '2',
           'password' => Hash::make('12345678')
       ]);
       $employee = User::create([
@@ -81,6 +85,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/2s7xaahqoZ9HZH2QWXvGJBkfkSkFCMdIK3sAqSou.jpg',
           'email' => 'employee@gmail.com',
           'role' => 'employee',
+          'company' => '1',
           'password' => Hash::make('12345678')
       ]);
       $employee1 = User::create([
@@ -95,6 +100,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/2s7xaahqoZ9HZH2QWXvGJBkfkSkFCMdIK3sAqSou.jpg',
           'email' => 'employee1@gmail.com',
           'role' => 'employee',
+          'company' => '1',
           'password' => Hash::make('12345678')
       ]);
       $employee2 = User::create([
@@ -109,6 +115,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/2s7xaahqoZ9HZH2QWXvGJBkfkSkFCMdIK3sAqSou.jpg',
           'email' => 'employee2@gmail.com',
           'role' => 'employee',
+          'company' => '1',
           'password' => Hash::make('12345678')
       ]);
       $employee3 = User::create([
@@ -123,6 +130,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/2s7xaahqoZ9HZH2QWXvGJBkfkSkFCMdIK3sAqSou.jpg',
           'email' => 'employee3@gmail.com',
           'role' => 'employee',
+          'company' => '1',
           'password' => Hash::make('12345678')
       ]);
       $employee4 = User::create([
@@ -137,6 +145,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/2s7xaahqoZ9HZH2QWXvGJBkfkSkFCMdIK3sAqSou.jpg',
           'email' => 'employee4@gmail.com',
           'role' => 'employee',
+          'company' => '1',
           'password' => Hash::make('12345678')
       ]);
       $employee5 = User::create([
@@ -151,6 +160,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/2s7xaahqoZ9HZH2QWXvGJBkfkSkFCMdIK3sAqSou.jpg',
           'email' => 'employee5@gmail.com',
           'role' => 'employee',
+          'company' => '2',
           'password' => Hash::make('12345678')
       ]);
       $employee6 = User::create([
@@ -165,6 +175,7 @@ class UsersSeeder extends Seeder
           'image' => 'public/2s7xaahqoZ9HZH2QWXvGJBkfkSkFCMdIK3sAqSou.jpg',
           'email' => 'employee6@gmail.com',
           'role' => 'employee',
+          'company' => '2',
           'password' => Hash::make('12345678')
       ]);
     }

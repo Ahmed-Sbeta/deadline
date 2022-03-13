@@ -7,18 +7,35 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     public function index(){
-      return view('subscription');
+      return view('en.subscription');
     }
     public function billingUpGrade(){
-      return view('billing-upgrade');
+      return view('en.billing-upgrade');
     }
     public function billingInvoice(){
-      return view('billing-invoice');
+      return view('en.billing-invoice');
     }
     public function billingHistory(){
-      return view('billing-history');
+      return view('en.billing-history');
     }
     public function billingPayment(){
-      return view('billing-payment');
+      return view('en.billing-payment');
+    }
+
+    //ar
+    public function index(){
+      return view('ar.subscription');
+    }
+    public function billingUpGrade(){
+      return view('ar.billing-upgrade');
+    }
+    public function billingInvoice(){
+      return view('ar.billing-invoice');
+    }
+    public function billingHistory(){
+      return view('ar.billing-history');
+    }
+    public function billingPayment(){
+      return view('ar.billing-payment');
     }
 }
