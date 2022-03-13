@@ -81,7 +81,7 @@ Route::get('/ar/project/{id}','ProjectsController@Arview');
 Route::Post('/ar/addproject','ProjectsController@addProject')->name('addProject');
 
 Route::get('/ar/tasks-board','TasksController@Arboard');
-Route::Post('/ar/addTask','TasksController@AraddTask')->name('addTask');
+// Route::Post('/ar/addTask','TasksController@AraddTask')->name('addTask');
 Route::get('/ar/task/{id}','TasksController@Arview');
 
 Route::get('/ar/tasks-list','TasksController@Arlist');
@@ -112,7 +112,7 @@ Route::get('/ar/billing-payment','SubscriptionController@ArbillingPayment');
 
 
 Route::get('/ar/announcments','AnnouncementController@Arindex');
-Route::Post('/ar/addAnnouncement','AnnouncementController@addAnnouncement')->name('addAnnouncement');
+// Route::Post('/ar/addAnnouncement','AnnouncementController@addAnnouncement')->name('addAnnouncement');
 Route::get('/ar/announcement-details/{id}','AnnouncementController@ArAnnouncement_details');
 
 Route::get('/ar/email','EmailController@Arindex');

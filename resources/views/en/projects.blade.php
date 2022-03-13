@@ -383,7 +383,12 @@
                                       style="min-width: 180px">
                                      <small class="text-100">
                                          <strong>Important Alert !</strong><br>
+                                         @if($closest)
                                          <span>UPCOMING DEADLINE : {{$closest->title}}, <a href="project/{{$closest->id}}"> CLICK HERE </a></span>
+                                         @else
+                                         <span>UPCOMING DEADLINE : None, <a href="project/{{$closest->id}}"> </a></span>
+                                         @endif
+
                                      </small>
                                  </div>
                              </div>
@@ -511,7 +516,7 @@
                                              role="tab"
                                              aria-selected="true"
                                              class=" card-body d-flex flex-row align-items-center justify-content-start">
-                                              <span class="h1 mb-0 mr-3">3</span>
+                                              <span class="h1 mb-0 mr-3">{{$projects->count()}}</span>
                                               <span class="flex d-flex flex-column">
                                                   <strong>Active</strong>
                                                   <small class="text-50">Ongoing Projects</small>
@@ -742,7 +747,7 @@
                                              role="tab"
                                              aria-selected="true"
                                              class=" card-body d-flex flex-row align-items-center justify-content-start">
-                                              <span class="h1 mb-0 mr-3">9</span>
+                                              <span class="h1 mb-0 mr-3">{{$archive->count()}}</span>
                                               <span class="flex d-flex flex-column">
                                                   <strong>Archived</strong>
                                                   <small class="text-50">past Projects</small>

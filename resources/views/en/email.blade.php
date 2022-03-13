@@ -117,21 +117,35 @@
                             <div class="d-flex align-items-center">
                                 <h1 class="h4 flex">{{$selected_mail->subject}}</h1>
                                 <div class="d-flex align-items-center">
-                                    <a href="/email-forward/{{$selected_mail->id}}"
+                                    <a href=""
                                        class="text-dark-gray">
-                                        <i class="material-icons">reply</i>
+                                        <i class="material-icons">forward</i>
+
                                     </a>
 
                                 </div>
+
+
                                 <div class="text-center ml-3">
 
 
-                                    <a href="/download/{{$selected_mail->file}}"
+                                    <a href=""
                                        class="d-flex flex-column">
                                         <i class="material-icons">attachment</i>
                                         <small class="text-muted">1 Attachments</small>
                                     </a>
                                 </div>
+
+                                <div class="text-center ml-3">
+
+
+                                    <a href=""
+                                       class="d-flex flex-column">
+                                        <i class="material-icons">restore_from_trash</i>
+                                        <small class="text-muted">trash</small>
+                                    </a>
+                                </div>
+
                             </div>
 
                             <div class="d-flex align-items-left ">

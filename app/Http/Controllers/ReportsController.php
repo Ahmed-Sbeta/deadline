@@ -31,7 +31,7 @@ class ReportsController extends Controller
 
     //ar
 
-    public function index(){
+    public function Arindex(){
       $creator = User::all()->where('company','=',Auth::user()->company);
       $reports = reports::with('creater')->whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);

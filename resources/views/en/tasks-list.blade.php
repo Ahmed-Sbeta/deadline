@@ -419,7 +419,7 @@
                                                            value="{{$task->id}}"
                                                            id="customCheck1_tasks_{{$j}}">
                                                     <label class="custom-control-label"
-                                                           for="customCheck1_tasks_{{$j++}}"><span class="text-hide">Check</span></label>
+                                                           for="customCheck1_tasks_{{$j++}}"><span class="text-hide">{{$task->title}}</span></label>
                                                 </div>
                                             </td>
                                             <td>

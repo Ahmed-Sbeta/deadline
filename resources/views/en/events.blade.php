@@ -487,6 +487,36 @@
                                                             <br>
                                                             <a href=""><i class="material-icons text-20 icon-16pt">email</i></a>
 
+                                                            @else
+                                                            <div class="card-body">
+                                                                <div class="alert alert-soft-warning mb-0 p-8pt">
+                                                                    <div class="d-flex align-items-start">
+                                                                        <div class="mr-8pt">
+                                                                            <i class="material-icons">card_giftcard</i>
+                                                                        </div>
+                                                                        <div class="flex">
+                                                                            <small class="text-100">Take a minute and congratulate them on their special day!</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="list-group list-group-flush border-top">
+                                                              <div class="list-group-item p-10pt">
+                                                                    <div class="d-flex align-items-center"
+                                                                         style="white-space: nowrap;">
+
+                                                                        <div class="avatar avatar-32pt mr-8pt">
+
+
+                                                                        </div>
+                                                                        <div class="flex ml-4pt">
+                                                                            <div class="d-flex flex-column">
+                                                                                <p class="mb-0"><strong>No Birthdays Today !</strong></p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+
                                                             @endif
                                                         </div>
                                                     </div>
@@ -636,8 +666,8 @@
                                                                     @endif
                                                             </td>
 
-                                                          </tr>
                                                         @endforeach
+                                                      </tr>
                                                     </tbody>
                                                 </table>
                                             </div>

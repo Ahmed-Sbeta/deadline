@@ -21,6 +21,7 @@ class ProjectsController extends Controller
       $closest = Project::where('active','=', true)->whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);
         })->orderBy('dueOn', 'ASC')->first();
+        // dd($closest);
 
       $users = User::all()->Where('company','=',Auth::user()->company)->except(Auth::id());
       $supervisers = User::Where('role','=','suproviser')->Where('company','=',Auth::user()->company)->get();
@@ -34,6 +35,7 @@ class ProjectsController extends Controller
       $project->discription = request('discription');
       $project->budget = request('budget');
       $project->dueOn = request('dueOn');
+      $project->active = True;
       //file
       $file = request()->file('file');
       $name = $file->getClientOriginalName();

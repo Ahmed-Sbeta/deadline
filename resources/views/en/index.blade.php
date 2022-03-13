@@ -128,6 +128,7 @@
                                   <span class="navbar-text-100">{{Auth::user()->name}}</span>
                                   <small class="navbar-text-50">{{Auth::user()->role}}</small>
                                 </span>
+                                <!-- sadasd -->
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-header"><strong>Account</strong></div>

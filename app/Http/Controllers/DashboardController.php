@@ -15,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index(){
       $announcement = Announcement::latest('created_at')->first();
-      $project = Project::whereHas('creater', function ($query) {
+      $project = Project::where('active','=',True)->whereHas('creater', function ($query) {
         return $query->where('company', '=', Auth::user()->company);
       })->latest()->take(5)->get();
       $project_workers = user_project::all();
