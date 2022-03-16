@@ -51,6 +51,8 @@ Route::get('/edit-account/changepassword','UsersController@changepassword');
 Route::get('/employees','UsersController@employees');
 Route::post('/addemployee','UsersController@addemployee')->name('addEmployee');
 Route::post('/addcompany','CompanyController@addcompany')->name('addcompany');
+Route::get('/deleteCompany/{id}','CompanyController@deleteCompany');
+Route::post('/editCompany/{id}','CompanyController@editCompany')->name('editCompany');
 
 Route::get('/subscription','SubscriptionController@index');
 Route::get('/billing-history','SubscriptionController@billingHistory');

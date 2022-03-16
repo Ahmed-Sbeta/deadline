@@ -42,4 +42,21 @@ class CompanyController extends Controller
       return redirect('/subscribe');
 
     }
+
+    public function editCompany($id){
+      $company = Company::find($id);
+      $company->subscription = request('subscriptions');
+      $company->save();
+      return redirect()->back();
+
+    }
+
+    public function deleteCompany($id){
+      dd($id);
+      $company = Company::find($id);
+      $users = User::where('company','=',$id)->delete();
+      $company->delete();
+      return redirect()->back();
+
+    }
 }

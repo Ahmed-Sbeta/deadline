@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
+use App\Company;
 
 class mainController extends Controller
 {
@@ -16,7 +17,10 @@ class mainController extends Controller
     }
 
     public function admin(){
-      return view('main.Admin');
+      $companies = Company::with('suscription')->get();
+      $users = User::all();
+      // dd($companies);
+      return view('main.Admin',compact('companies','users'));
     }
 
     public function adminLogin(){

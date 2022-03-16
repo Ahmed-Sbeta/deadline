@@ -163,102 +163,83 @@
 									<table class="table table-striped">
 										<thead>
 											<tr>
-												<th>
+												<th class="text-center">
 													Id
 												</th>
-												<th>
+												<th class="text-center">
 													Company Name
 												</th>
-												<th>
+												<th class="text-center">
 													Subscription
 												</th>
-												<th>
+												<th class="text-center">
 													Unique code
 												</th>
-												<th>
+												<th class="text-center">
 													Expiration date
 												</th>
-												<th>
+												<th class="text-center">
 													Number of employees
 												</th>
-												<th>
+												<th class="text-center">
 													Action
 												</th>
 											</tr>
 										</thead>
 										<tbody>
+												@foreach($companies as $company)
 											<tr>
-												<td>
-													1
+												<td class="text-center">
+													{{$company->id}}
 												</td>
-												<td>
-													MAWJA
+												<td class="text-center">
+													{{$company->name}}
 												</td>
-												<td>
-													Advanced
+												<td class="text-center">
+													<form class="" action="{{url('editCompany/'.$company->id)}}" method="post">
+														@csrf
+													<select name="subscriptions">
+														<option value="{{$company->suscription->id}}" selected>{{$company->suscription->name}}</option>
+														<option value="1">Basic</option>
+														<option value="2">Standard</option>
+														<option value="3">Premium</option>
+ 													  </select>
+														<!-- <input type="submit" name="" value="save"> -->
 												</td>
-												<td>
-													Maw123
+												<td class="text-center">
+													{{$company->Code}}
 												</td>
-												<td>
-													11-11-2022
+												<td class="text-center">
+													{{$company->expDate}}
 												</td>
-												<td>
-													16
+												<td class="text-center">
+													{{$users->where('company','=',$company->id)->count()}}
 												</td>
-												<td>
-													<a href="#"><i class="icon-wrench icons"></i></a>
-													<a href="#"><i class="icon-trash icons"></i></a>
+												<td class="text-center row">
+													<div class="col-6">
+														<input type="submit" class=" btn btn-primary " value="save">
+
+													</div>
+												</form>
+												<form id="delete-Company" class="col-6" action="{{url('deleteCompany/'.$company->id)}}" method="GET">
+													@csrf
+													@method('DELETE')
+													<input type="submit" name="" class=" btn btn-danger" value="delete">
+													<!-- <a href="#small-dialog"  class="popup-with-zoom-anim btn btn-danger mr-2">delete</a>
+													<div id="small-dialog" class="dialog dialog-sm zoom-anim-dialog mfp-hide p-4">
+														<h3 class="font-weight-semi-bold text-transform-none mb-3">Deleting Company</h3>
+														<p class="mb-0">are you sure you want to delete this company ?
+															<input class="btn btn-danger mb-2 col-md-3" value="Delete" type="submit" onclick="event.preventDefault();
+															document.getElementById('delete-Company').submit();">
+															<a href="" class="btn btn-light mb-2 col-md-3">Cancel</a>
+														</p>
+													</div> -->
+												</form>
 												</td>
+
 											</tr>
-											<tr>
-												<td>
-													2
-												</td>
-												<td>
-													LibyanWings
-												</td>
-												<td>
-													Standard
-												</td>
-												<td>
-													Lw4321
-												</td>
-												<td>
-													1-6-2022
-												</td>
-												<td>
-													48
-												</td>
-												<td>
-													<a href="#"><i class="icon-wrench icons"></i></a>
-													<a href="#"><i class="icon-trash icons"></i></a>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													3
-												</td>
-												<td>
-													Marca Optics
-												</td>
-												<td>
-													Basic
-												</td>
-												<td>
-													Mrc678
-												</td>
-												<td>
-													5-5-2022
-												</td>
-												<td>
-													12
-												</td>
-												<td>
-													<a href="#"><i class="icon-wrench icons"></i></a>
-													<a href="#"><i class="icon-trash icons"></i></a>
-												</td>
-											</tr>
+											@endforeach
+
 										</tbody>
 									</table>
 								</div>
@@ -341,6 +322,8 @@
 
 		<!-- Theme Initialization Files -->
 		<script src="{{asset('js/theme.init.js')}}"></script>
+		<!-- Examples -->
+		<script src="{{asset('js/examples/examples.lightboxes.js')}}"></script>
 
 	</body>
 </html>
