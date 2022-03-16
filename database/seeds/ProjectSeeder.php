@@ -14,7 +14,7 @@ class ProjectSeeder extends Seeder
     {
 
         $proj = Project::create([
-            'title' => 'some other projrct',
+            'title' => 'Libyan Wings : Marketing Campaign ',
             'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
             'dueOn' => '2022-03-15',
             'budget' => '1212',

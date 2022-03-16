@@ -20,7 +20,7 @@
       </div>
 
       <!-- Login Form -->
-      <form method="POST" action="{{ route('login') }}">
+      <form method="POST" action="{{ route('OwnerLogin') }}">
         @csrf
         <input type="text" id="name" class="fadeIn second" placeholder="login" name="name">
         @error('name')

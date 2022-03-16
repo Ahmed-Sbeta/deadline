@@ -23,19 +23,19 @@ class SubscriptionController extends Controller
     }
 
     //ar
-    public function index(){
+    public function Arindex(){
       return view('ar.subscription');
     }
-    public function billingUpGrade(){
+    public function ArbillingUpGrade(){
       return view('ar.billing-upgrade');
     }
-    public function billingInvoice(){
+    public function ArbillingInvoice(){
       return view('ar.billing-invoice');
     }
-    public function billingHistory(){
+    public function ArbillingHistory(){
       return view('ar.billing-history');
     }
-    public function billingPayment(){
+    public function ArbillingPayment(){
       return view('ar.billing-payment');
     }
 }

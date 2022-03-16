@@ -75,6 +75,19 @@ class TasksController extends Controller
         $cheks = $request->input('doneCheck');
     }
 
+    public function addreminder($id){
+      $task = Tasks::find($id);
+      $task->reminder = True;
+      // dd($task->reminder);
+      $task->save();
+      return redirect()->back();
+    }
+
+    public function reminders(){
+      $reminders = Tasks::where('reminder','=',True)->where('assignedTo','=',Auth::id())->latest()->paginate(4);
+      return view('en.reminders',compact('reminders'));
+    }
+
     //ar
     public function Arboard(){
       $users = User::all()->where('company','=',Auth::user()->company)->except(Auth::id());

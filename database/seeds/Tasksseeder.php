@@ -13,7 +13,7 @@ class Tasksseeder extends Seeder
     public function run()
     {
       $task1 = Tasks::create([
-          'title' => 'mawja1',
+          'title' => 'Logo design',
           'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
           'assignedTo' => 2,
           'project' => 2,
@@ -23,29 +23,29 @@ class Tasksseeder extends Seeder
           'status' => "open"
       ]);
       $task2 = Tasks::create([
-          'title' => 'mawja2',
+          'title' => 'Market search',
           'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
           'assignedTo' => 1,
-          'project' => 2,
+          'project' => 1,
           'creator' => 1,
           'dueOn' => '2022-03-15',
           'status' => "open"
       ]);
       $task3 = Tasks::create([
-          'title' => 'mawja3',
+          'title' => 'Content writing',
           'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
           'assignedTo' => 1,
-          'project' => 2,
+          'project' => 1,
           'dueOn' => '2022-03-15',
           'creator' => 1,
           'dueOn' => '2022-03-15',
           'status' => "open"
       ]);
       $task4 = Tasks::create([
-          'title' => 'mawja4',
+          'title' => 'Logo design',
           'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
           'assignedTo' => 1,
-          'project' => 2,
+          'project' => 1,
           'creator' => 1,
           'dueOn' => '2022-03-15',
           'status' => "open"
@@ -54,7 +54,7 @@ class Tasksseeder extends Seeder
           'title' => 'mawja5',
           'discription' => 'aslkdjskaljfldskfjsdlkjdlskjflsdkjfldskjfdlskfjlksdm',
           'assignedTo' => 1,
-          'project' => 2,
+          'project' => 1,
           'creator' => 2,
           'dueOn' => '2022-03-15',
           'status' => "closed"

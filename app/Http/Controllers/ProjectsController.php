@@ -22,11 +22,14 @@ class ProjectsController extends Controller
           return $query->where('company', '=', Auth::user()->company);
         })->orderBy('dueOn', 'ASC')->first();
         // dd($closest);
+      $closest2 = Project::where('active','=', true)->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->orderBy('dueOn', 'DESC')->take(2)->get();
 
       $users = User::all()->Where('company','=',Auth::user()->company)->except(Auth::id());
       $supervisers = User::Where('role','=','suproviser')->Where('company','=',Auth::user()->company)->get();
       $j=1;
-      return view('en.projects',compact('users','closest','projects','supervisers','j','archive'));
+      return view('en.projects',compact('users','closest','closest2','projects','supervisers','j','archive'));
     }
     public function addProject(Request $request){
       $project = new Project;

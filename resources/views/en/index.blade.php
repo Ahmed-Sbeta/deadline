@@ -125,7 +125,7 @@
                                      src="{{asset(Storage::url(Auth::user()->image))}}"
                                      alt="account" />
                                 <span class="flex d-flex flex-column mr-8pt">
-                                  <span class="navbar-text-100">{{Auth::user()->name}}</span>
+                                  <span class="navbar-text-100">{{Auth::user()->firstName}} {{Auth::user()->lastName}}</span>
                                   <small class="navbar-text-50">{{Auth::user()->role}}</small>
                                 </span>
                                 <!-- sadasd -->
@@ -335,7 +335,7 @@
                         <div class="row"
                         role="tablist">
                         <div class="col-auto d-flex flex-column">
-                            <h6 class="m-0">{{ Carbon\Carbon::now()->format('H:i')}}</h6>
+                            <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
                             <p class="text-50 mb-0 pr-1 d-flex align-items-center">
                                 {{ Carbon\Carbon::now()->toDateString()}}
                             </p>
@@ -867,7 +867,7 @@
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="events.html">
+                                           href="/events">
                                             <span class="sidebar-menu-text">Events</span>
                                         </a>
                                     </li>

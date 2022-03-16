@@ -19,6 +19,8 @@ class CreateCompaniesTable extends Migration
             $table->integer('subscription')->references('id')->on('subscriptions');
             $table->string('Code');
             $table->string('email')->unique();
+            $table->string('location');
+            $table->boolean('active')->default(False);
             $table->timestamps();
         });
     }

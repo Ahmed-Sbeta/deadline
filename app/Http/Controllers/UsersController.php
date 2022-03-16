@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use Auth;
+use App\Company;
 
 use Illuminate\Http\Request;
 
@@ -41,6 +43,7 @@ class UsersController extends Controller
       $user = Auth::user();
       $user->firstName = Request('firstName');
       $user->lastName = Request('lastName');
+      $user->name = Request('firstName')." ".Request('lastName');
       $user->email = Request('email');
       $user->save();
       return redirect('/edit-account');
@@ -53,6 +56,39 @@ class UsersController extends Controller
       $user->about = request('about');
       $user->save();
       return redirect('/edit-account/profile');
+    }
+
+    public function addEmployee(){
+      $companyes = Company::all();
+      $user= new User;
+      $Companycode = request('Code');
+      // dd($Companycode);
+      foreach($companyes as $companies){
+        if($companies->Code == $Companycode){
+          $user->company = $companies->id;
+        }
+      }
+      if($user->company == null){
+        return redirect('/signup');
+      }
+      $user->firstName = request('firstName');
+      $user->lastName = request('lastName');
+      $user->name = request('firstName').request('lastName');
+      $user->dob = request('dob');
+      $user->job = request('job');
+      $user->role = "employee";
+      $user->email = request('email');
+      $password = request('password');
+      $passwordConfirmation = request('confirmPassword');
+      if($password == $passwordConfirmation){
+        $user->password =  Hash::make($password);
+        $user->save();
+      }else{
+        //error
+        return redirect('/signup');
+      }
+      return redirect('/signup');
+
     }
 
     //ar

@@ -27,6 +27,7 @@ class CreateTasksTable extends Migration
             ->references('id')
             ->on('users');
             $table->string('status');
+            $table->boolean('reminder')->default(False);
             $table->timestamps();
         });
     }

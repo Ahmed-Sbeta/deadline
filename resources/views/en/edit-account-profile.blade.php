@@ -394,7 +394,18 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="list-group-item">
+                                            <div class="form-group row align-items-center mb-0">
+                                                <label class="col-form-label form-label col-sm-3">phoneNumber</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           value="{{Auth::user()->phoneNumber}}"
+                                                           name="profileName"
+                                                           placeholder="Your profile name ...">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="list-group-item">
                                             <div class="form-group row align-items-center mb-0">
                                                 <label class="col-form-label form-label col-sm-3">About you</label>

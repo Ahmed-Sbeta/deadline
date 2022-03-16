@@ -339,9 +339,9 @@
                         <div class="row"
                         role="tablist">
                        <div class="col-auto d-flex flex-column">
-                           <h6 class="m-0">&dollar;12.3k</h6>
-                           <p class="text-50 mb-0 d-flex align-items-center">
-                               Date and time
+                           <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
+                           <p class="text-50 mb-0 d-flex align-items-center pr-1">
+                               {{ Carbon\Carbon::now()->toDateString()}}
                            </p>
                        </div>
 
@@ -409,7 +409,7 @@
                                            @foreach($opened as $task)
 
                                         <tr class="selected">
-                                          <form class="" action="{{route('openedcheked')}}" method="post" enctype="multipart/form-data">
+                                          <form id="check-form" class="" action="{{route('openedcheked')}}" method="post" enctype="multipart/form-data">
                                             @csrf
                                             <td class="pr-0">
                                                 <div class="custom-control custom-checkbox">
@@ -449,9 +449,11 @@
 
                                             </td>
                                             <td class="text-right">
-                                                <a href=""
+
+                                                <a href="{{ url('/addreminder/'.$task->id) }}"
                                                    class="text-50"><i class="material-icons">notifications</i></a>
                                             </td>
+
                                         </tr>
 
                                         @endforeach
@@ -497,6 +499,7 @@
                                                class="btn btn-accent" type="submit">Done</button>
                                               </div>
                                             </form>
+
 
                                 </ul>
 
@@ -587,10 +590,17 @@
                                             <td>
 
                                             </td>
+
+
                                             <td class="text-right">
-                                                <a href=""
+                                                <a href="{{ url('/addnotifiction/'.$task->id) }}" onclick="event.preventDefault();
+                                                document.getElementById('notifyMe').submit();"
                                                    class="text-50"><i class="material-icons">notifications</i></a>
+                                                   <form id="notifyMe" action="{{ url('/addnotifiction/'.$task->id) }}" method="POST" style="display: none;">
+                                                       @csrf
+                                                   </form>
                                             </td>
+
                                         </tr>
 
                                         @endforeach
@@ -1091,10 +1101,10 @@
         <script src="{{asset('assets/js/app.js')}}"></script>
 
         <!-- Highlight.js -->
-        <script src="{{asset('assets/js/hljs.js')}}"></script>
+        <!-- <script src="{{asset('assets/js/hljs.js')}}"></script> -->
 
         <!-- App Settings (safe to remove) -->
-        <script src="{{asset('assets/js/app-settings.js')}}"></script>
+        <!-- <script src="{{asset('assets/js/app-settings.js')}}"></script> -->
     </body>
 
 </html>

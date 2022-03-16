@@ -341,9 +341,9 @@
                             <div class="row"
                             role="tablist">
                            <div class="col-auto d-flex flex-column">
-                               <h6 class="m-0">&dollar;12.3k</h6>
-                               <p class="text-50 mb-0 d-flex align-items-center">
-                                   Date and time
+                               <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
+                               <p class="text-50 mb-0 d-flex align-items-center pr-1">
+                                   {{ Carbon\Carbon::now()->toDateString()}}
                                </p>
                            </div>
 
@@ -386,7 +386,7 @@
                                          @if($closest)
                                          <span>UPCOMING DEADLINE : {{$closest->title}}, <a href="project/{{$closest->id}}"> CLICK HERE </a></span>
                                          @else
-                                         <span>UPCOMING DEADLINE : None, <a href="project/{{$closest->id}}"> </a></span>
+                                         <span>UPCOMING DEADLINE : None, <a href=""> </a></span>
                                          @endif
 
                                      </small>
@@ -413,10 +413,16 @@
                                      <div class="card-body d-flex flex-column justify-content-center">
 
                                          <div class="mb-8pt">
+                                           @if($closest2[0])
                                              <p class="d-flex align-items-center mb-4pt">
-                                                 <small class="flex lh-24pt"><strong>Social Media API</strong></small>
-                                                 <small class="text-50 lh-24pt">due in 12 days</small>
+                                                 <small class="flex lh-24pt"><strong>{{$closest2[0]->title}}</strong></small>
+                                                 <small class="text-50 lh-24pt">{{(new Carbon\Carbon($closest2[0]->dueOn))->diffForHumans()}}</small>
                                              </p>
+                                             @else
+                                             <p class="d-flex align-items-center mb-4pt">
+
+                                             </p>
+                                             @endif
                                              <div class="progress"
                                                   style="height: 4px;">
                                                  <div class="progress-bar bg-warning"
@@ -429,10 +435,16 @@
                                          </div>
 
                                          <div>
+                                           @if($closest2[1])
                                              <p class="d-flex align-items-center mb-4pt">
-                                                 <small class="flex lh-24pt"><strong>Advertising Platform</strong></small>
-                                                 <small class="text-50 lh-24pt">due in 30 days</small>
+                                                 <small class="flex lh-24pt"><strong>{{$closest2[1]->title}}</strong></small>
+                                                 <small class="text-50 lh-24pt">{{(new Carbon\Carbon($closest2[1]->dueOn))->diffForHumans()}}</small>
                                              </p>
+                                             @else
+                                             <p class="d-flex align-items-center mb-4pt">
+
+                                             </p>
+                                             @endif
                                              <div class="progress"
                                                   style="height: 4px;">
                                                  <div class="progress-bar bg-accent"

@@ -142,7 +142,7 @@
                                       src="{{asset(Storage::url(Auth::user()->image))}}"
                                       alt="account" />
                                  <span class="flex d-flex flex-column mr-8pt">
-                                     <span class="navbar-text-100">{{Auth::user()->name}}</span>
+                                     <span class="navbar-text-100">{{Auth::user()->firstName}} {{Auth::user()->lastName}}</span>
                                      <small class="navbar-text-50">{{Auth::user()->role}}</small>
                                  </span>
                              </a>

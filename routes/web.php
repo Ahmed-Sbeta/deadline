@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/login','Auth\LoginController@index');
 Route::post('/login','Auth\LoginController@login')->name('login'); //login button;
 Route::post('/logout','Auth\LoginController@logout')->name('adminlogout'); //logout button;
 
@@ -33,6 +32,9 @@ Route::get('/tasks-list','TasksController@list');
 Route::post('/openedTasks-cheked','TasksController@openedCheckedTasks')->name("openedcheked");
 Route::post('/inProgressTasks-cheked','TasksController@inProgressCheckedTasks')->name("inProgresscheked");
 Route::post('/closedTasks-cheked','TasksController@closedCheckedTasks')->name("closedcheked");
+Route::get('/addreminder/{id}','TasksController@addreminder');
+Route::get('/reminders','TasksController@reminders');
+
 
 Route::get('/reports','ReportsController@index');
 Route::Post('/addreport','ReportsController@addreport')->name('addReport');
@@ -47,6 +49,8 @@ Route::get('/edit-account/changepassword','UsersController@changepassword');
 
 
 Route::get('/employees','UsersController@employees');
+Route::post('/addemployee','UsersController@addemployee')->name('addEmployee');
+Route::post('/addcompany','CompanyController@addcompany')->name('addcompany');
 
 Route::get('/subscription','SubscriptionController@index');
 Route::get('/billing-history','SubscriptionController@billingHistory');
@@ -70,8 +74,27 @@ Route::post('/reply/{id}','EmailController@reply');
 Route::get('/events','eventsController@index');
 Route::post('/addevents','eventsController@addEvent')->name('addevent');
 
+Route::get('/home','mainController@index');
+Route::get('/login','mainController@login');
+
+Route::get('/admin/login','Auth\LoginController@index');
+Route::post('/admin/login','mainController@adminLogin')->name('OwnerLogin');
+Route::get('/admin/dashboard','mainController@admin');
+
+Route::get('/lostPassword','mainController@lostPassword');
+Route::get('/signup','mainController@signup');
+Route::get('/subscribe','mainController@subscribe');
+
+
+
 
 //ar
+Route::get('/ar/home','mainController@Arindex');
+Route::get('/ar/login','mainController@Arlogin');
+Route::get('/ar/admin','mainController@Aradmin');
+Route::get('/ar/lostPassword','mainController@ArlostPassword');
+Route::get('/ar/signup','mainController@Arsignup');
+Route::get('/ar/Subscribe','mainController@Arsubscribe');
 
 Route::get('/ar/', 'DashboardController@Arindex')->middleware('auth');
 Route::get('/ar/download/{filename}','DashboardController@download');

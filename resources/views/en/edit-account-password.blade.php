@@ -369,21 +369,19 @@
                                 <div class="page-section">
                                     <h4>Change Password</h4>
 
-                                    <div class="alert alert-soft-warning">
-                                        <div class="d-flex flex-wrap align-items-center">
-                                            <div class="mr-8pt">
-                                                <i class="material-icons">check_circle</i>
-                                            </div>
-                                            <div class="flex"
-                                                 style="min-width: 180px">
-                                                <small class="text-100">
-                                                    An email with password reset instructions has been sent to your email address, if it exists on our system.
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                                     <div class="list-group list-group-form">
+                                      <div class="list-group-item">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-form-label col-sm-3">Current password</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password"
+                                                           class="form-control"
+                                                           placeholder="Current Password ...">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="list-group-item">
                                             <div class="form-group row mb-0">
                                                 <label class="col-form-label col-sm-3">New password</label>
@@ -405,6 +403,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="alert alert-soft-warning">
+                                        <div class="d-flex flex-wrap align-items-center">
+                                            <div class="mr-8pt">
+                                                <i class="material-icons">check_circle</i>
+                                            </div>
+                                            <div class="flex"
+                                                 style="min-width: 180px">
+                                                <small class="text-100">
+                                                    An email with password reset instructions has been sent to your email address, if it exists on our system.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>

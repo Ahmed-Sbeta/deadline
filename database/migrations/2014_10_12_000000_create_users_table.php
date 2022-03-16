@@ -18,10 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('firstName');
             $table->string('lastName');
-            $table->integer('phoneNumber');
-            $table->string('type');
-            $table->string('department');
-            $table->integer('company')->references('id')->on('companies');
+            $table->integer('phoneNumber')->nullable();
+            $table->integer('company')->references('id')->on('companies')->nullable();
             $table->string('job');
             $table->date('dob')->nullable();
             $table->string('about')->nullable();
