@@ -351,7 +351,7 @@
                                 role="tablist">
                                <div class="col-auto border-left" style="margin-left: 12px;">
                                    <a href="faq.html"
-                                      class="btn btn-accent">Remind Me</a>
+                                      class="btn btn-accent">Reminders</a>
                                </div>
                            </div>
 
@@ -362,14 +362,22 @@
 
 
                 <div class="container-fluid page__container">
-                    <form action="edit-account.html">
+                    <form Class="" action="{{route('changepassword')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
                         <div class="row">
                             <div class="col-lg-9 pr-lg-0">
 
                                 <div class="page-section">
                                     <h4>Change Password</h4>
 
-
+                                    @foreach ($errors->all() as $error)
+                                       <p class="text-danger">{{ $error }}</p>
+                                    @endforeach
+                                    @if(session()->has('Succuss'))
+                                    <div class="alert alert-success">
+                                      {{ session()->get('Succuss') }}
+                                    </div>
+                                    @endif
 
                                     <div class="list-group list-group-form">
                                       <div class="list-group-item">
@@ -378,6 +386,7 @@
                                                 <div class="col-sm-9">
                                                     <input type="password"
                                                            class="form-control"
+                                                           name="current_password"
                                                            placeholder="Current Password ...">
                                                 </div>
                                             </div>
@@ -388,6 +397,7 @@
                                                 <div class="col-sm-9">
                                                     <input type="password"
                                                            class="form-control"
+                                                           name="new_password"
                                                            placeholder="Password ...">
                                                 </div>
                                             </div>
@@ -398,6 +408,7 @@
                                                 <div class="col-sm-9">
                                                     <input type="password"
                                                            class="form-control"
+                                                           name="new_confirm_password"
                                                            placeholder="Confirm password ...">
                                                 </div>
                                             </div>
@@ -436,10 +447,10 @@
                                         <button type="submit"
                                                 class="btn btn-accent">Save changes</button>
                                     </div>
+                                  </form>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
 
 

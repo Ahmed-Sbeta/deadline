@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 
 
 class LoginController extends Controller
@@ -35,6 +37,26 @@ class LoginController extends Controller
      *
      * @return void
      */
+     public function login(Request $request)
+     {
+       $this->validateLogin($request);
+
+       if ($this->hasTooManyLoginAttempts($request)) {
+         $this->fireLockoutEvent($request);
+
+         return $this->sendLockoutResponse($request);
+       }
+
+       if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_activated' => 1])) {
+         // return redirect()->intended('dashboard');
+       }  else {
+         $this->incrementLoginAttempts($request);
+         return redirect()->back()->with('error','account not active !');
+       }
+
+       $this->incrementLoginAttempts($request);
+       return $this->sendFailedLoginResponse($request);
+     }
      public function index(){
        return view('adminLogin.index');
      }
@@ -48,4 +70,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         return $this->loggedOut($request) ?: redirect('/login');
       }
+
+
+
 }

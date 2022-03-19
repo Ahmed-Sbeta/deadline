@@ -156,6 +156,11 @@
 					<div class="row justify-content-center">
 						<div class="col-md-12">
 							<h2 class="font-weight-bold text-5 mb-0">Login</h2>
+									@if(session()->has('error'))
+    					<div class="alert alert-danger">
+        				{{ session()->get('error') }}
+    						</div>
+									@endif
 							<form action="{{ route('login') }}" id="frmSignIn" method="post" class="needs-validation">
 								@csrf
 								<div class="row">

@@ -137,7 +137,7 @@
                                 <a class="dropdown-item"
                                    href="\subscription">Billing</a>
                                 <a class="dropdown-item"
-                                   href="\billing-history">Payments</a>
+                                   href="\billing-payment">Payments</a>
                                 <a class="dropdown-item"
                                 href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">Logout</a>
@@ -549,7 +549,7 @@
                 <div class="d-flex align-items-center">
                     <div class="position-relative mr-16pt">
                         <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                            <small>80%</small>
+                            <small>{{$activeProjects/$totalProjects*100}}%</small>
                         </div>
                         <canvas width="48"
                                 height="48"
@@ -561,7 +561,7 @@
                     <div class="flex">
                         <strong>In progress</strong>
                     </div>
-                    <div class="text-50">60</div>
+                    <div class="text-50">{{$activeProjects}}</div>
                 </div>
             </div>
         </div>
@@ -572,7 +572,7 @@
                 <div class="d-flex align-items-center">
                     <div class="position-relative mr-16pt">
                         <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                            <small>20%</small>
+                            <small>{{$closedProjects/$totalProjects*100}}%</small>
                         </div>
                         <canvas width="48"
                                 height="48"
@@ -584,7 +584,7 @@
                     <div class="flex">
                         <strong>Done</strong>
                     </div>
-                    <div class="text-50">15</div>
+                    <div class="text-50">{{$closedProjects}}</div>
                 </div>
             </div>
         </div>
@@ -608,7 +608,7 @@
                 <div class="chart"
                      style="height: 262px;">
                     <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                        <h2 class="m-0">275</h2>
+                        <h2 class="m-0">{{$totalTasks}}</h2>
                         <strong>Tasks Overall</strong>
                     </div>
                     <canvas class="chart-canvas position-relative z-1"
@@ -625,11 +625,11 @@
                          role="tablist">
                         <div class="col-auto">
                             <div class=" flex">
-                                <div class="h1 mb-0 mr-3"><p></p>34</div>
+                                <div class="h1 mb-0 mr-3"><p></p>{{$tasksClosed}}</div>
                                 <div class="flex">
                                     <p class="mb-0"><strong>Completed tasks</strong></p>
                                     <p class="text-50 mb-0 lh-1">
-                                        <small> Last 30 days</small>
+                                        <small> </small>
                                     </p>
                                 </div>
                             </div>
@@ -741,7 +741,7 @@
                               <a class="dropdown-item"
                                  href="\subscription">Billing</a>
                               <a class="dropdown-item"
-                                 href="\billing-history">Payments</a>
+                                 href="\billing-payment">Payments</a>
                                  <a class="dropdown-item"
                                  href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">Logout</a>

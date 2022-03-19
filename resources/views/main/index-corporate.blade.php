@@ -55,7 +55,7 @@
 								<div class="header-row">
 									<div class="header-logo">
 										<a href="index-corporate.html">
-											<img alt="Deadline"   src="/مشروع التخرج/Deadline/Deadline/dist/Home - En/img/deadline logo.png">
+											<img alt="Deadline"   src="{{asset('img/deadline logo.png')}}">
 										</a>
 									</div>
 								</div>

@@ -113,22 +113,19 @@
 
                        <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
                             style="white-space: nowrap;">
-                           <div class="nav-item dropdown d-none d-sm-flex" >
-                               <a href="#" hidden
-                                  class="nav-link dropdown-toggle"
-                                  data-toggle="dropdown">EN</a>
-                               <div class="dropdown-menu dropdown-menu-right">
-                                   <div class="dropdown-header"><strong>Select language</strong></div>
-                                   <a class="dropdown-item active"
-                                      href="">English</a>
-                                   <a class="dropdown-item"
-                                      href="">French</a>
-                                       <a class="dropdown-item"
-                                      href="">Romanian</a>
-                                   <a class="dropdown-item"
-                                      href="">Spanish</a>
-                               </div>
-                           </div>
+                            <div class="nav-item dropdown d-none d-sm-flex" >
+                                <a href="#"
+                                   class="nav-link dropdown-toggle"
+                                   data-toggle="dropdown">EN</a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-header"><strong>Select language</strong></div>
+                                    <a class="dropdown-item active"
+                                       href="">English</a>
+                                    <a class="dropdown-item"
+                                       href="/مشروع التخرج/Deadline/Deadline/dist/Ar/events.html">العربية</a>
+
+                                </div>
+                            </div>
                        </div>
 
                        <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
@@ -348,7 +345,7 @@
                              role="tablist">
                             <div class="col-auto border-left" style="margin-left: 12px;">
                                 <a href="faq.html"
-                                   class="btn btn-accent">Remind Me</a>
+                                   class="btn btn-accent">Reminders</a>
                             </div>
                         </div>
 
@@ -476,6 +473,7 @@
 
                         <div class="card mb-32pt">
                           <div class="card-body table--elevated">
+                            <form class="" action="{{route('searchUser')}}" method="get">
                                 <div class="form-group m-0"
                                      role="group"
                                      aria-labelledby="label-title">
@@ -483,18 +481,21 @@
                                         <label id="label-title"
                                                for="title"
                                                class="col-md-3 col-form-label form-label">Employees List</label>
+                                                 @csrf
                                         <div class="col-md-7">
                                             <input id="title"
                                                    type="text"
+                                                   name="search"
                                                    placeholder="Employees Name ..."
                                                    class="form-control"
                                                    >
                                         </div>
                                         <div class="d-inline-flex align-items-center">
-                                            <a href="#"
-                                               class="btn btn-sm btn-outline-secondary mr-16pt">Search <i class="icon--right material-icons">keyboard_arrow_right</i></a>
+                                            <button type="submit"
+                                               class="btn btn-sm btn-outline-secondary mr-16pt">Search <i class="icon--right material-icons">keyboard_arrow_right</i></button>
 
                                         </div>
+                                      </form>
                                     </div>
                                 </div>
                             </div>
@@ -520,10 +521,8 @@
                                             Role
                                           </th>
 
-
-
                                           <th style="width: 48px;">
-                                             Type
+                                             Job
                                           </th>
 
                                           <th style="width: 48px;">
@@ -540,7 +539,8 @@
                                            id="employees">
                                            @foreach($users as $user)
                                         <tr>
-
+                                          <form class="" action="{{route('changerole')}}" method="post">
+                                            @csrf
                                             <td class="pr-0">
                                             </td>
 
@@ -571,20 +571,24 @@
 
                                             <td>
 
-                                                <div class="media flex-nowrap align-items-center"
-                                                     style="white-space: nowrap;">
+                                              <div class="media flex-nowrap align-items-center"
+                                                  style="white-space: nowrap;">
 
-                                                    <div class="media-body">
-                                                        <div class="d-flex flex-column">
-                                                            <small class="js-lists-values-department"><strong>{{$user->department}}</strong></small>
-                                                            <small class="js-lists-values-location text-50">{{$user->job}}</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                 <div class="media-body">
+                                                     <div class="d-flex flex-column">
+                                                         <select name="Role[]" class="form-control">
+                                                            <option selected value="{{$user->role}},{{$user->id}}">{{$user->role}}</option>
+                                                             <option value="administrator,{{$user->id}}">Administrator</option>
+                                                             <option value="suproviser,{{$user->id}}">Supervisor</option>
+                                                             <option value="employee,{{$user->id}}">Employee</option>
+                                                            </select>
+                                                     </div>
+                                                 </div>
+                                             </div>
 
                                             </td>
                                             <td>
-                                                <small class="js-lists-values-type text-50">{{$user->type}}</small>
+                                                <small class="js-lists-values-type text-50">{{$user->job}}</small>
                                             </td>
 
                                             <td>
@@ -595,10 +599,18 @@
                                                 <small class="js-lists-values-date text-50">{{date('d/m/Y', strtotime($user->created_at))}}</small>
                                             </td>
                                             <td class="text-right">
-                                               <a href="#"
+                                               <a href="/compose-email/{{$user->id}}"
                                                  class="material-icons icon-24pt">mail_outline</i>
 
                                             </td>
+                                            <td>
+                                               <a href="../En/delete-user-alert.html">
+                                                   <button type="button"
+                                                     class="btn btn-sm btn-outline-secondary" style="background-color: crimson;">
+                                                 <i class="material-icons" style="color: white;">close</i>
+                                             </button>
+                                           </a>
+                                             </td>
                                         </tr>
                                         @endforeach
 
@@ -648,6 +660,9 @@
                                                   class="material-icons">chevron_right</span>
                                         </a>
                                     </li>
+                                    <button type="submit"
+                                      class="btn btn-accent" style="margin-left: auto;">Save</button>
+                          </form>
                                 </ul>
 
                             </div>
@@ -876,7 +891,7 @@
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="user-approves.html">
+                                           href="/requests">
                                             <span class="sidebar-menu-text">Requests</span>
                                         </a>
                                     </li>
@@ -909,7 +924,7 @@
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="events.html">
+                                           href="/events">
                                             <span class="sidebar-menu-text">Events</span>
                                         </a>
                                     </li>

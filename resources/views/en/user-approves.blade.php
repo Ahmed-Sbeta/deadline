@@ -14,38 +14,38 @@
         <meta name="robots"
               content="noindex">
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7COswald:300,400,500,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+        <link href="{{asset('https://fonts.googleapis.com/css?family=Lato:400,700%7COswald:300,400,500,700%7CRoboto:400,500%7CExo+2:600&display=swap')}}"
               rel="stylesheet">
 
         <!-- Perfect Scrollbar -->
         <link type="text/css"
-              href="assets/vendor/perfect-scrollbar.css"
+              href="{{asset('assets/vendor/perfect-scrollbar.css')}}"
               rel="stylesheet">
 
         <!-- Material Design Icons -->
         <link type="text/css"
-              href="assets/css/material-icons.css"
+              href="{{asset('assets/css/material-icons.css')}}"
               rel="stylesheet">
 
         <!-- Font Awesome Icons -->
         <link type="text/css"
-              href="assets/css/fontawesome.css"
+              href="{{asset('assets/css/fontawesome.css')}}"
               rel="stylesheet">
 
         <!-- Preloader -->
         <link type="text/css"
-              href="assets/vendor/spinkit.css"
+              href="{{asset('assets/vendor/spinkit.css')}}"
               rel="stylesheet">
         <link type="text/css"
-              href="assets/css/preloader.css"
+              href="{{asset('assets/css/preloader.css')}}"
               rel="stylesheet">
 
         <!-- App CSS -->
         <link type="text/css"
-              href="assets/css/app.css"
+              href="{{asset('assets/css/app.css')}}"
               rel="stylesheet">
 
-        
+
 
     </head>
 
@@ -61,7 +61,7 @@
                 <div class="sk-chase-dot"></div>
             </div>
 
-           
+
         </div>
 
         <div class="mdk-drawer-layout js-mdk-drawer-layout"
@@ -75,32 +75,32 @@
                 data-push
                 data-responsive-width="992px">
                <div class="mdk-drawer-layout__content page-content">
-   
+
                    <!-- Header -->
-   
+
                    <div class="navbar navbar-expand navbar-shadow px-0  pl-lg-16pt navbar-light bg-body"
                         id="default-navbar"
                         data-primary>
-   
-                     
-   
+
+
+
                        <!-- Navbar Brand -->
                        <a href="index.html"
                           class="navbar-brand mr-16pt d-lg-none">
                            <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-                                src="assets/images/logo/logo.png"
+                                src="{{asset('assets/images/logo/logo.png')}}"
                                 width="32"
                                 alt="Deadline">
                        </a>
-   
-   
-   
+
+
+
                        <div class="flex" ></div>
-   
+
                        <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
                        style="white-space: nowrap;">
                       <div class="nav-item dropdown d-none d-sm-flex" >
-                          <a href="#" 
+                          <a href="#"
                              class="nav-link dropdown-toggle"
                              data-toggle="dropdown">EN</a>
                           <div class="dropdown-menu dropdown-menu-right">
@@ -109,7 +109,7 @@
                                  href="">English</a>
                               <a class="dropdown-item"
                                  href="/مشروع التخرج/Deadline/Deadline/dist/Ar/user-approves.html">العربية</a>
-                                
+
                           </div>
                       </div>
                   </div>
@@ -167,7 +167,7 @@
 
                                           </span>
                                           <span class="d-flex">
-                                              
+
                                               </span>
                                               <span class="flex d-flex flex-column">
 
@@ -183,7 +183,7 @@
 
                                           </span>
                                           <span class="d-flex">
-                                             
+
                                               </span>
                                               <span class="flex d-flex flex-column">
                                                   <strong class="text-black-100">Adrian. D</strong>
@@ -295,13 +295,13 @@
                       </div>
                            <!-- // END Notifications dropdown -->
                        </div>
-   
-                       
+
+
                    </div>
-   
+
                    <!-- // END Header -->
-   
-                 
+
+
                    <div class="border-bottom-2 py-32pt position-relative z-1">
                     <div class="container-fluid page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
@@ -322,7 +322,7 @@
 
                          </div>
 
-                            
+
                         </div>
 
 
@@ -335,7 +335,7 @@
                                Date and time
                            </p>
                        </div>
-                      
+
                        </div>
 
                         <div class="row"
@@ -356,7 +356,7 @@
                             <div class="col-lg-12">
                                 <div class="page-section">
 
-                     
+
                                     <div class="card mb-0">
                                         <div class="card-header d-flex align-items-center">
                                             <div class="flatpickr-wrapper flex">
@@ -368,7 +368,7 @@
                                                      data-flatpickr-alt-format="d/m/Y"
                                                      data-flatpickr-date-format="d/m/Y">
                                                     <strong class="d-block">Recent Requests</strong>
-                                                   
+
                                                     <input class="d-none"
                                                            type="hidden"
                                                            value="13/03/2018 to 20/03/2018"
@@ -384,7 +384,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 18px;">
-                                                           
+
                                                         </th>
                                                         <th>
                                                            Name
@@ -400,122 +400,36 @@
                                                 </thead>
                                                 <tbody class="list"
                                                        id="orders">
-            
+                                                       <form class="" action="{{route('approveRequests')}}" method="post">
+                                                         @csrf
+                                                       @foreach($users as $user)
                                                        <tr class="selected">
                                                         <td>
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox"
-                                                                       class="custom-control-input js-check-selected-row"
-                                                                       id="customCheck1_1">
+                                                                       class="custom-control-input js-check-selected-row"                                                           name="doneCheck[]"
+                                                                       name="doneCheck[]"
+                                                                       value="{{$user->id}}"
+                                                                       id="customCheck1_{{$i}}">
                                                                 <label class="custom-control-label"
-                                                                       for="customCheck1_1"><span class="text-hide">Check</span></label>
+                                                                       for="customCheck1_{{$i++}}"><span class="text-hide">Check</span></label>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <i class="material-icons text-20 mr-8pt">contacts</i>
-                                                                <span>Bryan K. Davis</span>
+                                                                <span>{{$user->name}}</span>
                                                             </div>
                                                         </td>
-                                                        <td class="js-lists-values-orders-date text-50">1 day ago</td>
+                                                        <td class="js-lists-values-orders-date text-50">{{(new Carbon\Carbon($user->created_at))->diffForHumans()}}</td>
                                                         <td>
-                                                            <span>Graphic Designer</span>
+                                                            <span>{{$user->job}}</span>
                                                         </td>
-                                                       
+
                                                     </tr>
-            
-                                                    <tr class="selected">
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox"
-                                                                       class="custom-control-input js-check-selected-row"
-                                                                       id="customCheck1_2">
-                                                                <label class="custom-control-label"
-                                                                       for="customCheck1_2"><span class="text-hide">Check</span></label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="material-icons text-20 mr-8pt">contacts</i>
-                                                                <span>Bryan K. Davis</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="js-lists-values-orders-date text-50">1 day ago</td>
-                                                        <td>
-                                                            <span>Graphic Designer</span>
-                                                        </td>
-                                                       
-                                                    </tr>
-            
-                                                    <tr class="selected">
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox"
-                                                                       class="custom-control-input js-check-selected-row"
-                                                                       id="customCheck1_3">
-                                                                <label class="custom-control-label"
-                                                                       for="customCheck1_3"><span class="text-hide">Check</span></label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="material-icons text-20 mr-8pt">contacts</i>
-                                                                <span>Bryan K. Davis</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="js-lists-values-orders-date text-50">1 day ago</td>
-                                                        <td>
-                                                            <span>Graphic Designer</span>
-                                                        </td>
-                                                       
-                                                    </tr>
-            
-                                                    <tr class="selected">
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox"
-                                                                       class="custom-control-input js-check-selected-row"
-                                                                       id="customCheck1_4">
-                                                                <label class="custom-control-label"
-                                                                       for="customCheck1_4"><span class="text-hide">Check</span></label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="material-icons text-20 mr-8pt">contacts</i>
-                                                                <span>Bryan K. Davis</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="js-lists-values-orders-date text-50">1 day ago</td>
-                                                        <td>
-                                                            <span>Graphic Designer</span>
-                                                        </td>
-                                                       
-                                                    </tr>
-            
-                                                    <tr class="selected">
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox"
-                                                                       class="custom-control-input js-check-selected-row"
-                                                                       id="customCheck1_5">
-                                                                <label class="custom-control-label"
-                                                                       for="customCheck1_5"><span class="text-hide">Check</span></label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="material-icons text-20 mr-8pt">contacts</i>
-                                                                <span>Bryan K. Davis</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="js-lists-values-orders-date text-50">1 day ago</td>
-                                                        <td>
-                                                            <span>Graphic Designer</span>
-                                                        </td>
-                                                       
-                                                    </tr>
-            
+                                                    @endforeach
+
+
                                             </table>
                                         </div>
                                         <div class="card-footer p-8pt">
@@ -560,26 +474,26 @@
                                                     </a>
                                                 </li>
                                                 <div class="col-auto border-left" style="margin-left: auto;">
-                                                    <a href="#"
-                                                       class="btn btn-accent">Done</a>
+                                                    <input type="submit" name="" class="btn btn-accent" value="Approve">
+                                                       </form>
                                                 </div>
                                             </ul>
-            
+
                                         </div>
                                     </div>
 
-                        
+
 
                                 </div>
                             </div>
-                           
+
                         </div>
 
-            
+
                             <p></p>
                 </div>
 
-          
+
                 <div class="js-fix-footer footer border-top-2">
                     <div class="container-fluid page__container page-section d-flex flex-column">
                         <p class="text-70 brand mb-24pt">
@@ -602,11 +516,11 @@
                                                      width="24"
                                                      height="24"
                                                      alt="Facebook"></a>
-    
+
                                              <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="assets/images/icon/footer/youtube-square@2x.png"
                                                  width="24"
-                                                  height="24" 
-                                                  alt="YouTube"></a> 
+                                                  height="24"
+                                                  alt="YouTube"></a>
                                         </nav>
                                     </div>
                                     <div class="col-md-6 col-sm-4 mb-24pt mb-md-0 d-flex align-items-center">
@@ -666,7 +580,7 @@
                                 href="billing-history.html">Payments</a>
                              <a class="dropdown-item"
                                 href="login.html">Logout</a>
-                            
+
                          </div>
                      </div>
 
@@ -674,7 +588,7 @@
 
                         <div class="sidebar-heading">Deadlines</div>
                         <ul class="sidebar-menu">
-                           
+
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    href="index.html">
@@ -717,13 +631,13 @@
                                             <span class="sidebar-menu-text">Reports</span>
                                         </a>
                                     </li>
-                                    
-                                   
+
+
                                 </ul>
                             </li>
-                            
-                          
-                           
+
+
+
                               <li class="sidebar-menu-item active">
                                 <a class="sidebar-menu-button"
                                    data-toggle="collapse"
@@ -734,14 +648,14 @@
                                 </a>
                                 <ul class="sidebar-submenu collapse show sm-indent"
                                     id="account_menu">
-                                    
+
                                    <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="edit-account.html">
                                             <span class="sidebar-menu-text">Edit Account</span>
                                         </a>
                                     </li>
-                                    
+
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="billing.html">
@@ -755,7 +669,7 @@
                                             <span class="sidebar-menu-text">Requests</span>
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                             </li>
                             <li class="sidebar-menu-item">
@@ -774,7 +688,7 @@
                                             <span class="sidebar-menu-text">Employees</span>
                                         </a>
                                     </li>
-                                   
+
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="announcments.html">
@@ -788,7 +702,7 @@
                                             <span class="sidebar-menu-text">Events</span>
                                         </a>
                                     </li>
-                                   
+
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="email.html">
@@ -799,33 +713,33 @@
                             </li>
                         </ul>
 
-                        
+
         <!-- App Settings FAB -->
-       
+
         <!-- jQuery -->
-        <script src="assets/vendor/jquery.min.js"></script>
+        <script src="{{asset('assets/vendor/jquery.min.js')}}"></script>
 
         <!-- Bootstrap -->
-        <script src="assets/vendor/popper.min.js"></script>
-        <script src="assets/vendor/bootstrap.min.js"></script>
+        <script src="{{asset('assets/vendor/popper.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/bootstrap.min.js')}}"></script>
 
         <!-- Perfect Scrollbar -->
-        <script src="assets/vendor/perfect-scrollbar.min.js"></script>
+        <script src="{{asset('assets/vendor/perfect-scrollbar.min.js')}}"></script>
 
         <!-- DOM Factory -->
-        <script src="assets/vendor/dom-factory.js"></script>
+        <script src="{{asset('assets/vendor/dom-factory.js')}}"></script>
 
         <!-- MDK -->
-        <script src="assets/vendor/material-design-kit.js"></script>
+        <script src="{{asset('assets/vendor/material-design-kit.js')}}"></script>
 
         <!-- App JS -->
-        <script src="assets/js/app.js"></script>
+        <script src="{{asset('assets/js/app.js')}}"></script>
 
         <!-- Highlight.js -->
-        <script src="assets/js/hljs.js"></script>
+        <script src="{{asset('assets/js/hljs.js')}}"></script>
 
         <!-- App Settings (safe to remove) -->
-        <script src="assets/js/app-settings.js"></script>
+        <script src="{{asset('assets/js/app-settings.js')}}"></script>
     </body>
 
 </html>

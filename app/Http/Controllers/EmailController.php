@@ -27,9 +27,17 @@ class EmailController extends Controller
     }
 
     public function compose(){
+      $someone = NULL;
       $users = User::all();
-      return view('en.email-compose',compact('users'));
+      return view('en.email-compose',compact('users','someone'));
     }
+
+    public function composeTo($id){
+      $someone = User::find($id);
+      $users = User::all();
+      return view('en.email-compose',compact('users','someone'));
+    }
+
     public function sendEmail(Request $request){
       $email = new email;
       $email->creator = Auth::id();

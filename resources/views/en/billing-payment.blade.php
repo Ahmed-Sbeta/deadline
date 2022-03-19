@@ -316,14 +316,14 @@
                            <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
                                <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                   <h2 class="mb-0">Welcome to your dashboard !</h2>
+                                   <h2 class="mb-0">Your Subscription</h2>
 
                                    <ol class="breadcrumb p-0 m-0">
 
 
                                        <li class="breadcrumb-item active">
 
-                                           @User Name
+                                          PAYMENT INFORMATION
 
                                        </li>
 
@@ -336,246 +336,134 @@
 
 
                            <!--Date and Time-->
-                           <div class="row"
-                           role="tablist">
-                          <div class="col-auto d-flex flex-column">
-                              <h6 class="m-0">&dollar;12.3k</h6>
-                              <p class="text-50 mb-0 d-flex align-items-center">
-                                  Date and time
-                              </p>
-                          </div>
 
-                          </div>
-
-                           <div class="row"
-                                role="tablist">
-                               <div class="col-auto border-left" style="margin-left: 12px;">
-                                   <a href="faq.html"
-                                      class="btn btn-accent">Remind Me</a>
-                               </div>
-                           </div>
 
                        </div>
                    </div>
 
                 <!-- // END Header -->
 
-                <div class="border-bottom-2 py-32pt position-relative z-1">
-                    <div class="container-fluid page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
-                        <div class="flex d-flex flex-column flex-sm-row align-items-center">
-
-                            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <h2 class="mb-0">Billing</h2>
-
-                                <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-
-                                    <li class="breadcrumb-item">
-
-                                        <a href="">Account</a>
-
-                                    </li>
-
-                                    <li class="breadcrumb-item active">
-
-                                        Billing
-
-                                    </li>
-
-                                </ol>
-
-                            </div>
-
-                            <div class="dropdown">
-                                <a href=""
-                                   class="border rounded d-flex align-items-center p-16pt"
-                                   data-toggle="dropdown"
-                                   data-caret="false">
-
-                                    <div class="avatar avatar-sm mr-8pt">
-
-                                        <span class="avatar-title rounded bg-primary">FM</span>
-
-                                    </div>
-
-                                    <small class="ml-4pt flex">
-                                        <span class="d-flex align-items-center">
-                                            <span class="flex d-flex flex-column">
-                                                <strong class="text-100">FrontendMatter Inc.</strong>
-                                                <span class="text-50">Select company</span>
-                                            </span>
-                                            <i class="material-icons icon-16pt text-50 ml-4pt">arrow_drop_down</i>
-                                        </span>
-                                    </small>
-                                </a>
-                                <div class="dropdown-menu w-100">
-                                    <div class="dropdown-header"><strong>Select company</strong></div>
-                                    <a href=""
-                                       class="dropdown-item active d-flex align-items-center">
-
-                                        <div class="avatar avatar-sm mr-8pt">
-
-                                            <span class="avatar-title rounded bg-primary">FM</span>
-
-                                        </div>
-
-                                        <small class="ml-4pt flex">
-                                            <span class="d-flex flex-column">
-                                                <strong class="text-black-100">FrontendMatter Inc.</strong>
-                                                <span class="text-black-50">Administrator</span>
-                                            </span>
-                                        </small>
-                                    </a>
-                                    <a href=""
-                                       class="dropdown-item d-flex align-items-center">
-
-                                        <div class="avatar avatar-sm mr-8pt">
-
-                                            <span class="avatar-title rounded bg-accent">HH</span>
-
-                                        </div>
-
-                                        <small class="ml-4pt flex">
-                                            <span class="d-flex flex-column">
-                                                <strong class="text-black-100">HumaHuma Inc.</strong>
-                                                <span class="text-black-50">Publisher</span>
-                                            </span>
-                                        </small>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
                 <div class="container-fluid page__container">
                     <form action="edit-account.html">
                         <div class="row">
                             <div class="col-lg-9 pr-lg-0">
 
-                                <div class="page-section">
-                                    <h4>Payment Information</h4>
-                                    <div class="list-group list-group-form">
-                                        <div class="list-group-item d-flex align-items-center">
-                                            <img src="assets/images/visa.svg"
-                                                 alt="visa"
-                                                 width="38"
-                                                 class="mr-16pt">
-                                            <div class="flex">Your current payment method is <strong>Visa ending with 2819</strong></div>
-                                        </div>
-                                        <div class="list-group-item">
-                                            <fieldset role="group"
-                                                      aria-labelledby="label-type"
-                                                      class="m-0 form-group">
-                                                <div class="form-row align-items-center">
-                                                    <label for="payment_cc"
-                                                           id="label-type"
-                                                           class="col-md-3 col-form-label form-label">Payment type</label>
-                                                    <div role="group"
-                                                         aria-labelledby="label-type"
-                                                         class="col-md-9">
-                                                        <div role="group"
-                                                             class="btn-group btn-group-toggle"
-                                                             data-toggle="buttons">
-                                                            <label class="btn btn-outline-secondary active">
-                                                                <input type="radio"
-                                                                       id="payment_cc"
-                                                                       name="payment_type"
-                                                                       value="cc"
-                                                                       checked=""
-                                                                       aria-checked="true" /> Debit or credit card
-                                                            </label>
-                                                            <label class="btn btn-outline-secondary">
-                                                                <input type="radio"
-                                                                       id="payment_pp"
-                                                                       name="payment_type"
-                                                                       value="pp"
-                                                                       aria-checked="true" /> PayPal
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        <div class="list-group-item">
-                                            <div class="form-group row align-items-center mb-0">
-                                                <label class="col-form-label form-label col-sm-3">Card number</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           placeholder="Credit / debit card number" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="list-group-item">
-                                            <div class="form-group row align-items-center mb-0">
-                                                <label class="col-form-label form-label col-sm-3">Security code (CVV)</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           placeholder="CVV"
-                                                           style="width:80px">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="list-group-item">
-                                            <div role="group"
-                                                 aria-labelledby="label-expire_month"
-                                                 class="m-0 form-group">
-                                                <div class="form-row align-items-center">
-                                                    <label id="label-expire_month"
-                                                           for="expire_month"
-                                                           class="col-md-3 col-form-label form-label">Expiration date</label>
-                                                    <div class="col-md-9">
-                                                        <div class="form-row">
-                                                            <div class="col-auto">
-                                                                <select id="expire_month"
-                                                                        class="form-control custom-select"
-                                                                        style="width: 140px;">
-                                                                    <option value="1">January</option>
-                                                                    <option value="2">February</option>
-                                                                    <option value="3">March</option>
-                                                                    <option value="4">April</option>
-                                                                    <option value="5">May</option>
-                                                                    <option value="6">June</option>
-                                                                    <option value="7">July</option>
-                                                                    <option value="8">August</option>
-                                                                    <option value="9">September</option>
-                                                                    <option value="10">October</option>
-                                                                    <option value="11">November</option>
-                                                                    <option value="12">December</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-auto">
-                                                                <select id="expire_year"
-                                                                        class="form-control custom-select"
-                                                                        style="width: 100px;">
-                                                                    <option value="2018">2018</option>
-                                                                    <option value="2019">2019</option>
-                                                                    <option value="2020">2020</option>
-                                                                    <option value="2021">2021</option>
-                                                                    <option value="2022">2022</option>
-                                                                    <option value="2023">2023</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="list-group-item">
-                                            <div class="form-group row align-items-center mb-0">
-                                                <div class="col-sm-3"></div>
-                                                <div class="col-sm-9">
-                                                    <a href=""
-                                                       class="btn btn-accent">Save changes</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                              <div class="page-section">
+                                  <div class="page-separator">
+                                      <div class="page-separator__text">Credit Card</div>
+                                  </div>
+                                  <div class="list-group list-group-form">
+                                      <div class="list-group-item d-flex align-items-center">
+                                          <img src="assets/images/visa.svg"
+                                               alt="visa"
+                                               width="38"
+                                               class="mr-16pt">
+                                          <div class="flex">Your current payment method is <strong>Visa ending with 2819</strong></div>
+                                      </div>
+
+                                      <div class="list-group-item">
+                                          <div class="form-group row align-items-center mb-0">
+                                              <label class="col-form-label form-label col-sm-3">Card number</label>
+                                              <div class="col-sm-9">
+                                                  <input type="text"
+                                                         class="form-control"
+                                                         placeholder="Credit / debit card number" />
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="list-group-item">
+                                          <div class="form-group row align-items-center mb-0">
+                                              <label class="col-form-label form-label col-sm-3">Security code (CVV)</label>
+                                              <div class="col-sm-9">
+                                                  <input type="text"
+                                                         class="form-control"
+                                                         placeholder="CVV"
+                                                         style="width:80px">
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="list-group-item">
+                                          <div role="group"
+                                               aria-labelledby="label-expire_month"
+                                               class="m-0 form-group">
+                                              <div class="form-row align-items-center">
+                                                  <label id="label-expire_month"
+                                                         for="expire_month"
+                                                         class="col-md-3 col-form-label form-label">Expiration date</label>
+                                                  <div class="col-md-9">
+                                                      <div class="form-row">
+                                                          <div class="col-auto">
+                                                              <select id="expire_month"
+                                                                      class="form-control custom-select"
+                                                                      style="width: 140px;">
+                                                                  <option value="1">January</option>
+                                                                  <option value="2">February</option>
+                                                                  <option value="3">March</option>
+                                                                  <option value="4">April</option>
+                                                                  <option value="5">May</option>
+                                                                  <option value="6">June</option>
+                                                                  <option value="7">July</option>
+                                                                  <option value="8">August</option>
+                                                                  <option value="9">September</option>
+                                                                  <option value="10">October</option>
+                                                                  <option value="11">November</option>
+                                                                  <option value="12">December</option>
+                                                              </select>
+                                                          </div>
+                                                          <div class="col-auto">
+                                                              <select id="expire_year"
+                                                                      class="form-control custom-select"
+                                                                      style="width: 100px;">
+                                                                  <option value="2018">2018</option>
+                                                                  <option value="2019">2019</option>
+                                                                  <option value="2020">2020</option>
+                                                                  <option value="2021">2021</option>
+                                                                  <option value="2022">2022</option>
+                                                                  <option value="2023">2023</option>
+                                                              </select>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+<P></P>
+                                      <div class="page-separator">
+                                          <div class="page-separator__text">SADAD</div>
+                                      </div>
+                                      <div class="list-group list-group-form">
+                                          <div class="list-group-item d-flex align-items-center">
+                                              <img src="assets/images/sadad.png"
+                                                   alt="Sadad"
+                                                   width="38"
+                                                   class="mr-16pt">
+                                              <div class="flex">Your current payment method is <strong>Sadad</strong></div>
+                                          </div>
+
+                                          <div class="list-group-item">
+                                              <div class="form-group row align-items-center mb-0">
+                                                  <label class="col-form-label form-label col-sm-3">Phone Number</label>
+                                                  <div class="col-sm-9">
+                                                      <input type="text"
+                                                             class="form-control"
+                                                             placeholder="Phone number" />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="list-group-item">
+                                              <div class="form-group row align-items-center mb-0">
+                                                  <label class="col-form-label form-label col-sm-3">Date of Birth</label>
+                                                  <div class="col-sm-9">
+                                                      <input type="date"
+                                                             class="form-control"
+                                                             >
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                              </div>
 
                             </div>
                             <div class="col-lg-3 page-nav">
@@ -587,14 +475,11 @@
                                            href="\billing-upgrade">Upgrade Account</a>
                                         <a class="nav-link active"
                                            href="\billing-payment">Payment Information</a>
-                                        <a class="nav-link"
-                                           href="\billing-history">Payment History</a>
-                                        <a class="nav-link"
-                                           href="\billing-invoice">Invoice</a>
+                                      
                                     </nav>
-                                    <!-- <div class="page-nav__content">
+                                    <div class="page-nav__content">
             <button type="submit" class="btn btn-accent">Save changes</button>
-          </div> -->
+          </div>
                                 </div>
                             </div>
                         </div>

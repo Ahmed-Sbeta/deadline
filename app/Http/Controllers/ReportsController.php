@@ -29,6 +29,18 @@ class ReportsController extends Controller
       return redirect('/reports');
     }
 
+    public function searchReport(Request $request){
+      $search = $request->input('search');
+
+      $creator = User::all()->where('company','=',Auth::user()->company);
+      $reports = reports::query()
+      ->where('title', 'LIKE', "%{$search}%")->with('creater')->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(4);
+      // dd($reports);
+      return view('en.reports',compact('reports','creator'));
+    }
+
     //ar
 
     public function Arindex(){

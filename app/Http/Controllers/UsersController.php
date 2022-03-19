@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use App\User;
 use Auth;
 use App\Company;
 
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -14,14 +15,14 @@ class UsersController extends Controller
       return view('en.edit-account');
     }
     public function employees(){
-      $users = User::Where('company','=',Auth::user()->company)->get();
+      $users = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->get();
       $EOM = User::Where('company','=',Auth::user()->company)->Where('EOM','=',true)->first();
-      $last = User::Where('company','=',Auth::user()->company)->latest()->first();
+      $last = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->latest()->first();
       return view('en.employees',compact('users','EOM','last'));
     }
     public function eOfMonth(){
       $EOM = request('EOM');
-      User::where('company', '=', Auth::user()->company)->update(['EOM' => false]);
+      User::where('company', '=', Auth::user()->company)->where('is_activated','=',True)->update(['EOM' => false]);
       $user = User::find($EOM);
       $user->EOM = true;
       $user->save();
@@ -37,6 +38,47 @@ class UsersController extends Controller
     public function changepassword(){
       return view('en.edit-account-password');
     }
+    public function changeUserPassword(Request $request){
+      $request->validate([
+          'current_password' => ['required', new MatchOldPassword],
+          'new_password' => ['required'],
+          'new_confirm_password' => ['same:new_password'],
+      ]);
+
+      User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+
+      return redirect()->back()->with('Succuss','Password Changed successfuly');
+    }
+
+    public function changerole(Request $request){
+      $cheks = $request->input('Role');
+      // dd($cheks);
+      foreach($cheks as $check => $value){
+        $myArray = explode(',', $value);
+        // dd($myArray);
+        $user = User::find($myArray[1]);
+        $user->role = $myArray[0];
+        $user->save();
+      }
+      return redirect('/employees');
+    }
+
+    public function search(Request $request){
+      $EOM = User::Where('company','=',Auth::user()->company)->Where('EOM','=',true)->first();
+      $last = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->latest()->first();
+    // Get the search value from the request
+    $search = $request->input('search');
+
+    // Search in the title and body columns from the posts table
+    $users = User::query()
+        ->where('name', 'LIKE', "%{$search}%")
+        ->where('company','=',Auth::user()->company)
+        ->where('is_activated','=',True)
+        ->get();
+
+    // Return the search view with the resluts compacted
+    return view('en.employees',compact('users','EOM','last'));
+}
 
     //firstName,lastName and email save changes button.
     public function changeUserInfo(){
@@ -90,6 +132,23 @@ class UsersController extends Controller
       return redirect('/signup');
 
     }
+    public function requests(){
+      $i=1;
+      $users = User::where('company','=',Auth::user()->company)->where('is_activated','=',0)->get();
+      return view('en.user-approves',compact('users','i'));
+    }
+
+    public function approve(Request $request){
+      $cheks = $request->input('doneCheck');
+      foreach($cheks as $check => $value){
+        $user = User::find($value);
+        $user->is_activated = True;
+        $user->save();
+      }
+      return redirect()->back();
+    }
+
+
 
     //ar
     public function Arindex(){

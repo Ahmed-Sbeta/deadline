@@ -34,6 +34,16 @@ class AnnouncementController extends Controller
       return redirect('/announcments');
     }
 
+    public function searchAnn(Request $request){
+      $search = $request->input('search');
+
+      $announcements = Announcement::query()
+      ->where('title', 'LIKE', "%{$search}%")->with('creater')->whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->latest()->paginate(5);
+      return view('en.Announcements',compact('announcements'));
+    }
+
     //ar
     public function Arindex(){
       $announcements = Announcement::with('creater')->whereHas('creater', function ($query) {

@@ -412,17 +412,13 @@
                                      </div>
                                      <div class="card-body d-flex flex-column justify-content-center">
 
+                                       @foreach($closest2 as $close)
                                          <div class="mb-8pt">
-                                           @if($closest2[0])
                                              <p class="d-flex align-items-center mb-4pt">
-                                                 <small class="flex lh-24pt"><strong>{{$closest2[0]->title}}</strong></small>
-                                                 <small class="text-50 lh-24pt">{{(new Carbon\Carbon($closest2[0]->dueOn))->diffForHumans()}}</small>
+                                                 <small class="flex lh-24pt"><strong>{{$close->title}}</strong></small>
+                                                 <small class="text-50 lh-24pt">{{(new Carbon\Carbon($close->dueOn))->diffForHumans()}}</small>
                                              </p>
-                                             @else
-                                             <p class="d-flex align-items-center mb-4pt">
 
-                                             </p>
-                                             @endif
                                              <div class="progress"
                                                   style="height: 4px;">
                                                  <div class="progress-bar bg-warning"
@@ -433,28 +429,9 @@
                                                       aria-valuemax="100"></div>
                                              </div>
                                          </div>
+                                         @endforeach
 
-                                         <div>
-                                           @if($closest2[1])
-                                             <p class="d-flex align-items-center mb-4pt">
-                                                 <small class="flex lh-24pt"><strong>{{$closest2[1]->title}}</strong></small>
-                                                 <small class="text-50 lh-24pt">{{(new Carbon\Carbon($closest2[1]->dueOn))->diffForHumans()}}</small>
-                                             </p>
-                                             @else
-                                             <p class="d-flex align-items-center mb-4pt">
 
-                                             </p>
-                                             @endif
-                                             <div class="progress"
-                                                  style="height: 4px;">
-                                                 <div class="progress-bar bg-accent"
-                                                      role="progressbar"
-                                                      style="width: 100%;"
-                                                      aria-valuenow="100"
-                                                      aria-valuemin="0"
-                                                      aria-valuemax="100"></div>
-                                             </div>
-                                         </div>
 
                                      </div>
                                  </div>
@@ -493,7 +470,7 @@
                                                          <small class="text-50">{{$superviser->role}}</small>
                                                      </div>
                                                  </div>
-                                                 <a href=""><i class="material-icons text-20 icon-16pt">email</i></a>
+                                                 <a href="/compose-email/{{$superviser->id}}"><i class="material-icons text-20 icon-16pt">email</i></a>
                                              </div>
                                          </div>
                                          @endforeach
@@ -516,6 +493,8 @@
                        <div class="card dashboard-area-tabs mb-32pt" id="project_details">
 
                            <div class="card-body table--elevated">
+                             <form class="" action="{{route('searchActiveProjects')}}" method="get">
+                               @csrf
                                <div class="form-group m-0"
                                     role="group"
                                     aria-labelledby="label-title">
@@ -536,18 +515,21 @@
                                               </span>
                                       </div>
                                   </div>
+
                                        <div class="col-md-8">
                                            <input id="title"
                                                   type="text"
                                                   placeholder="Project Name ..."
+                                                  name="search"
                                                   class="form-control"
                                                   >
                                        </div>
                                        <div class="d-inline-flex align-items-center">
-                                           <a href="#"
-                                              class="btn btn-sm btn-outline-secondary mr-16pt">Search  <i class="icon--right material-icons">keyboard_arrow_right</i></a>
+                                           <button type="submit"
+                                              class="btn btn-sm btn-outline-secondary mr-16pt">Search  <i class="icon--right material-icons">keyboard_arrow_right</i></button>
 
                                        </div>
+                                     </form>
                                    </div>
                                </div>
                            </div>
@@ -594,7 +576,7 @@
                                    <tbody class="list"
                                           id="projects">
 
-                                           @foreach($projects as $project)
+                                          @foreach($projects as $project)
                                        <tr>
                                          <form class="" action="{{route('activecheked')}}" method="post" enctype="multipart/form-data">
                                            @csrf
@@ -747,6 +729,8 @@
                        <div class="card dashboard-area-tabs mb-32pt" id="project_details">
 
                            <div class="card-body table--elevated">
+                             <form class="" action="{{route('searchArchiveProjects')}}" method="get">
+                               @csrf
                                <div class="form-group m-0"
                                     role="group"
                                     aria-labelledby="label-title">
@@ -771,14 +755,16 @@
                                            <input id="title"
                                                   type="text"
                                                   placeholder="Project Name ..."
+                                                  name="search"
                                                   class="form-control"
                                                   >
                                        </div>
                                        <div class="d-inline-flex align-items-center">
-                                           <a href="#"
-                                              class="btn btn-sm btn-outline-secondary mr-16pt">Search  <i class="icon--right material-icons">keyboard_arrow_right</i></a>
+                                           <button
+                                              class="btn btn-sm btn-outline-secondary mr-16pt">Search  <i class="icon--right material-icons">keyboard_arrow_right</i></button>
 
                                        </div>
+                                     </form>
                                    </div>
                                </div>
                            </div>
@@ -1066,18 +1052,7 @@
                                      </div>
                                  </div>
                              </div>
-                             <div class="list-group-item">
-                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                     <input id="notify"
-                                            type="checkbox"
-                                            class="custom-control-input"
-                                            checked="">
-                                     <label for="notify"
-                                            class="custom-control-label">Notify me on email when someone Download my report</label>
-                                 </div>
-                                 <small id="description-notify"
-                                        class="form-text text-muted">If unchecked, you'll still recieve notifications on our website.</small>
-                             </div>
+
                              <div class="list-group-item">
                                  <button type="submit"
                                          class="btn btn-accent">Post Project</button>
