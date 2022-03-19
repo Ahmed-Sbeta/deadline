@@ -9,6 +9,7 @@ use App\Announcement;
 use App\Project;
 use App\user_project;
 use App\User;
+use App\Tasks;
 use Auth;
 
 class DashboardController extends Controller
@@ -20,7 +21,27 @@ class DashboardController extends Controller
       })->latest()->take(5)->get();
       $project_workers = user_project::all();
       $user = User::all();
-      return view('en.index',compact('announcement','project','project_workers','user'));
+      $totalTasks= Tasks::whereHas('creater', function ($query) {
+        return $query->where('company', '=', Auth::user()->company);
+      })->count();
+      $tasksInProgress = Tasks::where('status','<>','closed')->whereHas('creater', function ($query) {
+        return $query->where('company', '=', Auth::user()->company);
+      })->count();
+      $tasksClosed = Tasks::where('status','=','closed')->whereHas('creater', function ($query) {
+        return $query->where('company', '=', Auth::user()->company);
+      })->count();
+      $totalProjects = Project::whereHas('creater', function ($query) {
+        return $query->where('company', '=', Auth::user()->company);
+      })->count();
+      $activeProjects =  Project::where('active','=',True)->whereHas('creater', function ($query) {
+        return $query->where('company', '=', Auth::user()->company);
+      })->count();
+      $closedProjects =  Project::where('active','=',false)->whereHas('creater', function ($query) {
+        return $query->where('company', '=', Auth::user()->company);
+      })->count();
+
+      return view('en.index',compact('announcement','project','project_workers','user','tasksClosed','tasksInProgress','totalTasks','totalProjects'
+    ,'activeProjects','closedProjects'));
     }
 
     public function download($filename){

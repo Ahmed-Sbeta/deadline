@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('role')->default('employee');
             $table->string('image')->nullable();
             $table->boolean('EOM')->default(false);
+            $table->boolean('is_activated')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

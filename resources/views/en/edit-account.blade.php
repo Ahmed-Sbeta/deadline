@@ -401,7 +401,6 @@
                                                            class="form-control"
                                                            value="{{Auth::user()->email}}"
                                                            placeholder="Your email address ...">
-                                                    <small class="form-text text-muted">Note that if you change your email, you will have to confirm it again.</small>
                                                 </div>
                                             </div>
                                         </div>

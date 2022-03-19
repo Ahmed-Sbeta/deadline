@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/login','Auth\LoginController@login')->name('login'); //login button;
 Route::post('/logout','Auth\LoginController@logout')->name('adminlogout'); //logout button;
+Route::post('/change-password', 'UsersController@changeUserPassword')->name('changepassword');
 
 Route::get('/', 'DashboardController@index')->middleware('auth');
 Route::get('/download/{filename}','DashboardController@download');
@@ -22,6 +23,8 @@ Route::get('/projects','ProjectsController@index');
 Route::get('/project/{id}','ProjectsController@view');
 Route::Post('/addproject','ProjectsController@addProject')->name('addProject');
 Route::post('/openedProjects-cheked','ProjectsController@activeCheckedprojects')->name("activecheked");
+Route::get('/searchProj','ProjectsController@searchActive')->name('searchActiveProjects');
+Route::get('/searchArch','ProjectsController@searchArchive')->name('searchArchiveProjects');
 
 
 Route::get('/tasks-board','TasksController@board');
@@ -38,6 +41,7 @@ Route::get('/reminders','TasksController@reminders');
 
 Route::get('/reports','ReportsController@index');
 Route::Post('/addreport','ReportsController@addreport')->name('addReport');
+Route::get('/searchReport','ReportsController@searchReport')->name('searchReports');
 
 Route::get('/edit-account','UsersController@index');
 Route::Post('/updateName' , 'UsersController@changeUserInfo')->name('updateName');
@@ -46,10 +50,16 @@ Route::get('/edit-account/profile','UsersController@profile');
 Route::Post('/updateImage','UsersController@changeUserImage')->name('updateImage');
 Route::get('/edit-account/notifications','UsersController@notifications');
 Route::get('/edit-account/changepassword','UsersController@changepassword');
+Route::get('/requests','UsersController@requests');
+Route::post('/requests','UsersController@approve')->name('approveRequests');
 
 
 Route::get('/employees','UsersController@employees');
 Route::post('/addemployee','UsersController@addemployee')->name('addEmployee');
+Route::post('/changerole','UsersController@changerole')->name('changerole');
+Route::get('/search/', 'UsersController@search')->name('searchUser');
+
+
 Route::post('/addcompany','CompanyController@addcompany')->name('addcompany');
 Route::get('/deleteCompany/{id}','CompanyController@deleteCompany');
 Route::post('/editCompany/{id}','CompanyController@editCompany')->name('editCompany');
@@ -64,9 +74,11 @@ Route::get('/billing-payment','SubscriptionController@billingPayment');
 Route::get('/announcments','AnnouncementController@index');
 Route::Post('/addAnnouncement','AnnouncementController@addAnnouncement')->name('addAnnouncement');
 Route::get('/announcement-details/{id}','AnnouncementController@Announcement_details');
+Route::get('/searchannouncments','AnnouncementController@searchAnn')->name('searchannouncments');
 
 Route::get('/email','EmailController@index');
 Route::get('/compose-email','EmailController@compose');
+Route::get('/compose-email/{id}','EmailController@composeTo');
 Route::get('/email-details/{id}','EmailController@emailView');
 Route::post('/sendemail','EmailController@sendEmail')->name('sendemail');
 Route::post('/forwardmail','EmailController@sendforward')->name('sendforward');

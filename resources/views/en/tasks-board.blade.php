@@ -579,18 +579,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="list-group-item">
-                                                <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input id="notify"
-                                                           type="checkbox"
-                                                           class="custom-control-input"
-                                                           checked="">
-                                                    <label for="notify"
-                                                           class="custom-control-label">Notify me on email when someone Download my report</label>
-                                                </div>
-                                                <small id="description-notify"
-                                                       class="form-text text-muted">If unchecked, you'll still recieve notifications on our website.</small>
-                                            </div>
+                                            
                                             <div class="list-group-item">
                                                 <button type="submit"
                                                         class="btn btn-accent">Post Task</button>

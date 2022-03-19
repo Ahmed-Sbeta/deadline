@@ -14,35 +14,35 @@
         <meta name="robots"
               content="noindex">
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7COswald:300,400,500,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+        <link href="{{asset('https://fonts.googleapis.com/css?family=Lato:400,700%7COswald:300,400,500,700%7CRoboto:400,500%7CExo+2:600&display=swap')}}"
               rel="stylesheet">
 
         <!-- Perfect Scrollbar -->
         <link type="text/css"
-              href="assets/vendor/perfect-scrollbar.css"
+              href="{{asset('assets/vendor/perfect-scrollbar.css')}}"
               rel="stylesheet">
 
         <!-- Material Design Icons -->
         <link type="text/css"
-              href="assets/css/material-icons.css"
+              href="{{asset('assets/css/material-icons.css')}}"
               rel="stylesheet">
 
         <!-- Font Awesome Icons -->
         <link type="text/css"
-              href="assets/css/fontawesome.css"
+              href="{{asset('assets/css/fontawesome.css')}}"
               rel="stylesheet">
 
         <!-- Preloader -->
         <link type="text/css"
-              href="assets/vendor/spinkit.css"
+              href="{{asset('assets/vendor/spinkit.css')}}"
               rel="stylesheet">
         <link type="text/css"
-              href="assets/css/preloader.css"
+              href="{{asset('assets/css/preloader.css')}}"
               rel="stylesheet">
 
         <!-- App CSS -->
         <link type="text/css"
-              href="assets/css/app.css"
+              href="{{asset('assets/css/app.css')}}"
               rel="stylesheet">
 
 
@@ -122,23 +122,27 @@
                               <img width="32"
                                    height="32"
                                    class="rounded-circle mr-8pt"
-                                   src="assets/images/people/50/guy-3.jpg"
+                                   src="{{asset(Storage::url(Auth::user()->image))}}"
                                    alt="account" />
                               <span class="flex d-flex flex-column mr-8pt">
-                                  <span class="navbar-text-100">Abdo Daeki</span>
-                                  <small class="navbar-text-50">Administrator</small>
+                                <span class="navbar-text-100">{{Auth::user()->name}}</span>
+                                <small class="navbar-text-50">{{Auth::user()->role}}</small>
                               </span>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
                               <div class="dropdown-header"><strong>Account</strong></div>
                               <a class="dropdown-item"
-                                 href="edit-account.html">Edit Account</a>
+                                 href="\edit-account">Edit Account</a>
                               <a class="dropdown-item"
-                                 href="billing.html">Billing</a>
+                                 href="\subscription">Billing</a>
                               <a class="dropdown-item"
-                                 href="billing-history.html">Payments</a>
+                                 href="\billing-history">Payments</a>
                               <a class="dropdown-item"
-                                 href="login.html">Logout</a>
+                              href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">Logout</a>
+                              <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                  @csrf
+                              </form>
                           </div>
                       </div>
 
@@ -329,12 +333,12 @@
                         <!--Date and Time-->
                         <div class="row"
                         role="tablist">
-                       <div class="col-auto d-flex flex-column">
-                           <h6 class="m-0">&dollar;12.3k</h6>
-                           <p class="text-50 mb-0 d-flex align-items-center">
-                               Date and time
-                           </p>
-                       </div>
+                        <div class="col-auto d-flex flex-column">
+                            <h6 class="m-0">{{ Carbon\Carbon::now()->format('H:i')}}</h6>
+                            <p class="text-50 mb-0 pr-1 d-flex align-items-center">
+                                {{ Carbon\Carbon::now()->toDateString()}}
+                            </p>
+                        </div>
 
                        </div>
 
@@ -588,86 +592,22 @@
                                                     </thead>
                                                     <tbody class="list"
                                                            id="contacts">
+
                                                            @foreach($events as $event)
                                                            <tr>
-                                                            <td>
-                                                              @if($event->date == Carbon\Carbon::now()->format('Y-m-d'))
-                                                                <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
-                                                                    <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
-                                                                        </strong></small>
-                                                                    <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
-                                                                    </span>
-                                                              @endif
-                                                            </td>
-                                                            <td>
-                                                              @if($event->date == Carbon\Carbon::now()->addDays(1)->format('Y-m-d'))
-
-                                                                <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
-                                                                    <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
-                                                                        </strong></small>
-                                                                    <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
-                                                                    </span>
-                                                                    @endif
-
-                                                            </td>
-                                                            <td>
-                                                              @if($event->date == Carbon\Carbon::now()->addDays(2)->format('Y-m-d'))
-
-                                                                <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
-                                                                    <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
-                                                                        </strong></small>
-                                                                    <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
-                                                                    </span>
-                                                                    @endif
-
-                                                            </td>
-                                                            <td>
-                                                              @if($event->date == Carbon\Carbon::now()->addDays(3)->format('Y-m-d'))
-
-                                                                <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
-                                                                    <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
-                                                                        </strong></small>
-                                                                    <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
-                                                                    </span>
-                                                                    @endif
-                                                            </td>
-                                                            <td>
-
-                                                              @if($event->date == Carbon\Carbon::now()->addDays(4)->format('Y-m-d'))
-
-                                                                <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
-                                                                    <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
-                                                                        </strong></small>
-                                                                    <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
-                                                                    </span>
-                                                                    @endif
-                                                            </td>
-                                                            <td>
-
-                                                              @if($event->date == Carbon\Carbon::now()->addDays(5)->format('Y-m-d'))
-
-                                                                <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
-                                                                    <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
-                                                                        </strong></small>
-                                                                    <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
-                                                                    </span>
-                                                                    @endif
-
-                                                            </td>
-                                                            <td>
-
-                                                              @if($event->date == Carbon\Carbon::now()->addDays(6)->format('Y-m-d'))
-
-                                                                <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
-                                                                    <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
-                                                                        </strong></small>
-                                                                    <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
-                                                                    </span>
-                                                                    @endif
-                                                            </td>
-
-                                                        @endforeach
-                                                      </tr>
+                                                             @for($i=0;$i < 7; $i++)
+                                                           <td>
+                                                             @if($event->date == Carbon\Carbon::now()->addDays($i)->format('Y-m-d'))
+                                                             <span class="d-flex flex-column border-1 rounded bg-light px-8pt py-4pt lh-1">
+                                                               <small><strong class="js-lists-values-name text-black-100">{{$event->title}}
+                                                               </strong></small>
+                                                               <small class="text-black-50">{{$event->from}} - {{$event->to}}</small>
+                                                             </span>
+                                                             @endif
+                                                           </td>
+                                                          @endfor
+                                                         </tr>
+                                                         @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -886,59 +826,66 @@
                     <div class="sidebar sidebar-dark sidebar-left"
                          data-perfect-scrollbar>
 
-                        <!--  SideBar -->
-                        <a href="index.html"
-                        class="sidebar-brand ">
-                         <img
-                              src="assets/images/logo/logo.png"
-                              alt="Deadline">
+                        <!-- Sidebar -->
 
-                     </a>
 
-                     <div class="sidebar-account mx-16pt mb-16pt dropdown">
-                         <a href="#"
-                            class="nav-link d-flex align-items-center dropdown-toggle"
-                            data-toggle="dropdown"
-                            data-caret="false">
-                             <img width="32"
-                                  height="32"
-                                  class="rounded-circle mr-8pt"
-                                  src="assets/images/people/50/guy-3.jpg"
-                                  alt="account" />
-                             <span class="flex d-flex flex-column mr-8pt">
-                                 <span class="text-black-100">Abdo Daeki</span>
-                                 <small class="text-black-50">Administrator</small>
-                             </span>
-                             <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
-                         </a>
-                         <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
-                             <div class="dropdown-header"><strong>Account</strong></div>
-                             <a class="dropdown-item"
-                                href="edit-account.html">Edit Account</a>
-                             <a class="dropdown-item"
-                                href="billing.html">Billing</a>
-                             <a class="dropdown-item"
-                                href="billing-history.html">Payments</a>
-                             <a class="dropdown-item"
-                                href="login.html">Logout</a>
+                        <a href="\"
+                           class="sidebar-brand ">
+                            <img
+                                 src="{{asset('assets/images/logo/logo.png')}}"
+                                 alt="Deadline">
 
-                         </div>
-                     </div>
+                        </a>
 
-                       <p></p>
+                        <div class="sidebar-account mx-16pt mb-16pt dropdown">
+                          <a href="#"
+                             class="nav-link d-flex align-items-center dropdown-toggle"
+                             data-toggle="dropdown"
+                             data-caret="false">
+                              <img width="32"
+                                   height="32"
+                                   class="rounded-circle mr-8pt"
+                                   src="{{asset(Storage::url(Auth::user()->image))}}"
+                                   alt="account" />
+                              <span class="flex d-flex flex-column mr-8pt">
+                                  <span class="text-black-100">{{Auth::user()->name}}</span>
+                                  <small class="text-black-50">{{Auth::user()->role}}</small>
+                              </span>
+                              <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
+                              <div class="dropdown-header"><strong>Account</strong></div>
+                              <a class="dropdown-item"
+                                 href="\edit-account">Edit Account</a>
+                              <a class="dropdown-item"
+                                 href="\subscription">Billing</a>
+                              <a class="dropdown-item"
+                                 href="\billing-history">Payments</a>
+                                 <a class="dropdown-item"
+                                 href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">Logout</a>
+                                 <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                     @csrf
+                                 </form>
+                          </div>
+                        </div>
+
+                      <p></p>
 
                         <div class="sidebar-heading">Deadlines</div>
+
+
                         <ul class="sidebar-menu">
 
-                            <li class="sidebar-menu-item">
+                            <li class="sidebar-menu-item ">
                                 <a class="sidebar-menu-button"
-                                   href="index.html">
+                                   href="\">
                                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
                                     <span class="sidebar-menu-text">Dashboard</span>
                                 </a>
                             </li>
 
-                            <li class="sidebar-menu-item">
+                            <li class="sidebar-menu-item ">
                                 <a class="sidebar-menu-button"
                                    data-toggle="collapse"
                                    href="#productivity_menu">
@@ -950,29 +897,28 @@
                                     id="productivity_menu">
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="projects.html">
+                                           href="/projects">
                                             <span class="sidebar-menu-text">Projects</span>
                                         </a>
                                     </li>
-                                    <li class="sidebar-menu-item">
+                                    <li class="sidebar-menu-item ">
                                         <a class="sidebar-menu-button"
-                                           href="tasks-board.html">
+                                           href="/tasks-board">
                                             <span class="sidebar-menu-text">Tasks Board</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="tasks-list.html">
+                                           href="/tasks-list">
                                             <span class="sidebar-menu-text">Tasks List</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="reports.html">
+                                           href="/reports">
                                             <span class="sidebar-menu-text">Reports</span>
                                         </a>
                                     </li>
-
 
                                 </ul>
                             </li>
@@ -987,26 +933,27 @@
                                     Account
                                     <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                 </a>
+
                                 <ul class="sidebar-submenu collapse show sm-indent"
                                     id="account_menu">
 
                                    <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="edit-account.html">
+                                           href="/edit-account">
                                             <span class="sidebar-menu-text">Edit Account</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="billing.html">
+                                           href="/subscription">
                                             <span class="sidebar-menu-text">Subscription</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="user-approves.html">
+                                           href="/requests">
                                             <span class="sidebar-menu-text">Requests</span>
                                         </a>
                                     </li>
@@ -1023,30 +970,30 @@
                                 </a>
                                 <ul class="sidebar-submenu collapse sm-indent"
                                     id="community_menu">
-                                    <li class="sidebar-menu-item">
+                                    <li class="sidebar-menu-item active">
                                         <a class="sidebar-menu-button"
-                                           href="employees.html">
+                                           href="/employees">
                                             <span class="sidebar-menu-text">Employees</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="announcments.html">
+                                           href="/announcments">
                                             <span class="sidebar-menu-text">Announcments</span>
                                         </a>
                                     </li>
 
-                                    <li class="sidebar-menu-item active">
+                                    <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="events.html">
+                                           href="/events">
                                             <span class="sidebar-menu-text">Events</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="email.html">
+                                           href="/email">
                                             <span class="sidebar-menu-text">Email</span>
                                         </a>
                                     </li>
@@ -1058,26 +1005,26 @@
         <!-- App Settings FAB -->
 
         <!-- jQuery -->
-        <script src="assets/vendor/jquery.min.js"></script>
+        <script src="{{asset('assets/vendor/jquery.min.js')}}"></script>
 
         <!-- Bootstrap -->
-        <script src="assets/vendor/popper.min.js"></script>
-        <script src="assets/vendor/bootstrap.min.js"></script>
+        <script src="{{asset('assets/vendor/popper.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/bootstrap.min.js')}}"></script>
 
         <!-- Perfect Scrollbar -->
-        <script src="assets/vendor/perfect-scrollbar.min.js"></script>
+        <script src="{{asset('assets/vendor/perfect-scrollbar.min.js')}}"></script>
 
         <!-- DOM Factory -->
-        <script src="assets/vendor/dom-factory.js"></script>
+        <script src="{{asset('assets/vendor/dom-factory.js')}}"></script>
 
         <!-- MDK -->
-        <script src="assets/vendor/material-design-kit.js"></script>
+        <script src="{{asset('assets/vendor/material-design-kit.js')}}"></script>
 
         <!-- App JS -->
-        <script src="assets/js/app.js"></script>
+        <script src="{{asset('assets/js/app.js')}}"></script>
 
         <!-- Highlight.js -->
-        <script src="assets/js/hljs.js"></script>
+        <script src="{{asset('assets/js/hljs.js')}}"></script>
 
         <!-- App Settings (safe to remove) -->
         <!-- <script src="assets/js/app-settings.js"></script> -->

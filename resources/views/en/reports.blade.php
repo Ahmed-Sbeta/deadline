@@ -368,6 +368,8 @@
 
                                     <div class="card--connect pb-32pt pb-lg-64pt">
                                         <div class="card o-hidden mb-0">
+                                          <form class="" action="{{route('searchReports')}}" method="get">
+                                            @csrf
                                             <div class="card-body table--elevated">
                                                 <div class="form-group m-0"
                                                      role="group"
@@ -380,14 +382,16 @@
                                                             <input id="title"
                                                                    type="text"
                                                                    placeholder="Report Name ..."
+                                                                   name="search"
                                                                    class="form-control"
                                                                    >
                                                         </div>
                                                         <div class="d-inline-flex align-items-center">
-                                                            <a href="#"
-                                                               class="btn btn-sm btn-outline-secondary mr-16pt">Search Reports <i class="icon--right material-icons">keyboard_arrow_right</i></a>
+                                                            <button
+                                                               class="btn btn-sm btn-outline-secondary mr-16pt">Search Reports <i class="icon--right material-icons">keyboard_arrow_right</i></button>
 
                                                         </div>
+                                                      </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -520,18 +524,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="list-group-item">
-                                            <div class="custom-control custom-checkbox custom-control-inline">
-                                                <input id="notify"
-                                                       type="checkbox"
-                                                       class="custom-control-input"
-                                                       checked="">
-                                                <label for="notify"
-                                                       class="custom-control-label">Notify me on email when someone Download my report</label>
-                                            </div>
-                                            <small id="description-notify"
-                                                   class="form-text text-muted">If unchecked, you'll still recieve notifications on our website.</small>
-                                        </div>
+
                                         <div class="list-group-item">
                                             <button type="submit"
                                                     class="btn btn-accent">Post Report</button>

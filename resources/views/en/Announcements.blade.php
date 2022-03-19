@@ -360,6 +360,8 @@
                     <div class="page-section">
 
                       <div class="card--connect pb-32pt pb-lg-64pt">
+                        <form class="" action="{{route('searchannouncments')}}" method="get">
+                          @csrf
                               <div class="card o-hidden mb-0">
                                   <div class="card-body table--elevated">
                                       <div class="form-group m-0"
@@ -373,14 +375,16 @@
                                                   <input id="title"
                                                          type="text"
                                                          placeholder="Announcments ..."
+                                                         name="search"
                                                          class="form-control"
                                                          >
                                               </div>
                                               <div class="d-inline-flex align-items-center">
-                                                  <a href="#"
-                                                     class="btn btn-sm btn-outline-secondary mr-16pt"> Search  <i class="icon--right material-icons">keyboard_arrow_right</i></a>
+                                                  <button type="submit"
+                                                     class="btn btn-sm btn-outline-secondary mr-16pt"> Search  <i class="icon--right material-icons">keyboard_arrow_right</i></button>
 
                                               </div>
+                                            </form>
                                           </div>
                                       </div>
                                   </div>
@@ -538,18 +542,6 @@
                                                 </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input id="notify"
-                                               type="checkbox"
-                                               class="custom-control-input"
-                                               checked="">
-                                        <label for="notify"
-                                               class="custom-control-label">Notify me on email when someone Download my report</label>
-                                    </div>
-                                    <small id="description-notify"
-                                           class="form-text text-muted">If unchecked, you'll still recieve notifications on our website.</small>
                                 </div>
                                 <div class="list-group-item">
                                     <button type="submit"

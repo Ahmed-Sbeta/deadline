@@ -114,6 +114,9 @@
                                               @foreach($users as $user)
                                               <option value="{{$user->id}}">{{$user->name}}</option>
                                               @endforeach
+                                              @if($someone){
+                                                <option selected value="{{$someone->id}}">{{$someone->name}}</option>
+                                              }@endif
                                             </select>
                                         </div>
                                     </div>
