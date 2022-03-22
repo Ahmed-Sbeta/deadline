@@ -26,13 +26,21 @@ class ProjectsController extends Controller
           return $query->where('company', '=', Auth::user()->company);
         })->orderBy('dueOn', 'ASC')->take(2)->get();
 
-      $users = User::all()->Where('company','=',Auth::user()->company)->except(Auth::id());
+      $users = User::all()->Where('company','=',Auth::user()->company);
       $supervisers = User::Where('role','=','suproviser')->Where('company','=',Auth::user()->company)->get();
       $j=1;
       // dd($closest2);
       return view('en.projects',compact('users','closest','closest2','projects','supervisers','j','archive'));
     }
     public function addProject(Request $request){
+      $this->validate($request,[
+         'title'=>'required',
+         'discription'=>'required',
+         'budget'=>'required',
+         'dueOn'=>'required',
+         'file'=>'required',
+         'contributors'=>'required'
+      ]);
       $project = new Project;
       $project->creator = Auth::id();
       $project->title = request('title');
@@ -48,7 +56,7 @@ class ProjectsController extends Controller
       //endfile
       $project->save();
       Project::find($project->id)->workers()->attach($request->contributors);
-      return redirect('/projects');
+      return redirect()->back()->with('success','Project added successfuly');
     }
 
     public function activeCheckedprojects(Request $request){
@@ -94,7 +102,7 @@ class ProjectsController extends Controller
 
     public function searchArchive(Request $request){
       $search = $request->input('search');
-      
+
       $projects = Project::where('active','=', true)
       ->whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);

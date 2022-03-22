@@ -27,6 +27,7 @@ class CompanyController extends Controller
       $user->dob = request('dob');
       $user->email = request('email');
       $user->job = "Manager";
+      $user->is_activated = True;
       $user->role = "administrator";
       $user->company = $company->id;
       $user->phoneNumber = request('phoneNumber');
@@ -52,7 +53,6 @@ class CompanyController extends Controller
     }
 
     public function deleteCompany($id){
-      dd($id);
       $company = Company::find($id);
       $users = User::where('company','=',$id)->delete();
       $company->delete();

@@ -91,82 +91,8 @@
 
                          <div class="navbar border-bottom justify-content-start">
 
-                            <a href="compose-mail.html"
+                            <a href="/compose-email"
                                class="btn btn-accent"><i class="material-icons icon--left">edit</i> Compose</a>
-                        </div>
-                        <div class="container-fluid page__container page-section">
-
-                            <div class="d-flex align-items-center mb-3">
-                                <a href="#"
-                                   class="avatar avatar-sm mr-3">
-                                    <img src="{{asset(Storage::url($user->find($selected_mail->creator)->image))}}"
-                                         alt="Avatar"
-                                         class="avatar-img rounded-circle">
-                                </a>
-                                <div class="flex">
-                                    <p class="m-0">
-                                        <span class="d-flex align-items-center">
-                                            <a href="#"
-                                               class="text-dark-gray"><strong>{{$user->find($selected_mail->creator)->name}}</strong></a>
-                                            <small class="ml-auto text-muted">{{(new Carbon\Carbon($selected_mail->created_at))->diffForHumans()}}</small>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="d-flex align-items-center">
-                                <h1 class="h4 flex">{{$selected_mail->subject}}</h1>
-                                <div class="d-flex align-items-center">
-                                    <a href="/email-forward/{{$selected_mail->id}}"
-                                       class="text-dark-gray">
-                                        <i class="material-icons">forward</i>
-
-                                    </a>
-
-                                </div>
-
-
-                                <div class="text-center ml-3">
-                                    <a href="/download/{{$selected_mail->file}}"
-                                       class="d-flex flex-column">
-                                        <i class="material-icons">attachment</i>
-                                        <small class="text-muted">1 Attachments</small>
-                                    </a>
-                                </div>
-
-                                <div class="text-center ml-3">
-
-
-                                    <a href="/delete-mail/{{$selected_mail->id}}"
-                                       class="d-flex flex-column">
-                                        <i class="material-icons">restore_from_trash</i>
-                                        <small class="text-muted">trash</small>
-                                    </a>
-                                </div>
-
-                            </div>
-
-                            <div class="d-flex align-items-left ">
-                                <div class="flex mr-3 text-break pb-5">
-                                    <p class="text-70 measure-paragraph-max " >{!! nl2br(e($selected_mail->message)) !!}</p>
-                                </div>
-
-
-
-                            </div>
-                                <div class="form-group">
-                                  <form class="" action="{{ url('/reply/'.$selected_mail->id)}}" method="post">
-                                    @csrf
-                                    <label for="comment"
-                                           class="form-label"><h4>Your Reply</h4></label>
-                                    <textarea class="form-control"
-                                              id="comment"
-                                              rows="4"
-                                              name="reply"
-                                              placeholder="Type here to reply to Matney ..."></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-accent">Send Reply</button>
-                              </form>
                         </div>
 
                     </div>
@@ -189,17 +115,19 @@
                                     </div>
                                 </div>
                                 <a href="/email"
+
                                 class="btn btn-sm btn-light"><i class="material-icons icon--left">tune</i> Inbox</a>
                                 <a href="/email/sent"
+
                                 class="btn btn-sm btn-light"><i class="material-icons icon--left">tune</i> Sent </a>
                                 <a href="/email/trash"
+
                                 class="btn btn-sm btn-light"><i class="material-icons icon--left">tune</i> Trash </a>
 
                                 <div class="list-group list-group-flush flex-shrink-0"
                                      style="position: relative; z-index: 0;">
-                                     @foreach($receved as $res)
-                                     @foreach($email as $mail)
-                                     @if($res->email_id == $mail->id)
+                                     @foreach($trash as $mail)
+
 
                                     <div class="list-group-item d-flex align-items-start bg-transparent">
                                         <div class="mr-3 d-flex flex-column align-items-center">
@@ -209,7 +137,7 @@
                                                      alt="Avatar"
                                                      class="avatar-img rounded-circle">
                                             </a>
-                                            <a href=""
+                                            <a href="/email-details/{{$mail->id}}"
                                                class="text-muted"><i class="material-icons icon-16pt">star_border</i></a>
                                         </div>
                                         <div class="flex">
@@ -225,7 +153,7 @@
                                                         <small class="text-muted"
                                                                style="max-height: 2rem; overflow: hidden;max-width: 8rem; position: relative; display: inline-block;">{{$mail->message}}</small>
                                                     </span>
-                                                    <a href="/email-details/{{$mail->id}}"
+                                                    <a href=""
                                                        class="d-flex align-items-center mb-1">
                                                         <small class="text-muted mr-1">1</small>
                                                         <i class="material-icons icon-16pt">attachment</i>
@@ -234,8 +162,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    @endif
-                                    @endforeach
+
                                     @endforeach
                                 </div>
 
@@ -451,10 +378,10 @@
         <script src="{{asset('assets/js/app.js')}}"></script>
 
         <!-- Highlight.js -->
-        <script src="{{asset('assets/js/hljs.js')}}"></script>
+        <!-- <script src="{{asset('assets/js/hljs.js')}}"></script> -->
 
         <!-- App Settings (safe to remove) -->
-        <script src="{{asset('assets/js/app-settings.js')}}"></script>
+        <!-- <script src="{{asset('assets/js/app-settings.js')}}"></script> -->
     </body>
 
 </html>

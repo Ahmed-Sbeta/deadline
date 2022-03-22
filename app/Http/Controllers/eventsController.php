@@ -29,7 +29,13 @@ class eventsController extends Controller
       return view('en.events',compact('today','upcoming','events','dob'));
     }
 
-    public function addEvent(){
+    public function addEvent(Request $request){
+      $request->validate([
+          'title' => ['required'],
+          'date' => ['required'],
+          'from' => ['required'],
+          'to' => ['required'],
+      ]);
       $event = new events;
       $event->title = request('title');
       $event->date = request('date');
@@ -37,6 +43,6 @@ class eventsController extends Controller
       $event->to = request('to');
       $event->creator = Auth::id();
       $event->save();
-      return redirect()->back();
+      return redirect()->back()->with('success','Event added successfuly');
     }
 }

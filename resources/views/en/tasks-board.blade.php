@@ -456,6 +456,20 @@
                     <div class="page-separator">
                                             <div class="page-separator__text">Add New task</div>
                                         </div>
+                                        @if (count($errors) > 0)
+                                        <div class = "alert alert-danger">
+                                          <ul>
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                          </ul>
+                                        </div>
+                                        @endif
+                                        @if(session()->has('success'))
+                                        <div class="alert alert-success">
+                                          {{ session()->get('success') }}
+                                        </div>
+                                        @endif
 
                                         <form class="" action="{{ route('addTask')}}" method="post" enctype="multipart/form-data">
                                           @csrf
@@ -508,7 +522,7 @@
                                                                class="col-md-3 col-form-label form-label">Related Project</label>
                                                         <div class="col-md-9">
                                                             <select name="projects" id="projects" name="project" class="col-6 col-form-label form-control">
-                                                              <option value="0">select project</option>
+                                                              <option value="" selected >select project</option>
                                                               @foreach($projects as $project)
                                                                 <option value="{{$project->id}}">{{$project->title}}</option>
                                                                 @endforeach
@@ -517,20 +531,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="list-group-item">
-                                 <div role="group"
-                                      aria-labelledby="label-question"
-                                      class="m-0 form-group">
-                                     <div class="form-row">
-                                         <label id="label-question"
-                                                for="question"
-                                                class="col-md-3 col-form-label form-label">Due to</label>
-                                         <div class="col-md-9">
-                                             <input type="date" name="dueOn">
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
+
 
                                             <div class="list-group-item">
                                                 <div class="form-group m-0"
@@ -571,6 +572,7 @@
                                                                class="col-md-3 col-form-label form-label">Assign to</label>
                                                                <div class="col-9 ">
                                                                  <select class="contributors form-control" name="worker">
+                                                                   <option value="" selected>select ...</option>
                                                                    @foreach($users as $user)
                                                                    <option value="{{$user->id}}">{{$user->name}}</option>
                                                                    @endforeach
@@ -579,7 +581,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="list-group-item">
                                                 <button type="submit"
                                                         class="btn btn-accent">Post Task</button>
@@ -591,12 +593,12 @@
                         <div class="col-lg-8">
 
                             <div class="page-separator">
-                                <div class="page-separator__text">Quick Access</div>
+                                <div class="page-separator__text">Ads Pannel</div>
                             </div>
 
                             <div class="card mb-lg-0">
                                 <div class="card-header d-flex align-items-center">
-                                    <strong class="flex">Click on the banner below</strong>
+                                    <strong class="flex">Paid Ads</strong>
 
                                 </div>
                                 <div class="progress rounded-0"
@@ -610,7 +612,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div>
-                                        <a href="tasks-list.html"><img src="assets/images/quickers.png" alt="Project Details"
+                                        <a href="tasks-list.html"><img src="assets/images/quickers.jpg" alt="Project Details"
                                              style="width:570px;"></a>
 
                                     </div>
@@ -646,7 +648,7 @@
                                     <div class="list-group-item p-16pt">
 
 
-                                            <a href="https:www.google.com"><img src="assets/images/ads.png" alt="Paid Ad"
+                                            <a href="https:www.google.com"><img src="assets/images/ads.jpg" alt="Paid Ad"
                                                  style="width:260px;"></a>
 
 
@@ -711,188 +713,187 @@
             </div>
             <!-- // END drawer-layout__content -->
 
-            <!-- drawer -->
-            <div class="mdk-drawer js-mdk-drawer"
-                 id="default-drawer">
-                <div class="mdk-drawer__content">
-                    <div class="sidebar sidebar-dark sidebar-left"
-                         data-perfect-scrollbar>
+                        <!-- drawer -->
+                        <div class="mdk-drawer js-mdk-drawer"
+                             id="default-drawer">
+                            <div class="mdk-drawer__content">
+                                <div class="sidebar sidebar-dark sidebar-left"
+                                     data-perfect-scrollbar>
 
-                        <!-- Sidebar -->
-
-
-                        <a href="\"
-                           class="sidebar-brand ">
-                            <img
-                                 src="{{asset('assets/images/logo/logo.png')}}"
-                                 alt="Deadline">
-
-                        </a>
-
-                        <div class="sidebar-account mx-16pt mb-16pt dropdown">
-                          <a href="#"
-                             class="nav-link d-flex align-items-center dropdown-toggle"
-                             data-toggle="dropdown"
-                             data-caret="false">
-                              <img width="32"
-                                   height="32"
-                                   class="rounded-circle mr-8pt"
-                                   src="{{asset(Storage::url(Auth::user()->image))}}"
-                                   alt="account" />
-                              <span class="flex d-flex flex-column mr-8pt">
-                                  <span class="text-black-100">{{Auth::user()->name}}</span>
-                                  <small class="text-black-50">{{Auth::user()->role}}</small>
-                              </span>
-                              <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
-                              <div class="dropdown-header"><strong>Account</strong></div>
-                              <a class="dropdown-item"
-                                 href="\edit-account">Edit Account</a>
-                              <a class="dropdown-item"
-                                 href="\subscription">Billing</a>
-                              <a class="dropdown-item"
-                                 href="\billing-history">Payments</a>
-                                 <a class="dropdown-item"
-                                 href="{{ route('adminlogout') }}" onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">Logout</a>
-                                 <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
-                                     @csrf
-                                 </form>
-                          </div>
-                        </div>
-
-                      <p></p>
-
-                        <div class="sidebar-heading">Deadlines</div>
+                                    <!-- Sidebar -->
 
 
-                        <ul class="sidebar-menu">
+                                    <a href="\"
+                                       class="sidebar-brand ">
+                                        <img
+                                             src="{{asset('assets/images/logo/logo.png')}}"
+                                             alt="Deadline">
 
-                            <li class="sidebar-menu-item ">
-                                <a class="sidebar-menu-button"
-                                   href="\">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
-                                    <span class="sidebar-menu-text">Dashboard</span>
-                                </a>
-                            </li>
+                                    </a>
 
-                            <li class="sidebar-menu-item active">
-                                <a class="sidebar-menu-button"
-                                   data-toggle="collapse"
-                                   href="#productivity_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">access_time</span>
-                                    Productivity
-                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                </a>
-                                <ul class="sidebar-submenu collapse sm-indent"
-                                    id="productivity_menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/projects">
-                                            <span class="sidebar-menu-text">Projects</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item active">
-                                        <a class="sidebar-menu-button"
-                                           href="/tasks-board">
-                                            <span class="sidebar-menu-text">Tasks Board</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/tasks-list">
-                                            <span class="sidebar-menu-text">Tasks List</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/reports">
-                                            <span class="sidebar-menu-text">Reports</span>
-                                        </a>
-                                    </li>
+                                    <div class="sidebar-account mx-16pt mb-16pt dropdown">
+                                      <a href="#"
+                                         class="nav-link d-flex align-items-center dropdown-toggle"
+                                         data-toggle="dropdown"
+                                         data-caret="false">
+                                          <img width="32"
+                                               height="32"
+                                               class="rounded-circle mr-8pt"
+                                               src="{{asset(Storage::url(Auth::user()->image))}}"
+                                               alt="account" />
+                                          <span class="flex d-flex flex-column mr-8pt">
+                                              <span class="text-black-100">{{Auth::user()->name}}</span>
+                                              <small class="text-black-50">{{Auth::user()->role}}</small>
+                                          </span>
+                                          <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
+                                      </a>
+                                      <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
+                                          <div class="dropdown-header"><strong>Account</strong></div>
+                                          <a class="dropdown-item"
+                                             href="\edit-account">Edit Account</a>
+                                          <a class="dropdown-item"
+                                             href="\subscription">Billing</a>
+                                          <a class="dropdown-item"
+                                             href="\billing-payment">Payments</a>
+                                             <a class="dropdown-item"
+                                             href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">Logout</a>
+                                             <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                                 @csrf
+                                             </form>
+                                      </div>
+                                    </div>
 
-                                </ul>
-                            </li>
+                                  <p></p>
+
+                                    <div class="sidebar-heading">Deadlines</div>
 
 
+                                    <ul class="sidebar-menu">
 
-                              <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button"
-                                   data-toggle="collapse"
-                                   href="#account_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span>
-                                    Account
-                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                </a>
+                                        <li class="sidebar-menu-item ">
+                                            <a class="sidebar-menu-button"
+                                               href="\">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
+                                                <span class="sidebar-menu-text">Dashboard</span>
+                                            </a>
+                                        </li>
 
-                                <ul class="sidebar-submenu collapse show sm-indent"
-                                    id="account_menu">
+                                        <li class="sidebar-menu-item active">
+                                            <a class="sidebar-menu-button"
+                                               data-toggle="collapse"
+                                               href="#productivity_menu">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">access_time</span>
+                                                Productivity
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                            </a>
+                                            <ul class="sidebar-submenu collapse sm-indent"
+                                                id="productivity_menu">
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/projects">
+                                                        <span class="sidebar-menu-text">Projects</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item active">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/tasks-board">
+                                                        <span class="sidebar-menu-text">Tasks Board</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/tasks-list">
+                                                        <span class="sidebar-menu-text">Tasks List</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/reports">
+                                                        <span class="sidebar-menu-text">Reports</span>
+                                                    </a>
+                                                </li>
 
-                                   <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/edit-account">
-                                            <span class="sidebar-menu-text">Edit Account</span>
-                                        </a>
-                                    </li>
+                                            </ul>
+                                        </li>
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/subscription">
-                                            <span class="sidebar-menu-text">Subscription</span>
-                                        </a>
-                                    </li>
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="user-approves.html">
-                                            <span class="sidebar-menu-text">Requests</span>
-                                        </a>
-                                    </li>
 
-                                </ul>
-                            </li>
-                            <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button"
-                                   data-toggle="collapse"
-                                   href="#community_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people_outline</span>
-                                    Community
-                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                </a>
-                                <ul class="sidebar-submenu collapse sm-indent"
-                                    id="community_menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/employees">
-                                            <span class="sidebar-menu-text">Employees</span>
-                                        </a>
-                                    </li>
+                                          <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               data-toggle="collapse"
+                                               href="#account_menu">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span>
+                                                Account
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                            </a>
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/announcments">
-                                            <span class="sidebar-menu-text">Announcments</span>
-                                        </a>
-                                    </li>
+                                            <ul class="sidebar-submenu collapse show sm-indent"
+                                                id="account_menu">
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="events.html">
-                                            <span class="sidebar-menu-text">Events</span>
-                                        </a>
-                                    </li>
+                                               <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/edit-account">
+                                                        <span class="sidebar-menu-text">Edit Account</span>
+                                                    </a>
+                                                </li>
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/email">
-                                            <span class="sidebar-menu-text">Email</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/subscription">
+                                                        <span class="sidebar-menu-text">Subscription</span>
+                                                    </a>
+                                                </li>
 
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/requests">
+                                                        <span class="sidebar-menu-text">Requests</span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               data-toggle="collapse"
+                                               href="#community_menu">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people_outline</span>
+                                                Community
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                            </a>
+                                            <ul class="sidebar-submenu collapse sm-indent"
+                                                id="community_menu">
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/employees">
+                                                        <span class="sidebar-menu-text">Employees</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/announcments">
+                                                        <span class="sidebar-menu-text">Announcments</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/events">
+                                                        <span class="sidebar-menu-text">Events</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/email">
+                                                        <span class="sidebar-menu-text">Email</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
 
         <!-- App Settings FAB -->
 

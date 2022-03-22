@@ -7,12 +7,16 @@ use App\Tasks;
 use App\Project;
 use Auth;
 use App\User;
+use App\comments;
+
 
 class TasksController extends Controller
 {
     public function board(){
-      $users = User::all()->where('company','=',Auth::user()->company)->except(Auth::id());
-      $projects = Project::get();
+      $users = User::all()->where('company','=',Auth::user()->company);
+      $projects = Project::whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->get();
       $tasks = Tasks::whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);
         })->latest()->paginate(12);
@@ -28,12 +32,34 @@ class TasksController extends Controller
       return view('en.tasks-list',compact('opened','inProgress','closed','i','k','j'));
     }
 
-    public function addTask(){
+    public function addComment($id,Request $request){
+      $request->validate([
+          'comment' => ['required'],
+      ]);
+      $comment = new comments;
+      $comment->creator = Auth::id();
+      $comment->comment = request('comment');
+      $comment->file = request('file');
+      $comment->task_id = $id;
+      $comment->save();
+      return redirect()->back()->with('success','Comment added successfuly');
+    }
+
+    public function addTask(Request $request){
+      $this->validate($request,[
+         'title'=>'required',
+         'discription'=>'required',
+         'projects'=>'required',
+         'dueOn'=>'required',
+         'file'=>'required',
+         'worker'=>'required'
+      ]);
       $task = new Tasks;
       $task->title = request('title');
       $task->discription = request('discription');
       $task->creator = Auth::id();
-      $task->project = 1;
+      $task->project = request('projects');
+      $task->dueOn =  request('dueOn');;
 
       $file = request()->file('file');
       $name = $file->getClientOriginalName();
@@ -43,12 +69,13 @@ class TasksController extends Controller
       $task->assignedTo = request('worker');
       $task->status = "open";
       $task->save();
-      return redirect('/tasks-board');
+      return redirect('/tasks-board')->with('success','Task added successfuly');
     }
 
     public function view($id){
+      $comments = comments::with('creater')->where('task_id','=',$id)->latest()->get();
       $task = Tasks::find($id);
-      return view('tasks-details',compact('task'));
+      return view('en.tasks-details',compact('task','comments'));
     }
 
     public function openedCheckedTasks(Request $request){

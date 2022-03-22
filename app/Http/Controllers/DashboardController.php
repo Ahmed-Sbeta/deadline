@@ -39,9 +39,20 @@ class DashboardController extends Controller
       $closedProjects =  Project::where('active','=',false)->whereHas('creater', function ($query) {
         return $query->where('company', '=', Auth::user()->company);
       })->count();
+      if($totalProjects <> 0){
+      $inProgress= $activeProjects/$totalProjects*100;
+      $inProgress = number_format((float)$inProgress, 1, '.', '');
+      // dd($inProgress);
+      $Done =number_format((float)$closedProjects/$totalProjects*100, 1, '.', '');
+    }else{
+      $inProgress = 0;
+      $Done =0;
+      // dd($inProgress);
+    }
 
-      return view('en.index',compact('announcement','project','project_workers','user','tasksClosed','tasksInProgress','totalTasks','totalProjects'
-    ,'activeProjects','closedProjects'));
+
+      return view('en.index',compact('announcement','project','project_workers','user','tasksClosed','tasksInProgress','totalTasks',
+      'inProgress','Done','activeProjects','closedProjects'));
     }
 
     public function download($filename){

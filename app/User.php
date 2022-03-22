@@ -39,6 +39,9 @@ class User extends Authenticatable
     public function Announcment(){
       return $this->hasMany('App\Announcment' ,'creator');
     }
+    public function comments(){
+      return $this->hasMany('App\comments' ,'creator');
+    }
     public function reports(){
       return $this->hasMany('App\reports');
     }

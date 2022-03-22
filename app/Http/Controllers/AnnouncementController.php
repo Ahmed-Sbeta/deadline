@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Announcement;
 use Auth;
+use App\comments;
 
 class AnnouncementController extends Controller
 {
@@ -16,11 +17,31 @@ class AnnouncementController extends Controller
     }
 
     public function Announcement_details($id){
+      $comments = comments::with('creater')->where('announcment_id','=',$id)->latest()->get();
+      // dd($comments);
       $announcement = Announcement::find($id);
-      return view('en.announcement-details',compact('announcement'));
+      return view('en.announcement-details',compact('announcement','comments'));
     }
 
-    public function addAnnouncement(){
+    public function addComment($id,Request $request){
+      $request->validate([
+          'comment' => ['required'],
+      ]);
+      $comment = new comments;
+      $comment->creator = Auth::id();
+      $comment->comment = request('comment');
+      $comment->file = request('file');
+      $comment->announcment_id = $id;
+      $comment->save();
+      return redirect()->back()->with('success','Comment added successfuly');
+    }
+
+    public function addAnnouncement(Request $request){
+      $request->validate([
+          'title' => ['required'],
+          'discription' => ['required'],
+          'file' => ['required'],
+      ]);
       $announcement= new Announcement;
       $announcement->creator = Auth::id();
       $announcement->title = request('title');
@@ -31,7 +52,7 @@ class AnnouncementController extends Controller
       $name = str_replace(' ', '', $name);
       $announcement->file = request()->file('file') ? request()->file('file')->storePubliclyAs('',$name) : null;
       $announcement->save();
-      return redirect('/announcments');
+      return redirect('/announcments')->with('success','Announcement added successfuly');;
     }
 
     public function searchAnn(Request $request){

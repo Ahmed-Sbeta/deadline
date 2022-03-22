@@ -360,6 +360,7 @@
                 <div class="container-fluid page__container">
                     <div class="page-section">
 
+                      @if($announcement)
                         <div class="page-separator">
                             <div class="page-separator__text">New Announcment</div>
                         </div>
@@ -367,7 +368,6 @@
                         <div class="btn-accent">
 
                             <div class="card-body">
-
                                 <section class="call-to-action call-to-action-primary mb-5">
                                     <div class="col-sm-9 col-lg-9">
                                         <div class="call-to-action-content">
@@ -382,9 +382,12 @@
                                         </div>
                                     </div>
                                 </section>
+
+
                             </div>
                         </div>
                         <p></p>
+                        @endif
 
                           <!-- Upcoming Deadlines div-->
 
@@ -549,7 +552,11 @@
                 <div class="d-flex align-items-center">
                     <div class="position-relative mr-16pt">
                         <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                            <small>{{$activeProjects/$totalProjects*100}}%</small>
+                          @if($inProgress)
+                            <small>{{$inProgress}}%</small>
+                            @else
+                            <small>0%</small>
+                            @endif
                         </div>
                         <canvas width="48"
                                 height="48"
@@ -561,7 +568,11 @@
                     <div class="flex">
                         <strong>In progress</strong>
                     </div>
+                    @if($activeProjects)
                     <div class="text-50">{{$activeProjects}}</div>
+                    @else
+                    <div class="text-50">0</div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -572,7 +583,11 @@
                 <div class="d-flex align-items-center">
                     <div class="position-relative mr-16pt">
                         <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                            <small>{{$closedProjects/$totalProjects*100}}%</small>
+                            @if($Done)
+                            <small>{{$Done}}%</small>
+                            @else
+                            <small>{{$Done}}%</small>
+                            @endif
                         </div>
                         <canvas width="48"
                                 height="48"
@@ -584,7 +599,11 @@
                     <div class="flex">
                         <strong>Done</strong>
                     </div>
+                    @if($closedProjects)
                     <div class="text-50">{{$closedProjects}}</div>
+                    @else
+                    <div class="text-50">{{$closedProjects}}</div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -834,7 +853,7 @@
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="user-approves.html">
+                                           href="/requests">
                                             <span class="sidebar-menu-text">Requests</span>
                                         </a>
                                     </li>
@@ -909,21 +928,28 @@
 
         <!-- App Settings (safe to remove) -->
         <script src="{{asset('assets/js/settings.js')}}"></script>
-        <script src="{{asset('assets/js/app-settings.js')}}"></script>
 
         <!-- Chart.js -->
         <script src="{{asset('assets/vendor/Chart.min.js')}}"></script>
         <script src="{{asset('assets/js/chartjs.js')}}"></script>
 
         <!-- Chart.js Samples -->
-        <script src="{{asset('assets/js/page.employees.js')}}"></script>
+        <!-- <script src="{{asset('assets/js/employees.js')}}"></script> -->
+        <script type="text/javascript">
+        !function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="/",r(r.s=480)}({480:function(e,t,r){e.exports=r(481)},481:function(e,t){!function(){"use strict";var e=function(e,t,r){var n=arguments.length>3&&void 0!==arguments[3]?arguments[3]:"doughnut",o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:{};o=Chart.helpers.merge({cutoutPercentage:85,aspectRatio:1,responsive:!1,maintainAspectRatio:!1},o);var a={datasets:[{data:[t,r-t],backgroundColor:[],borderWidth:0}]};Charts.create(e,n,o,a)};e("#inTimeProgressChart",{{$inProgress}},100),e("#lateProgressChart",{{$Done}},100),e("#absentsProgressChart",70,100),e("#vacationProgressChart",.27,27),e("#outTimeProgressChart",70,25),e("#preTimeProgressChart",30,80)}()}});
+
+        </script>
+        <script type="text/javascript">
+        !function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=484)}({484:function(e,t,n){e.exports=n(485)},485:function(e,t){!function(){"use strict";!function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"doughnut",n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};n=Chart.helpers.merge({cutoutPercentage:75,tooltips:{callbacks:{title:function(e,t){return t.labels[e[0].index]},label:function(e,t){return""+'<span class="popover-body-value">'+t.datasets[0].data[e.index]+"</span>"}}}},n);var r={labels:["In Progress","Done",],datasets:[{data:[{{$tasksInProgress}},{{$tasksClosed}}],backgroundColor:[],borderColor:settings.colors.white,hoverBorderColor:settings.colors.white}]};Charts.create(e,t,n,r)}("#attendanceDoughnutChart")}()}});
+
+        </script>
 
 
         <!-- Chart.js Samples -->
-        <script src="{{asset('assets/js/page.hr-dashboard.js')}}"></script>
+        <!-- <script src="{{asset('assets/js/page.hr-dashboard.js')}}"></script> -->
 
         <!-- Chart.js Samples -->
-        <script src="{{asset('assets/js/page.tasks-board.js')}}"></script>
+        <!-- <script src="{{asset('assets/js/page.tasks-board.js')}}"></script> -->
 
     </body>
 

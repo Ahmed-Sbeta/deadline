@@ -160,7 +160,7 @@
 									<h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-0">List of Clients</h4>
 									<p class="text-2 opacity-7">You can control you clients list in the table below.</p>
 
-									<table class="table table-striped">
+									<table class="table">
 										<thead>
 											<tr>
 												<th class="text-center">
@@ -225,15 +225,7 @@
 													@csrf
 													@method('DELETE')
 													<input type="submit" name="" class=" btn btn-danger" value="delete">
-													<!-- <a href="#small-dialog"  class="popup-with-zoom-anim btn btn-danger mr-2">delete</a>
-													<div id="small-dialog" class="dialog dialog-sm zoom-anim-dialog mfp-hide p-4">
-														<h3 class="font-weight-semi-bold text-transform-none mb-3">Deleting Company</h3>
-														<p class="mb-0">are you sure you want to delete this company ?
-															<input class="btn btn-danger mb-2 col-md-3" value="Delete" type="submit" onclick="event.preventDefault();
-															document.getElementById('delete-Company').submit();">
-															<a href="" class="btn btn-light mb-2 col-md-3">Cancel</a>
-														</p>
-													</div> -->
+
 												</form>
 												</td>
 
