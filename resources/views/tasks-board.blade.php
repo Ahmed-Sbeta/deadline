@@ -531,6 +531,7 @@
 
                     </div>
 
+                  
                     <div class="page-separator">
                                             <div class="page-separator__text">Add New task</div>
                                         </div>
@@ -586,7 +587,7 @@
                                                                class="col-md-3 col-form-label form-label">Related Project</label>
                                                         <div class="col-md-9">
                                                             <select name="projects" id="projects" name="project" class="col-6 col-form-label form-control">
-                                                              <option value="0">select project</option>
+                                                              <option value="NULL">select project</option>
                                                               @foreach($projects as $project)
                                                                 <option value="{{$project->id}}">{{$project->title}}</option>
                                                                 @endforeach

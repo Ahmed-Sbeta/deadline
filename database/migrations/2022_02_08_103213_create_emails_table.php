@@ -18,6 +18,7 @@ class CreateEmailsTable extends Migration
             $table->integer("creator");
             $table->string("subject");
             $table->longtext("message");
+            $table->boolean("deleted")->default(False);            
             $table->string("file")->nullable();
             $table->timestamps();
         });

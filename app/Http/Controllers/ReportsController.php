@@ -17,16 +17,20 @@ class ReportsController extends Controller
       // dd($reports);
       return view('en.reports',compact('reports','creator'));
     }
-    public function addReport(){
+    public function addReport(Request $request){
+      $this->validate($request,[
+         'title'=>'required',
+         'file'=>'required'
+      ]);
       $report = new reports;
       $report->title = request('title');
       $file = request()->file('file');
       $name = $file->getClientOriginalName();
       $name = str_replace(' ', '', $name);
       $report->file = request()->file('file') ? request()->file('file')->storePubliclyAs('',$name) : null;
-      $report->creator = 1;
+      $report->creator = Auth::id();
       $report->save();
-      return redirect('/reports');
+      return redirect('/reports')->with('success','Report uploaded successfuly');
     }
 
     public function searchReport(Request $request){

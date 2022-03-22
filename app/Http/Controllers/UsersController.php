@@ -27,7 +27,7 @@ class UsersController extends Controller
       $user = User::find($EOM);
       $user->EOM = true;
       $user->save();
-      return redirect()->back();
+      return redirect()->back()->with('success','Employee of the month changed successfuly');
     }
     public function profile(){
       $user = Auth::user();
@@ -61,7 +61,7 @@ class UsersController extends Controller
         $user->role = $myArray[0];
         $user->save();
       }
-      return redirect('/employees');
+      return redirect('/employees')->with('success','Employee Role changed successfuly');;
     }
 
     public function search(Request $request){
@@ -82,23 +82,31 @@ class UsersController extends Controller
 }
 
     //firstName,lastName and email save changes button.
-    public function changeUserInfo(){
+    public function changeUserInfo(Request $request){
+      $request->validate([
+          'firstName' => ['required'],
+          'lastName' => ['required'],
+          'email' => ['required'],
+      ]);
       $user = Auth::user();
       $user->firstName = Request('firstName');
       $user->lastName = Request('lastName');
       $user->name = Request('firstName')." ".Request('lastName');
       $user->email = Request('email');
       $user->save();
-      return redirect('/edit-account');
+      return redirect('/edit-account')->with('success','Information edited successfuly');
     }
 
-    public function changeUserImage(){
+    public function changeUserImage(Request $request){
+      $request->validate([
+        'phoneNumber' => ['required']
+      ]);
       $user=Auth::user();
       $user->image = request()->file('image') ? request()->file('image')->store('public') : Auth::user()->image;
-      // $user->name = request('profileName');
+      $user->phoneNumber = request('phoneNumber');
       $user->about = request('about');
       $user->save();
-      return redirect('/edit-account/profile');
+      return redirect('/edit-account/profile')->with('success','information Changed successfuly');
     }
 
     public function addEmployee(){
@@ -133,6 +141,19 @@ class UsersController extends Controller
       return redirect('/signup');
 
     }
+
+    public function deleteUser($id){
+      $user = User::find($id);
+      if($user->role == "administrator"){
+        return redirect('/employees')->with('error','You can not delete an administrator');
+      }else{
+        $user->delete();
+        return redirect('/employees')->with('success','Employee Deleted successfuly');;
+      }
+
+
+    }
+
     public function requests(){
       $i=1;
       $users = User::where('company','=',Auth::user()->company)->where('is_activated','=',0)->get();

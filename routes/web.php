@@ -30,6 +30,8 @@ Route::get('/searchArch','ProjectsController@searchArchive')->name('searchArchiv
 Route::get('/tasks-board','TasksController@board');
 Route::Post('/addTask','TasksController@addTask')->name('addTask');
 Route::get('/task/{id}','TasksController@view');
+Route::post('/task/comment/{id}','TasksController@addComment')->name('task-comment');
+
 
 Route::get('/tasks-list','TasksController@list');
 Route::post('/openedTasks-cheked','TasksController@openedCheckedTasks')->name("openedcheked");
@@ -58,6 +60,7 @@ Route::get('/employees','UsersController@employees');
 Route::post('/addemployee','UsersController@addemployee')->name('addEmployee');
 Route::post('/changerole','UsersController@changerole')->name('changerole');
 Route::get('/search/', 'UsersController@search')->name('searchUser');
+Route::get('/deleteUser/{id}','UsersController@deleteUser');
 
 
 Route::post('/addcompany','CompanyController@addcompany')->name('addcompany');
@@ -75,6 +78,8 @@ Route::get('/announcments','AnnouncementController@index');
 Route::Post('/addAnnouncement','AnnouncementController@addAnnouncement')->name('addAnnouncement');
 Route::get('/announcement-details/{id}','AnnouncementController@Announcement_details');
 Route::get('/searchannouncments','AnnouncementController@searchAnn')->name('searchannouncments');
+Route::post('/announcment/comment/{id}','AnnouncementController@addComment')->name('announcment-comment');
+
 
 Route::get('/email','EmailController@index');
 Route::get('/compose-email','EmailController@compose');
@@ -84,6 +89,10 @@ Route::post('/sendemail','EmailController@sendEmail')->name('sendemail');
 Route::post('/forwardmail','EmailController@sendforward')->name('sendforward');
 Route::get('/email-forward/{id}','EmailController@forward');
 Route::post('/reply/{id}','EmailController@reply');
+Route::get('/email/sent','EmailController@sentMail');
+Route::get('/email/trash','EmailController@trashMail');
+Route::get('/delete-mail/{id}','EmailController@delete');
+
 
 Route::get('/events','eventsController@index');
 Route::post('/addevents','eventsController@addEvent')->name('addevent');
