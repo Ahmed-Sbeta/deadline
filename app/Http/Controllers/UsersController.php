@@ -17,7 +17,8 @@ class UsersController extends Controller
     public function employees(){
       $users = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->get();
       $EOM = User::Where('company','=',Auth::user()->company)->Where('EOM','=',true)->first();
-      $last = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->latest()->first();
+      $last = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->first();
+      // dd($last);
       return view('en.employees',compact('users','EOM','last'));
     }
     public function eOfMonth(){
