@@ -8,11 +8,17 @@ use App\Project;
 use Auth;
 use App\User;
 use App\comments;
+use App\email;
+use App\user_email;
+
 
 
 class TasksController extends Controller
 {
     public function board(){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $users = User::all()->where('company','=',Auth::user()->company);
       $projects = Project::whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);
@@ -20,16 +26,19 @@ class TasksController extends Controller
       $tasks = Tasks::whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);
         })->latest()->paginate(12);
-      return view('en.tasks-board' , compact('tasks','projects','users'));
+      return view('en.tasks-board' , compact('tasks','projects','users','user','receved','email'));
     }
 
     public function list(){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $opened = Tasks::with('projects')->where("assignedTo" , "=" , Auth::id())->where("status","=","open")->latest()->paginate(4);
         // dd($opened);
       $inProgress = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","inProgress")->latest()->paginate(4);
       $closed = Tasks::where("assignedTo" , "=" , Auth::id())->where("status","=","closed")->latest()->paginate(4);
       $i=1; $j=1; $k=1;
-      return view('en.tasks-list',compact('opened','inProgress','closed','i','k','j'));
+      return view('en.tasks-list',compact('opened','inProgress','closed','i','k','j','user','receved','email'));
     }
 
     public function addComment($id,Request $request){
@@ -72,10 +81,58 @@ class TasksController extends Controller
       return redirect('/tasks-board')->with('success','Task added successfuly');
     }
 
+    public function updateTask(Request $request,$id){
+      $this->validate($request,[
+         'title'=>'required',
+         'discription'=>'required',
+         'projects'=>'required',
+         'dueOn'=>'required',
+         'file'=>'required',
+         'worker'=>'required'
+      ]);
+      $task = Tasks::find($id);
+      $task->title = request('title');
+      $task->discription = request('discription');
+      $task->creator = Auth::id();
+      $task->project = request('projects');
+      $task->dueOn =  request('dueOn');;
+
+      $file = request()->file('file');
+      $name = $file->getClientOriginalName();
+      $name = str_replace(' ', '', $name);
+      $task->file = request()->file('file') ? request()->file('file')->storePubliclyAs('',$name) : null;
+
+      $task->assignedTo = request('worker');
+      $task->status = "open";
+      $task->save();
+      return redirect()->back()->with('success','Task updated successfuly');
+    }
+
+    public function deleteTask($id){
+      $task = Tasks::find($id);
+      $task->delete();
+      return redirect()->back()->with('success','Task deleted successfuly');
+    }
+
+    public function editTask($id){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
+      $users = User::all()->where('company','=',Auth::user()->company);
+      $projects = Project::whereHas('creater', function ($query) {
+          return $query->where('company', '=', Auth::user()->company);
+        })->get();
+      $task = Tasks::find($id);
+      return view('en.TaskEdit',Compact('task','projects','users','user','receved','email'));
+    }
+
     public function view($id){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $comments = comments::with('creater')->where('task_id','=',$id)->latest()->get();
       $task = Tasks::find($id);
-      return view('en.tasks-details',compact('task','comments'));
+      return view('en.tasks-details',compact('task','comments','user','receved','email'));
     }
 
     public function openedCheckedTasks(Request $request){
@@ -111,8 +168,11 @@ class TasksController extends Controller
     }
 
     public function reminders(){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $reminders = Tasks::where('reminder','=',True)->where('assignedTo','=',Auth::id())->latest()->paginate(4);
-      return view('en.reminders',compact('reminders'));
+      return view('en.reminders',compact('reminders','user','receved','email'));
     }
 
     //ar

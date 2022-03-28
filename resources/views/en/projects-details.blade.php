@@ -8,7 +8,7 @@
               content="IE=edge">
         <meta name="viewport"
               content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Task details</title>
+        <title>announcement-details</title>
 
         <!-- Prevent the demo from appearing in search engines -->
         <meta name="robots"
@@ -98,7 +98,7 @@
                     </button>
 
                     <!-- Navbar Brand -->
-                    <a href="index.html"
+                    <a href="/"
                        class="navbar-brand mr-16pt d-lg-none">
                         <img class="navbar-brand-icon mr-0 mr-lg-8pt"
                              src="{{asset('assets/images/logo/logo.png')}}"
@@ -315,7 +315,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- // END Notifications dropdown -->
+                    <!-- // END Notifications dropdown -->
                     </div>
 
 
@@ -324,220 +324,237 @@
                 <!-- // END Header -->
 
                 <div class="border-bottom-2 py-32pt position-relative z-1">
-                    <div class="container-fluid page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
-                        <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
+                       <div class="container-fluid page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+                           <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
-                         <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                             <h2 class="mb-0">Task Details</h2>
+                            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                                <h2 class="mb-0">Project Details</h2>
 
-                             <ol class="breadcrumb p-0 m-0">
-                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <ol class="breadcrumb p-0 m-0">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
 
-                                 <li class="breadcrumb-item active">
+                                    <li class="breadcrumb-item active">
 
-                                     Productivity
+                                        Productivity
 
-                                 </li>
+                                    </li>
 
-                             </ol>
+                                </ol>
 
-                         </div>
-
-
-                        </div>
+                            </div>
 
 
-                        <!--Date and Time-->
-                        <div class="row"
-                        role="tablist">
-                       <div class="col-auto d-flex flex-column">
-                           <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
-                           <p class="text-50 mb-0 pr-1 d-flex align-items-center">
-                                 {{ Carbon\Carbon::now()->toDateString()}}
+                           </div>
+
+
+                           <!--Date and Time-->
+                           <div class="row"
+                           role="tablist">
+                          <div class="col-auto d-flex flex-column">
+                              <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
+                              <p class="text-50 mb-0 pr-1 d-flex align-items-center">
+                                  {{ Carbon\Carbon::now()->toDateString()}}
+                              </p>
+                          </div>
+
+                          </div>
+
+                           <div class="row"
+                                role="tablist">
+                               <div class="col-auto border-left" style="margin-left: 12px;">
+                                   <a href="/reminders"
+                                      class="btn btn-accent">Reminders</a>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+                <!-- // END Header -->
+
+                   <div class="container-fluid page__container">
+                       <div class="page-section">
+
+                           <div class="row">
+                               <div class="col-md-8">
+
+                                   <h1 class="h3 mb-2">{{$project->title}}</h1>
+                                   <p class="text-muted d-flex align-items-center mb-lg-32pt">
+                                       <a href="/projects"
+                                          class="mr-3">Back to Projects</a>
+
+                                   </p>
+                                   @if (count($errors) > 0)
+                                   <div class = "alert alert-danger">
+                                     <ul>
+                                       @foreach ($errors->all() as $error)
+                                       <li>{{ $error }}</li>
+                                       @endforeach
+                                     </ul>
+                                   </div>
+                                   @endif
+                                   @if(session()->has('success'))
+                                   <div class="alert alert-success">
+                                     {{ session()->get('success') }}
+                                   </div>
+                                   @endif
+
+                                   <div class="card card-body">
+                                       <div class="d-flex">
+                                         <span class="avatar avatar-32pt avatar  mr-12pt">
+                                               <img src="{{asset(Storage::url($project->creater->image))}}"
+                                                    alt="people"
+                                                    class="avatar-img rounded-circle">
+                                         </span>
+                                           <div class="flex">
+                                               <p class="d-flex align-items-center mb-2">
+                                                     <span class="text-body mr-2"><strong>{{$project->creater->name}}</strong></span>
+                                                   <small class="text-muted">{{(new Carbon\Carbon($project->created_at))->diffForHumans()}}</small>
+                                               </p>
+                                               <p>{{$project->discription}}</p>
+                                               @if($project->file)
+                                               <div class="d-flex align-items-center">
+                                                       <a href="/download/{{$project->file}}"
+                                                          class="btn btn-sm btn-outline-secondary">{{$project->file}}<i class="icon--right material-icons">file_download</i></a>
+                                               </div>
+                                               @endif
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <form class="" action="{{url('/project/comment/'.$project->id)}}" method="post" enctype="multipart/form-data">
+                                     @csrf
+                                   <div class="d-flex mb-4">
+                                       <a href=""
+                                          class="avatar avatar-32pt mr-8pt">
+                                           <img src="{{asset(Storage::url(Auth::user()->image))}}"
+                                                alt="people"
+                                                class="avatar-img rounded-circle">
+                                       </a>
+                                       <div class="flex">
+                                           <div class="form-group">
+                                               <label for="comment"
+                                                      class="form-label">Your reply</label>
+                                               <textarea class="form-control"
+                                                         name="comment"
+                                                         id="comment"
+                                                         rows="3"
+                                                         placeholder="Type here to reply to Matney ...">
+                                                       </textarea>
+                                           </div>
+                                           <button type="submit" class="btn btn-accent">Post comment</button>
+                                           <div class="d-inline-flex align-items-center">
+                                             <input type="file" name="file" class="form-label ml-1">
+                                           </div>
+                                       </div>
+                                     </form>
+                                   </div>
+                                   <div class="pt-3">
+                                       <h4>{{$comments->count()}} Comments</h4>
+                                       @foreach($comments as $comment)
+                                       <div class="d-flex mb-3">
+                                           <a href=""
+                                              class="avatar avatar-32pt mr-8pt">
+                                               <img src="{{asset(Storage::url($comment->creater->image))}}"
+                                                    alt="people"
+                                                    class="avatar-img rounded-circle">
+                                           </a>
+                                           <div class="flex">
+                                               <a href=""
+                                                  class="text-body"><strong>{{$comment->creater->name}}</strong></a>
+                                               <span class="text-70">{{$project->title}}</span><br>
+                                               <div class="d-flex align-items-center">
+                                                   <small class="text-50 mr-2">{{(new Carbon\Carbon($comment->created_at))->diffForHumans()}}</small>
+                                               </div>
+                                           </div>
+                                       </div>
+
+                                       <div class="ml-sm-32pt mt-3 card p-3">
+                                           <div class="d-flex">
+
+                                               <div class="flex">
+                                                   <p class="mt-1 text-70">{!! nl2br(e($comment->comment)) !!}</p>
+                                               </div>
+                                           </div>
+                                           @if($comment->file)
+                                           <div class="col-auto text-right  align-items-center justify-content-center">
+                                             <a href="/download/{{$comment->file}}"
+                                             class="btn btn-sm btn-outline-secondary">Download <i class="icon--right material-icons">file_download</i></a>
+
+                                           </div>
+                                           @endif
+                                       </div>
+                                       @endforeach
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+
+                                   <h5 class="text-70">Project Contributors</h5>
+                                   <p class="text-70 mb-24pt">People who needs to work on this project, Best of luck !</p>
+
+                                   @foreach($project->workers as $worker)
+                                   <div class="mb-4">
+                                       <div class="d-flex align-items-center mb-2">
+                                              <span class="avatar avatar-xs mr-8pt">
+                                               <img src="{{asset(Storage::url($worker->image))}}"
+                                                    alt="course"
+                                                    class="avatar-img rounded-circle">
+                                                   </span>
+                                              <span class="flex mr-2 text-body"><strong>{{$worker->name}}</strong></span>
+                                       </div>
+                                   </div>
+                                   @endforeach
+
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+
+                   <div class="js-fix-footer footer border-top-2">
+                       <div class="container-fluid page__container page-section d-flex flex-column">
+                           <p class="text-70 brand mb-24pt">
+                               <img class="brand-icon"
+                                    src="{{asset('assets/images/logo/logo.png')}}"
+                                    width="30"
+                                    alt="Deadline"> Deadline
                            </p>
+                           <p class="measure-lead-max text-muted mb-0 small">Deadline is a beautifully crafted user interface for modern Business companies that provide multiple services, It helps the management  following the proccess of the Project Management, Tasks, Messaging and Account Management.</p>
                        </div>
+                       <div class="pb-16pt pb-lg-24pt">
+                           <div class="container-fluid page__container">
+                               <div class="bg-dark rounded page-section py-lg-32pt px-16pt px-lg-24pt">
+                                   <div class="row">
+                                       <div class="col-md-2 col-sm-4 mb-24pt mb-md-0">
+                                           <p class="text-white-70 mb-8pt"><strong>Follow us</strong></p>
+                                           <nav class="nav nav-links nav--flush">
+                                               <a href="https://www.facebook.com/mawja"
+                                                  class="nav-link mr-8pt"><img src="{{asset('assets/images/icon/footer/facebook-square@2x.png')}}"
+                                                        width="24"
+                                                        height="24"
+                                                        alt="Facebook"></a>
 
-                       </div>
-
-                        <div class="row"
-                             role="tablist">
-                            <div class="col-auto border-left" style="margin-left: 12px;">
-                                <a href="/reminders"
-                                   class="btn btn-accent">Reminders</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-             <!-- // END Header -->
-
-                <div class="container-fluid page__container">
-                    <div class="page-section">
-
-                        <div class="row">
-                            <div class="col-md-11">
-
-                                <h1 class="h3 mb-2">{{$task->title}}</h1>
-                                <p class="text-muted d-flex align-items-center mb-lg-32pt">
-                                    <a href="\tasks-board"
-                                       class="mr-3">Back to Tasks</a>
-
-                                </p>
-                                @if (count($errors) > 0)
-                                <div class = "alert alert-danger">
-                                  <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                  </ul>
-                                </div>
-                                @endif
-                                @if(session()->has('success'))
-                                <div class="alert alert-success">
-                                  {{ session()->get('success') }}
-                                </div>
-                                @endif
-
-                                <div class="card card-body">
-                                    <div class="d-flex">
-                                        <a href=""
-                                           class="avatar avatar-32pt avatar-online mr-12pt">
-                                            <img src="{{asset(Storage::url($task->creater->image))}}"
-                                                 alt="people"
-                                                 class="avatar-img rounded-circle">
-                                        </a>
-                                        <div class="flex">
-                                            <p class="d-flex align-items-center mb-2">
-                                                <a href=""
-                                                   class="text-body mr-2"><strong>{{$task->creater->name}}</strong></a>
-                                                <small class="text-muted">{{(new Carbon\Carbon($task->created_at))->diffForHumans()}}</small>
-                                            </p>
-                                            <p>{{$task->discription}}</p>
-                                            @if($task->file)
-                                            <div class="d-flex align-items-center">
-                                                    <a href="/download/{{$task->file}}"
-                                                       class="btn btn-sm btn-outline-secondary">{{$task->file}}<i class="icon--right material-icons">file_download</i></a>
-                                            </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <form class="" action="{{url('/task/comment/'.$task->id)}}" method="post" enctype="multipart/form-data">
-                                  @csrf
-                                <div class="d-flex mb-4">
-                                    <a href=""
-                                       class="avatar avatar-32pt mr-8pt">
-                                        <img src="{{asset(Storage::url(Auth::user()->image))}}"
-                                             alt="people"
-                                             class="avatar-img rounded-circle">
-                                    </a>
-                                    <div class="flex">
-                                        <div class="form-group">
-                                            <label for="comment"
-                                                   class="form-label">Your reply</label>
-                                            <textarea class="form-control"
-                                                      name="comment"
-                                                      id="comment"
-                                                      rows="3"
-                                                      placeholder="Type here to reply to Matney ...">
-                                                    </textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-accent">Post comment</button>
-                                        <div class="d-inline-flex align-items-center">
-                                          <input type="file" name="file" class="form-label ml-1">
-                                        </div>
-                                    </div>
-                                  </form>
-                                </div>
-                                <div class="pt-3">
-                                    <h4>{{$comments->count()}} Comments</h4>
-                                    @foreach($comments as $comment)
-                                    <div class="d-flex mb-3">
-                                        <a href=""
-                                           class="avatar avatar-32pt mr-8pt">
-                                            <img src="{{asset(Storage::url($comment->creater->image))}}"
-                                                 alt="people"
-                                                 class="avatar-img rounded-circle">
-                                        </a>
-                                        <div class="flex">
-                                            <a href=""
-                                               class="text-body"><strong>{{$comment->creater->name}}</strong></a>
-                                            <span class="text-70">{{$task->title}}</span><br>
-                                            <div class="d-flex align-items-center">
-                                                <small class="text-50 mr-2">{{(new Carbon\Carbon($comment->created_at))->diffForHumans()}}</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="ml-sm-32pt mt-3 card p-3">
-                                        <div class="d-flex">
-
-                                            <div class="flex">
-                                                <p class="mt-1 text-70">{!! nl2br(e($comment->comment)) !!}</p>
-                                            </div>
-                                        </div>
-                                        @if($comment->file)
-                                        <div class="col-auto text-right  align-items-center justify-content-center">
-                                          <a href="/download/{{$comment->file}}"
-                                          class="btn btn-sm btn-outline-secondary">Download <i class="icon--right material-icons">file_download</i></a>
-
-                                        </div>
-                                        @endif
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                                                   </div>
-
-                    </div>
-                </div>
-
-
-                <div class="js-fix-footer footer border-top-2">
-                    <div class="container-fluid page__container page-section d-flex flex-column">
-                        <p class="text-70 brand mb-24pt">
-                            <img class="brand-icon"
-                                 src="{{asset('assets/images/logo/logo.png')}}"
-                                 width="30"
-                                 alt="Deadline"> Deadline
-                        </p>
-                        <p class="measure-lead-max text-muted mb-0 small">Deadline is a beautifully crafted user interface for modern Business companies that provide multiple services, It helps the management  following the proccess of the Project Management, Tasks, Messaging and Account Management.</p>
-                    </div>
-                    <div class="pb-16pt pb-lg-24pt">
-                        <div class="container-fluid page__container">
-                            <div class="bg-dark rounded page-section py-lg-32pt px-16pt px-lg-24pt">
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-4 mb-24pt mb-md-0">
-                                        <p class="text-white-70 mb-8pt"><strong>Follow us</strong></p>
-                                        <nav class="nav nav-links nav--flush">
-                                            <a href="https://www.facebook.com/mawja"
-                                               class="nav-link mr-8pt"><img src="{{asset('assets/images/icon/footer/facebook-square@2x.png')}}"
-                                                     width="24"
+                                                <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="{{asset('assets/images/icon/footer/youtube-square@2x.png')}}"
+                                                    width="24"
                                                      height="24"
-                                                     alt="Facebook"></a>
+                                                     alt="YouTube"></a>
+                                           </nav>
+                                       </div>
+                                       <div class="col-md-6 col-sm-4 mb-24pt mb-md-0 d-flex align-items-center">
+                                       </div>
+                                       <div class="col-md-4 text-md-right">
+                                          <p></p><p></p>
+                                           <p class="text-white-50 small mb-0">Copyright MAWJA 2022 &copy; All rights reserved.</p>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
 
-                                             <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="{{asset('assets/images/icon/footer/youtube-square@2x.png')}}"
-                                                 width="24"
-                                                  height="24"
-                                                  alt="YouTube"></a>
-                                        </nav>
-                                    </div>
-                                    <div class="col-md-6 col-sm-4 mb-24pt mb-md-0 d-flex align-items-center">
-                                    </div>
-                                    <div class="col-md-4 text-md-right">
-                                       <p></p><p></p>
-                                        <p class="text-white-50 small mb-0">Copyright MAWJA 2022 &copy; All rights reserved.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- // END drawer-layout__content -->
+               </div>
+               <!-- //
 
                         <!-- drawer -->
                         <div class="mdk-drawer js-mdk-drawer"
@@ -618,14 +635,14 @@
                                             <ul class="sidebar-submenu collapse sm-indent"
                                                 id="productivity_menu">
                                                 @if(Auth::user()->role <> 'employee')
-                                                <li class="sidebar-menu-item">
+                                                <li class="sidebar-menu-item active">
                                                     <a class="sidebar-menu-button"
                                                        href="/projects">
                                                         <span class="sidebar-menu-text">Projects</span>
                                                     </a>
                                                 </li>
                                                 @endif
-                                                <li class="sidebar-menu-item ">
+                                                <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/tasks-board">
                                                         <span class="sidebar-menu-text">Tasks Board</span>
@@ -685,9 +702,10 @@
                                                     </a>
                                                 </li>
                                                 @endif
+
                                             </ul>
                                         </li>
-                                        <li class="sidebar-menu-item">
+                                        <li class="sidebar-menu-item ">
                                             <a class="sidebar-menu-button"
                                                data-toggle="collapse"
                                                href="#community_menu">
@@ -704,7 +722,7 @@
                                                     </a>
                                                 </li>
 
-                                                <li class="sidebar-menu-item">
+                                                <li class="sidebar-menu-item ">
                                                     <a class="sidebar-menu-button"
                                                        href="/announcments">
                                                         <span class="sidebar-menu-text">Announcments</span>

@@ -176,6 +176,9 @@
 													Unique code
 												</th>
 												<th class="text-center">
+													email
+												</th>
+												<th class="text-center">
 													Expiration date
 												</th>
 												<th class="text-center">
@@ -210,7 +213,10 @@
 													{{$company->Code}}
 												</td>
 												<td class="text-center">
-													{{$company->expDate}}
+													{{$company->email}}
+												</td>
+												<td class="text-center">
+													{{$company->exp_date}}
 												</td>
 												<td class="text-center">
 													{{$users->where('company','=',$company->id)->count()}}

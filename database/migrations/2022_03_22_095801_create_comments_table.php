@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->longtext('comment');
             $table->string('file')->nullable();
             $table->integer('announcment_id')->nullable();
+            $table->integer('project_id')->nullable();
             $table->integer('task_id')->nullable();
             $table->timestamps();
         });

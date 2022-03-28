@@ -101,7 +101,7 @@
                     <a href="index.html"
                        class="navbar-brand mr-16pt d-lg-none">
                         <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-                             src="assets/images/logo/logo.png"
+                             src="{{asset('assets/images/logo/logo.png')}}"
                              width="32"
                              alt="Deadline">
                     </a>
@@ -114,7 +114,7 @@
                     <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
                          style="white-space: nowrap;">
                         <div class="nav-item dropdown d-none d-sm-flex" >
-                            <a href="#" hidden
+                            <a href="#"
                                class="nav-link dropdown-toggle"
                                data-toggle="dropdown">EN</a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -122,11 +122,8 @@
                                 <a class="dropdown-item active"
                                    href="">English</a>
                                 <a class="dropdown-item"
-                                   href="">French</a>
-                                    <a class="dropdown-item"
-                                   href="">Romanian</a>
-                                <a class="dropdown-item"
-                                   href="">Spanish</a>
+                                   href="/ar/">العربية</a>
+
                             </div>
                         </div>
                     </div>
@@ -150,10 +147,12 @@
                               <div class="dropdown-header"><strong>Account</strong></div>
                               <a class="dropdown-item"
                                  href="\edit-account">Edit Account</a>
+                                 @if(Auth::user()->role == 'administrator')
                               <a class="dropdown-item"
                                  href="\subscription">Billing</a>
                               <a class="dropdown-item"
-                                 href="\billing-history">Payments</a>
+                                 href="\billing-payment">Payments</a>
+                                 @endif
                               <a class="dropdown-item"
                               href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">Logout</a>
@@ -169,60 +168,52 @@
                                     type="button"
                                     data-toggle="dropdown"
                                     data-dropdown-disable-document-scroll
-                                    data-caret="false">
-                                <i class="material-icons">notifications</i>
-                                <span class="badge badge-notifications badge-accent">2</span>
+                                    data-caret="false"
+                                    >
+                                <i class="material-icons" >notifications</i>
+                                <span class="badge badge-notifications badge-accent">{{Auth::user()->unreadNotifications->count()}}</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div data-perfect-scrollbar
                                      class="position-relative">
-                                    <div class="dropdown-header"><strong>System notifications</strong></div>
+                                    <div class="dropdown-header"><strong>Notifications</strong></div>
                                     <div class="list-group list-group-flush mb-0">
+                                      @forelse(Auth::user()->notifications->take(3) as $notification)
+                                        <a href="#"
+                                           class="list-group-item list-group-item-action">
+                                            <span class="d-flex align-items-center mb-1">
+                                                <small class="text-black-50">{{(new Carbon\Carbon($notification->created_at))->diffForHumans()}}</small>
 
-                                        <a href="javascript:void(0);"
+                                                <span class="ml-auto bg-accent"></span>
+
+                                            </span>
+                                            <span class="d-flex">
+
+                                                </span>
+                                                <span class="flex d-flex flex-column">
+
+                                                    <span class="text-black-70" onclick="{{$notification->markAsRead()}}">{{$notification->data['text']}}<strong>{{$notification->data['name']}}</strong> </span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                        @empty
+                                        <a href="tasks-details.html"
                                            class="list-group-item list-group-item-action unread">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">3 minutes ago</small>
-
+                                                <small class="text-black-50"></small>
                                                 <span class="ml-auto unread-indicator bg-accent"></span>
-
                                             </span>
                                             <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <span class="avatar-title rounded-circle bg-light">
-                                                        <i class="material-icons font-size-16pt text-accent">account_circle</i>
-                                                    </span>
                                                 </span>
                                                 <span class="flex d-flex flex-column">
-
-                                                    <span class="text-black-70">Your profile information has not been synced correctly.</span>
+                                                    <span class="text-black-70">No notifications available </span>
                                                 </span>
                                             </span>
                                         </a>
-
-                                        <a href="javascript:void(0);"
+                                        @endforelse
+                                        <a href="/notifications"
                                            class="list-group-item list-group-item-action">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">5 hours ago</small>
-
-                                            </span>
-                                            <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <span class="avatar-title rounded-circle bg-light">
-                                                        <i class="material-icons font-size-16pt text-primary">group_add</i>
-                                                    </span>
-                                                </span>
-                                                <span class="flex d-flex flex-column">
-                                                    <strong class="text-black-100">Adrian. D</strong>
-                                                    <span class="text-black-70">Wants to join your private group.</span>
-                                                </span>
-                                            </span>
-                                        </a>
-
-                                        <a href="javascript:void(0);"
-                                           class="list-group-item list-group-item-action">
-                                            <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">1 day ago</small>
 
                                             </span>
                                             <span class="d-flex">
@@ -233,7 +224,7 @@
                                                 </span>
                                                 <span class="flex d-flex flex-column">
 
-                                                    <span class="text-black-70">Your deploy was successful.</span>
+                                                    <span class="text-black-70">See All Notifications</span>
                                                 </span>
                                             </span>
                                         </a>
@@ -258,46 +249,66 @@
                                      class="position-relative">
                                     <div class="dropdown-header"><strong>Messages</strong></div>
                                     <div class="list-group list-group-flush mb-0">
-
-                                        <a href="javascript:void(0);"
+                                      @forelse($receved as $res)
+                                      @foreach($email as $mail)
+                                      @if($res->email_id == $mail->id)
+                                        <a href="/email-details/{{$mail->id}}"
                                            class="list-group-item list-group-item-action unread">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">5 minutes ago</small>
+                                                <small class="text-black-50">{{(new Carbon\Carbon($mail->created_at))->diffForHumans()}}</small>
 
                                                 <span class="ml-auto unread-indicator bg-accent"></span>
 
                                             </span>
                                             <span class="d-flex">
                                                 <span class="avatar avatar-xs mr-2">
-                                                    <img src="assets/images/people/110/woman-5.jpg"
+                                                    <img src="{{asset(Storage::url($user->find($mail->creator)->image))}}"
                                                          alt="people"
                                                          class="avatar-img rounded-circle">
                                                 </span>
                                                 <span class="flex d-flex flex-column">
-                                                    <strong class="text-black-100">Michelle</strong>
-                                                    <span class="text-black-70">Clients loved the new design.</span>
+                                                    <strong class="text-black-100">{{$user->find($mail->creator)->name}}</strong>
+                                                    <span class="text-black-70">{{$mail->subject}}</span>
                                                 </span>
                                             </span>
                                         </a>
-
-                                        <a href="javascript:void(0);"
-                                           class="list-group-item list-group-item-action">
+                                        @endif
+                                        @endforeach
+                                        @empty
+                                        <a href="/email"
+                                           class="list-group-item list-group-item-action unread">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">5 minutes ago</small>
+                                                <small class="text-black-50"></small>
+
+                                                <span class="ml-auto unread-indicator bg-accent"></span>
 
                                             </span>
                                             <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <img src="assets/images/people/110/woman-5.jpg"
-                                                         alt="people"
-                                                         class="avatar-img rounded-circle">
-                                                </span>
+
                                                 <span class="flex d-flex flex-column">
-                                                    <strong class="text-black-100">Michelle</strong>
-                                                    <span class="text-black-70">🔥 Superb job..</span>
+                                                    <strong class="text-black-100"></strong>
+                                                    <span class="text-black-70">No Mail available.</span>
                                                 </span>
                                             </span>
                                         </a>
+                                        @endforelse
+                                        <a href="/email"
+                                        class="list-group-item list-group-item-action">
+                                         <span class="d-flex align-items-center mb-1">
+
+                                         </span>
+                                         <span class="d-flex">
+                                             <span class="avatar avatar-xs mr-2">
+                                                 <span class="avatar-title rounded-circle bg-light">
+                                                     <i class="material-icons font-size-16pt text-warning">storage</i>
+                                                 </span>
+                                             </span>
+                                             <span class="flex d-flex flex-column">
+
+                                                 <span class="text-black-70">See All Messages</span>
+                                             </span>
+                                         </span>
+                                     </a>
 
                                     </div>
                                 </div>
@@ -336,7 +347,7 @@
                       <div class="row"
                       role="tablist">
                      <div class="col-auto d-flex flex-column">
-                         <h6 class="m-0">{{ Carbon\Carbon::now()->format('H:i')}}</h6>
+                         <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
                          <p class="text-50 mb-0 pr-1 d-flex align-items-center">
                              {{ Carbon\Carbon::now()->toDateString()}}
                          </p>
@@ -348,7 +359,7 @@
                            role="tablist">
                           <div class="col-auto border-left" style="margin-left: 12px;">
                               <a href="faq.html"
-                                 class="btn btn-accent">Remind Me</a>
+                                 class="btn btn-accent">Reminders</a>
                           </div>
                       </div>
 
@@ -360,6 +371,8 @@
                     <div class="page-section">
 
                       <div class="card--connect pb-32pt pb-lg-64pt">
+                        <form class="" action="{{route('searchannouncments')}}" method="get">
+                          @csrf
                               <div class="card o-hidden mb-0">
                                   <div class="card-body table--elevated">
                                       <div class="form-group m-0"
@@ -373,14 +386,16 @@
                                                   <input id="title"
                                                          type="text"
                                                          placeholder="Announcments ..."
+                                                         name="search"
                                                          class="form-control"
                                                          >
                                               </div>
                                               <div class="d-inline-flex align-items-center">
-                                                  <a href="#"
-                                                     class="btn btn-sm btn-outline-secondary mr-16pt"> Search  <i class="icon--right material-icons">keyboard_arrow_right</i></a>
+                                                  <button type="submit"
+                                                     class="btn btn-sm btn-outline-secondary mr-16pt"> Search  <i class="icon--right material-icons">keyboard_arrow_right</i></button>
 
                                               </div>
+                                            </form>
                                           </div>
                                       </div>
                                   </div>
@@ -409,10 +424,19 @@
                                                   <p class="mb-8pt"><a href="/announcement-details/{{$announcement->id}}"
                                                          class="text-body"><strong>{{$announcement->title}}</strong></a></p>
 
-                                                  <a href="/announcement-details/{{$announcement->id}}"
-                                                     class="chip chip-outline-secondary">{{$announcement->file}}</a>
+
 
                                               </div>
+                                              <a href="#"
+                                                       class="nav-link d-flex align-items-center dropdown-toggle"
+                                                       data-toggle="dropdown"
+                                                       data-caret="false">
+                                                       <i class="material-icons text-50">more_vert</i></a>
+                                                       <div class="dropdown-menu dropd-caret-centerown-menu">
+                                                           <a class="dropdown-item"
+                                                              href="/Editannouncments/{{$announcement->id}}">Edit</a>
+                                                           <a class="dropdown-item"
+                                                              href="/deleteAnnouncments/{{$announcement->id}}">Delete</a>  </div>
 
                                           </div>
                                       </div>
@@ -420,9 +444,9 @@
                                       <div class="card-footer p-8pt">
 
                                           <ul class="pagination justify-content-start pagination-xsm m-0">
-                                              <li class="page-item disabled">
+                                              <li class="page-item ">
                                                   <a class="page-link"
-                                                     href="#"
+                                                     href="{{$announcements->previousPageUrl()}}"
                                                      aria-label="Previous">
                                                       <span aria-hidden="true"
                                                             class="material-icons">chevron_left</span>
@@ -434,24 +458,15 @@
                                                      data-toggle="dropdown"
                                                      href="#"
                                                      aria-label="Page">
-                                                      <span>1</span>
+                                                      <span>{{$announcements->currentPage()}}</span>
                                                   </a>
                                                   <div class="dropdown-menu">
-                                                      <a href=""
-                                                         class="dropdown-item active">1</a>
-                                                      <a href=""
-                                                         class="dropdown-item">2</a>
-                                                      <a href=""
-                                                         class="dropdown-item">3</a>
-                                                      <a href=""
-                                                         class="dropdown-item">4</a>
-                                                      <a href=""
-                                                         class="dropdown-item">5</a>
+                                                    {{ $announcements-> links() }}
                                                   </div>
                                               </li>
                                               <li class="page-item">
                                                   <a class="page-link"
-                                                     href="#"
+                                                     href="{{$announcements->nextPageUrl()}}"
                                                      aria-label="Next">
                                                       <span>Next</span>
                                                       <span aria-hidden="true"
@@ -469,11 +484,25 @@
                           </div>
 
                             <div class="page-separator">
-                                <div class="page-separator__text">Add New Announcment</div>
+                                <div class="page-separator__text">Edit Announcment</div>
                             </div>
-                            <form class="" action="{{route('addAnnouncement')}}" method="post" enctype="multipart/form-data">
+                            @if (count($errors) > 0)
+                            <div class = "alert alert-danger">
+                              <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                              </ul>
+                            </div>
+                            @endif
+                            @if(session()->has('success'))
+                            <div class="alert alert-success">
+                              {{ session()->get('success') }}
+                            </div>
+                            @endif
+                            <form class="" action="{{url('/updateAnnouncments/'.$ann->id)}}" method="post" enctype="multipart/form-data">
                               @csrf
-
+                              @method('Patch')
                             <div class="list-group">
                                 <div class="list-group-item">
                                     <div role="group"
@@ -488,7 +517,7 @@
                                                           rows="1"
                                                           class="form-control"
                                                             name="title"
-                                                          ></textarea>
+                                                          >{{$ann->title}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -507,7 +536,7 @@
                                                           rows="4"
                                                           class="form-control"
                                                             name="discription"
-                                                          ></textarea>
+                                                          >{{$ann->discription}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -524,23 +553,11 @@
                                                    <div class="d-inline-flex align-items-center">
                                                     <!-- <a href="#" name="file"
                                                        class="btn btn-sm btn-outline-secondary mr-16pt">Upload File <i class="icon--right material-icons">keyboard_arrow_up</i></a> -->
-                                                       <input type="file" name="file" class="form-label ml-1">
+                                                       <input type="file" name="file" class="form-label ml-1" value="{{asset(Storage::url($ann->file))}}">
 
                                                 </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input id="notify"
-                                               type="checkbox"
-                                               class="custom-control-input"
-                                               checked="">
-                                        <label for="notify"
-                                               class="custom-control-label">Notify me on email when someone Download my report</label>
-                                    </div>
-                                    <small id="description-notify"
-                                           class="form-text text-muted">If unchecked, you'll still recieve notifications on our website.</small>
                                 </div>
                                 <div class="list-group-item">
                                     <button type="submit"
@@ -552,12 +569,12 @@
                 <div class="col-lg-8">
 
                     <div class="page-separator">
-                        <div class="page-separator__text">Quick Access</div>
+                        <div class="page-separator__text">Ads Pannel</div>
                     </div>
 
                     <div class="card mb-lg-0">
                         <div class="card-header d-flex align-items-center">
-                            <strong class="flex">Click on the banner below</strong>
+                            <strong class="flex">Paid Ads</strong>
 
                         </div>
                         <div class="progress rounded-0"
@@ -571,7 +588,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <a href="announcment-details.html"><img src="assets/images/quickers.png" alt="Announcment Details"
+                                <a href="announcment-details.html"><img src="{{asset('assets/images/quickers.jpg')}}" alt="Announcment Details"
                                     style="width: 100%; height: auto; "></a>
 
                             </div>
@@ -608,7 +625,7 @@
                             <div class="list-group-item p-16pt">
 
 
-                                    <a href="https:www.google.com"><img src="assets/images/ads.png" alt="Paid Ad"
+                                    <a href="https:www.google.com"><img src="{{asset('assets/images/ads.jpg')}}" alt="Paid Ad"
                                         style="width: 100%; height: auto; "></a>
 
 
@@ -630,7 +647,7 @@
                     <div class="container-fluid page__container page-section d-flex flex-column">
                         <p class="text-70 brand mb-24pt">
                             <img class="brand-icon"
-                                 src="assets/images/logo/logo.png"
+                                 src="{{asset('assets/images/logo/logo.png')}}"
                                  width="30"
                                  alt="Deadline"> Deadline
                         </p>
@@ -644,7 +661,7 @@
                                         <p class="text-white-70 mb-8pt"><strong>Follow us</strong></p>
                                         <nav class="nav nav-links nav--flush">
                                             <a href="https://www.facebook.com/mawja"
-                                               class="nav-link mr-8pt"><img src="assets/images/icon/footer/facebook-square@2x.png"
+                                               class="nav-link mr-8pt"><img src="{{asset('assets/images/icon/footer/facebook-square@2x.png')}}"
                                                      width="24"
                                                      height="24"
                                                      alt="Facebook"></a>
@@ -671,170 +688,195 @@
 
             <!-- // END drawer-layout__content -->
 
-            <!-- drawer -->
-            <div class="mdk-drawer js-mdk-drawer"
-                 id="default-drawer">
-                <div class="mdk-drawer__content">
-                    <div class="sidebar sidebar-dark sidebar-left"
-                         data-perfect-scrollbar>
+                        <!-- drawer -->
+                        <div class="mdk-drawer js-mdk-drawer"
+                             id="default-drawer">
+                            <div class="mdk-drawer__content">
+                                <div class="sidebar sidebar-dark sidebar-left"
+                                     data-perfect-scrollbar>
 
-                        <!-- Navbar toggler -->
-                        <a href="compact-index.html"
-                           class="navbar-toggler navbar-toggler-right navbar-toggler-custom d-flex align-items-center justify-content-center position-absolute right-0 top-0"
-                           data-toggle="tooltip"
-                           data-title="Switch to Compact Vertical Layout"
-                           data-placement="right"
-                           data-boundary="window">
-                            <span class="material-icons">sync_alt</span>
-                        </a>
-
-                        <a href="\"
-                           class="sidebar-brand ">
-                            <img
-                                 src="{{asset('assets/images/logo/logo.png')}}"
-                                 alt="Deadline">
-
-                        </a>
-
-                        <div class="sidebar-account mx-16pt mb-16pt dropdown">
-                            <a href="#"
-                               class="nav-link d-flex align-items-center dropdown-toggle"
-                               data-toggle="dropdown"
-                               data-caret="false">
-                                <img width="32"
-                                     height="32"
-                                     class="rounded-circle mr-8pt"
-                                     src="{{asset(Storage::url(Auth::user()->image))}}"
-                                     alt="account" />
-                                <span class="flex d-flex flex-column mr-8pt">
-                                    <span class="text-black-100">{{Auth::user()->name}}</span>
-                                    <small class="text-black-50">{{Auth::user()->role}}</small>
-                                </span>
-                                <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
-                                <div class="dropdown-header"><strong>Account</strong></div>
-                                <a class="dropdown-item"
-                                   href="\edit-account">Edit Account</a>
-                                <a class="dropdown-item"
-                                   href="\subscription">Billing</a>
-                                <a class="dropdown-item"
-                                   href="\billing-history">Payments</a>
-                                   <a class="dropdown-item"
-                                   href="{{ route('adminlogout') }}" onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">Logout</a>
-                                   <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
-                                       @csrf
-                                   </form>
-                            </div>
-                        </div>
+                                    <!-- Sidebar -->
 
 
-                        <div class="sidebar-heading">Deadlines</div>
-                        <ul class="sidebar-menu">
-                          <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button"
-                                   href="\">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
-                                    <span class="sidebar-menu-text">Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button"
-                                   data-toggle="collapse"
-                                   href="#productivity_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">access_time</span>
-                                    Productivity
-                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                </a>
-                                <ul class="sidebar-submenu collapse sm-indent"
-                                    id="productivity_menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/projects">
-                                            <span class="sidebar-menu-text">Projects</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/tasks-board">
-                                            <span class="sidebar-menu-text">Tasks Board</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/tasks-list">
-                                            <span class="sidebar-menu-text">Tasks List</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/reports">
-                                            <span class="sidebar-menu-text">Reports</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                              <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button"
-                                   data-toggle="collapse"
-                                   href="#account_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span>
-                                    Account
-                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                </a>
-                                <ul class="sidebar-submenu collapse show sm-indent"
-                                    id="account_menu">
+                                    <a href="\"
+                                       class="sidebar-brand ">
+                                        <img
+                                             src="{{asset('assets/images/logo/logo.png')}}"
+                                             alt="Deadline">
 
-                                   <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/edit-account">
-                                            <span class="sidebar-menu-text">Edit Account</span>
-                                        </a>
-                                    </li>
+                                    </a>
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/subscription">
-                                            <span class="sidebar-menu-text">Subscription</span>
-                                        </a>
-                                    </li>
+                                    <div class="sidebar-account mx-16pt mb-16pt dropdown">
+                                      <a href="#"
+                                         class="nav-link d-flex align-items-center dropdown-toggle"
+                                         data-toggle="dropdown"
+                                         data-caret="false">
+                                          <img width="32"
+                                               height="32"
+                                               class="rounded-circle mr-8pt"
+                                               src="{{asset(Storage::url(Auth::user()->image))}}"
+                                               alt="account" />
+                                          <span class="flex d-flex flex-column mr-8pt">
+                                              <span class="text-black-100">{{Auth::user()->name}}</span>
+                                              <small class="text-black-50">{{Auth::user()->role}}</small>
+                                          </span>
+                                          <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
+                                      </a>
+                                      <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
+                                          <div class="dropdown-header"><strong>Account</strong></div>
+                                          <a class="dropdown-item"
+                                             href="\edit-account">Edit Account</a>
+                                             @if(Auth::user()->role == 'administrator')
+                                          <a class="dropdown-item"
+                                             href="\subscription">Billing</a>
+                                          <a class="dropdown-item"
+                                             href="\billing-payment">Payments</a>
+                                             @endif
+                                             <a class="dropdown-item"
+                                             href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">Logout</a>
+                                             <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                                 @csrf
+                                             </form>
+                                      </div>
+                                    </div>
 
-                                </ul>
-                            </li>
-                            <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button"
-                                   data-toggle="collapse"
-                                   href="#community_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people_outline</span>
-                                    Community
-                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                </a>
-                                <ul class="sidebar-submenu collapse sm-indent"
-                                    id="community_menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/employees">
-                                            <span class="sidebar-menu-text">Employees</span>
-                                        </a>
-                                    </li>
+                                  <p></p>
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/announcments">
-                                            <span class="sidebar-menu-text">Announcments</span>
-                                        </a>
-                                    </li>
+                                    <div class="sidebar-heading">Deadlines</div>
 
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="/email">
-                                            <span class="sidebar-menu-text">Email</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+
+                                    <ul class="sidebar-menu">
+
+                                        <li class="sidebar-menu-item ">
+                                            <a class="sidebar-menu-button"
+                                               href="\">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
+                                                <span class="sidebar-menu-text">Dashboard</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               data-toggle="collapse"
+                                               href="#productivity_menu">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">access_time</span>
+                                                Productivity
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                            </a>
+                                            <ul class="sidebar-submenu collapse sm-indent"
+                                                id="productivity_menu">
+                                                @if(Auth::user()->role <> 'employee')
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/projects">
+                                                        <span class="sidebar-menu-text">Projects</span>
+                                                    </a>
+                                                </li>
+                                                @endif
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/tasks-board">
+                                                        <span class="sidebar-menu-text">Tasks Board</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/tasks-list">
+                                                        <span class="sidebar-menu-text">Tasks List</span>
+                                                    </a>
+                                                </li>
+                                                @if(Auth::user()->role <> 'employee')
+                                              <li class="sidebar-menu-item">
+                                                  <a class="sidebar-menu-button"
+                                                     href="/reports">
+                                                      <span class="sidebar-menu-text">Reports</span>
+                                                  </a>
+                                              </li>
+                                              @endif
+                                            </ul>
+                                        </li>
+
+
+
+                                          <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               data-toggle="collapse"
+                                               href="#account_menu">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span>
+                                                Account
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                            </a>
+
+                                            <ul class="sidebar-submenu collapse show sm-indent"
+                                                id="account_menu">
+
+                                               <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/edit-account">
+                                                        <span class="sidebar-menu-text">Edit Account</span>
+                                                    </a>
+                                                </li>
+
+                                                @if(Auth::user()->role == 'administrator')
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/subscription">
+                                                        <span class="sidebar-menu-text">Subscription</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/requests">
+                                                        <span class="sidebar-menu-text">Requests</span>
+                                                    </a>
+                                                </li>
+                                                @endif
+
+
+                                            </ul>
+                                        </li>
+                                        <li class="sidebar-menu-item active">
+                                            <a class="sidebar-menu-button"
+                                               data-toggle="collapse"
+                                               href="#community_menu">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people_outline</span>
+                                                Community
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                            </a>
+                                            <ul class="sidebar-submenu collapse sm-indent"
+                                                id="community_menu">
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/employees">
+                                                        <span class="sidebar-menu-text">Employees</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="sidebar-menu-item active">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/announcments">
+                                                        <span class="sidebar-menu-text">Announcments</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/events">
+                                                        <span class="sidebar-menu-text">Events</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button"
+                                                       href="/email">
+                                                        <span class="sidebar-menu-text">Email</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
 
         <!-- App Settings FAB -->
 

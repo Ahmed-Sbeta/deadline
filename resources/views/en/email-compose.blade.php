@@ -213,10 +213,12 @@
                                           <div class="dropdown-header"><strong>Account</strong></div>
                                           <a class="dropdown-item"
                                              href="\edit-account">Edit Account</a>
+                                             @if(Auth::user()->role == 'administrator')
                                           <a class="dropdown-item"
                                              href="\subscription">Billing</a>
                                           <a class="dropdown-item"
                                              href="\billing-payment">Payments</a>
+                                             @endif
                                              <a class="dropdown-item"
                                              href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">Logout</a>
@@ -251,12 +253,14 @@
                                             </a>
                                             <ul class="sidebar-submenu collapse sm-indent"
                                                 id="productivity_menu">
+                                                @if(Auth::user()->role <> 'employee')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/projects">
                                                         <span class="sidebar-menu-text">Projects</span>
                                                     </a>
                                                 </li>
+                                                @endif
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/tasks-board">
@@ -269,12 +273,14 @@
                                                         <span class="sidebar-menu-text">Tasks List</span>
                                                     </a>
                                                 </li>
-                                                <li class="sidebar-menu-item">
-                                                    <a class="sidebar-menu-button"
-                                                       href="/reports">
-                                                        <span class="sidebar-menu-text">Reports</span>
-                                                    </a>
-                                                </li>
+                                                @if(Auth::user()->role <> 'employee')
+                                              <li class="sidebar-menu-item">
+                                                  <a class="sidebar-menu-button"
+                                                     href="/reports">
+                                                      <span class="sidebar-menu-text">Reports</span>
+                                                  </a>
+                                              </li>
+                                              @endif
 
                                             </ul>
                                         </li>
@@ -300,6 +306,7 @@
                                                     </a>
                                                 </li>
 
+                                                @if(Auth::user()->role == 'administrator')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/subscription">
@@ -313,6 +320,8 @@
                                                         <span class="sidebar-menu-text">Requests</span>
                                                     </a>
                                                 </li>
+                                                @endif
+
 
                                             </ul>
                                         </li>
