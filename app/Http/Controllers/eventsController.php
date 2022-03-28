@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\events;
-use Auth;
 use carbon\carbon;
+use Auth;
 use App\User;
+use App\email;
+use App\user_email;
 
 class eventsController extends Controller
 {
     public function index(){
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $today = events::where('date','=',Carbon::now()->format('Y-m-d'))->whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);
         })->get();
@@ -26,7 +30,7 @@ class eventsController extends Controller
       $dob = User::Where('company','=',Auth::user()->company)->where('dob','=',Carbon::now()->format('Y-m-d'))->first();
       // dd($dob);
 
-      return view('en.events',compact('today','upcoming','events','dob'));
+      return view('en.events',compact('today','upcoming','events','dob','receved','email'));
     }
 
     public function addEvent(Request $request){

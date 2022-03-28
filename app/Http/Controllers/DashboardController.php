@@ -10,6 +10,8 @@ use App\Project;
 use App\user_project;
 use App\User;
 use App\Tasks;
+use App\user_email;
+use App\email;
 use Auth;
 
 class DashboardController extends Controller
@@ -21,6 +23,8 @@ class DashboardController extends Controller
       })->latest()->take(5)->get();
       $project_workers = user_project::all();
       $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $totalTasks= Tasks::whereHas('creater', function ($query) {
         return $query->where('company', '=', Auth::user()->company);
       })->count();
@@ -52,7 +56,7 @@ class DashboardController extends Controller
 
 
       return view('en.index',compact('announcement','project','project_workers','user','tasksClosed','tasksInProgress','totalTasks',
-      'inProgress','Done','activeProjects','closedProjects'));
+      'inProgress','Done','activeProjects','closedProjects','receved','email'));
     }
 
     public function download($filename){

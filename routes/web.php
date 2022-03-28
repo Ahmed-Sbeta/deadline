@@ -14,94 +14,110 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/login','Auth\LoginController@login')->name('login'); //login button;
 Route::post('/logout','Auth\LoginController@logout')->name('adminlogout'); //logout button;
-Route::post('/change-password', 'UsersController@changeUserPassword')->name('changepassword');
+Route::post('/change-password', 'UsersController@changeUserPassword')->name('changepassword')->middleware('auth');
 
 Route::get('/', 'DashboardController@index')->middleware('auth');
 Route::get('/download/{filename}','DashboardController@download');
 
-Route::get('/projects','ProjectsController@index');
-Route::get('/project/{id}','ProjectsController@view');
-Route::Post('/addproject','ProjectsController@addProject')->name('addProject');
+Route::get('/projects','ProjectsController@index')->middleware('auth');
+Route::get('/project-details/{id}','ProjectsController@projectDetails')->middleware('auth');
+Route::get('/project/{id}','ProjectsController@view')->middleware('auth');
+Route::get('/deleteProject/{id}','ProjectsController@delete')->middleware('auth');
+Route::get('/editProject/{id}','ProjectsController@edit')->middleware('auth');
+Route::post('/project/comment/{id}','ProjectsController@addComment');
+
+Route::post('/addproject','ProjectsController@addProject')->name('addProject')->middleware('auth');
+Route::Patch('/editproject/{id}','ProjectsController@updateProject')->name('editProject')->middleware('auth');
 Route::post('/openedProjects-cheked','ProjectsController@activeCheckedprojects')->name("activecheked");
 Route::get('/searchProj','ProjectsController@searchActive')->name('searchActiveProjects');
 Route::get('/searchArch','ProjectsController@searchArchive')->name('searchArchiveProjects');
 
 
-Route::get('/tasks-board','TasksController@board');
-Route::Post('/addTask','TasksController@addTask')->name('addTask');
-Route::get('/task/{id}','TasksController@view');
+Route::get('/tasks-board','TasksController@board')->middleware('auth');
+Route::Post('/addTask','TasksController@addTask')->name('addTask')->middleware('auth');
+Route::get('/deleteTask/{id}','TasksController@deleteTask')->middleware('auth');
+Route::get('/editTask/{id}','TasksController@editTask')->middleware('auth');
+Route::patch('/updateTask/{id}','TasksController@updateTask');
+Route::get('/task/{id}','TasksController@view')->middleware('auth');
 Route::post('/task/comment/{id}','TasksController@addComment')->name('task-comment');
 
 
-Route::get('/tasks-list','TasksController@list');
+Route::get('/tasks-list','TasksController@list')->middleware('auth');
 Route::post('/openedTasks-cheked','TasksController@openedCheckedTasks')->name("openedcheked");
 Route::post('/inProgressTasks-cheked','TasksController@inProgressCheckedTasks')->name("inProgresscheked");
 Route::post('/closedTasks-cheked','TasksController@closedCheckedTasks')->name("closedcheked");
-Route::get('/addreminder/{id}','TasksController@addreminder');
-Route::get('/reminders','TasksController@reminders');
+Route::get('/addreminder/{id}','TasksController@addreminder')->middleware('auth');
+Route::get('/reminders','TasksController@reminders')->middleware('auth');
 
 
-Route::get('/reports','ReportsController@index');
+Route::get('/reports','ReportsController@index')->middleware('auth');
+Route::get('/deletereports/{id}','ReportsController@deleteReport')->middleware('auth');
+Route::get('/editReport/{id}','ReportsController@EditReport')->middleware('auth');
+Route::patch('/updateReport/{id}','ReportsController@updateReport');
 Route::Post('/addreport','ReportsController@addreport')->name('addReport');
-Route::get('/searchReport','ReportsController@searchReport')->name('searchReports');
+Route::get('/searchReport','ReportsController@searchReport')->name('searchReports')->middleware('auth');
 
-Route::get('/edit-account','UsersController@index');
+Route::get('/edit-account','UsersController@index')->middleware('auth');
 Route::Post('/updateName' , 'UsersController@changeUserInfo')->name('updateName');
+Route::get('/notifications','UsersController@notific');
 
-Route::get('/edit-account/profile','UsersController@profile');
+Route::get('/edit-account/profile','UsersController@profile')->middleware('auth');
 Route::Post('/updateImage','UsersController@changeUserImage')->name('updateImage');
-Route::get('/edit-account/notifications','UsersController@notifications');
-Route::get('/edit-account/changepassword','UsersController@changepassword');
-Route::get('/requests','UsersController@requests');
+Route::get('/edit-account/notifications','UsersController@notifications')->middleware('auth');
+Route::get('/edit-account/changepassword','UsersController@changepassword')->middleware('auth');
+Route::get('/requests','UsersController@requests')->middleware('auth');
 Route::post('/requests','UsersController@approve')->name('approveRequests');
 
 
-Route::get('/employees','UsersController@employees');
+Route::get('/employees','UsersController@employees')->middleware('auth');
 Route::post('/addemployee','UsersController@addemployee')->name('addEmployee');
 Route::post('/changerole','UsersController@changerole')->name('changerole');
-Route::get('/search/', 'UsersController@search')->name('searchUser');
-Route::get('/deleteUser/{id}','UsersController@deleteUser');
+Route::get('/search/', 'UsersController@search')->name('searchUser')->middleware('auth');
+Route::get('/deleteUser/{id}','UsersController@deleteUser')->middleware('auth');
 
 
 Route::post('/addcompany','CompanyController@addcompany')->name('addcompany');
-Route::get('/deleteCompany/{id}','CompanyController@deleteCompany');
+Route::get('/deleteCompany/{id}','CompanyController@deleteCompany')->middleware('auth');
 Route::post('/editCompany/{id}','CompanyController@editCompany')->name('editCompany');
 
-Route::get('/subscription','SubscriptionController@index');
-Route::get('/billing-history','SubscriptionController@billingHistory');
-Route::get('/billing-upgrade','SubscriptionController@billingUpGrade');
-Route::get('/billing-invoice','SubscriptionController@billingInvoice');
-Route::get('/billing-payment','SubscriptionController@billingPayment');
+Route::get('/subscription','SubscriptionController@index')->middleware('auth');
+Route::get('/billing-history','SubscriptionController@billingHistory')->middleware('auth');
+Route::get('/billing-upgrade','SubscriptionController@billingUpGrade')->middleware('auth');
+Route::get('/billing-invoice','SubscriptionController@billingInvoice')->middleware('auth');
+Route::get('/billing-payment','SubscriptionController@billingPayment')->middleware('auth');
 
 
-Route::get('/announcments','AnnouncementController@index');
+Route::get('/announcments','AnnouncementController@index')->middleware('auth');
+Route::get('/deleteAnnouncments/{id}','AnnouncementController@deleteAnnouncement')->middleware('auth');
+Route::get('/Editannouncments/{id}','AnnouncementController@EditAnnouncement')->middleware('auth');
+Route::PATCH('/updateAnnouncments/{id}','AnnouncementController@updateAnnouncement');
 Route::Post('/addAnnouncement','AnnouncementController@addAnnouncement')->name('addAnnouncement');
-Route::get('/announcement-details/{id}','AnnouncementController@Announcement_details');
-Route::get('/searchannouncments','AnnouncementController@searchAnn')->name('searchannouncments');
+Route::get('/announcement-details/{id}','AnnouncementController@Announcement_details')->middleware('auth');
+Route::get('/searchannouncments','AnnouncementController@searchAnn')->name('searchannouncments')->middleware('auth');
 Route::post('/announcment/comment/{id}','AnnouncementController@addComment')->name('announcment-comment');
 
 
-Route::get('/email','EmailController@index');
-Route::get('/compose-email','EmailController@compose');
-Route::get('/compose-email/{id}','EmailController@composeTo');
-Route::get('/email-details/{id}','EmailController@emailView');
+Route::get('/email','EmailController@index')->middleware('auth');
+Route::get('/compose-email','EmailController@compose')->middleware('auth');
+Route::get('/compose-email/{id}','EmailController@composeTo')->middleware('auth');
+Route::get('/email-details/{id}','EmailController@emailView')->middleware('auth');
 Route::post('/sendemail','EmailController@sendEmail')->name('sendemail');
 Route::post('/forwardmail','EmailController@sendforward')->name('sendforward');
-Route::get('/email-forward/{id}','EmailController@forward');
+Route::get('/email-forward/{id}','EmailController@forward')->middleware('auth');
 Route::post('/reply/{id}','EmailController@reply');
-Route::get('/email/sent','EmailController@sentMail');
-Route::get('/email/trash','EmailController@trashMail');
-Route::get('/delete-mail/{id}','EmailController@delete');
+Route::get('/email/sent','EmailController@sentMail')->middleware('auth');
+Route::get('/email/trash','EmailController@trashMail')->middleware('auth');
+Route::get('/delete-mail/{id}','EmailController@delete')->middleware('auth');
 
 
-Route::get('/events','eventsController@index');
+Route::get('/events','eventsController@index')->middleware('auth');
 Route::post('/addevents','eventsController@addEvent')->name('addevent');
 
 Route::get('/home','mainController@index');
 Route::get('/login','mainController@login');
 
 Route::get('/admin/login','Auth\LoginController@index');
-Route::post('/admin/login','mainController@adminLogin')->name('OwnerLogin');
+Route::post('/admin/login','mainController@adminLogin');
 Route::get('/admin/dashboard','mainController@admin');
 
 Route::get('/lostPassword','mainController@lostPassword');
@@ -124,7 +140,6 @@ Route::get('/ar/download/{filename}','DashboardController@download');
 
 Route::get('/ar/projects','ProjectsController@Arindex');
 Route::get('/ar/project/{id}','ProjectsController@Arview');
-Route::Post('/ar/addproject','ProjectsController@addProject')->name('addProject');
 
 Route::get('/ar/tasks-board','TasksController@Arboard');
 // Route::Post('/ar/addTask','TasksController@AraddTask')->name('addTask');
@@ -158,7 +173,6 @@ Route::get('/ar/billing-payment','SubscriptionController@ArbillingPayment');
 
 
 Route::get('/ar/announcments','AnnouncementController@Arindex');
-// Route::Post('/ar/addAnnouncement','AnnouncementController@addAnnouncement')->name('addAnnouncement');
 Route::get('/ar/announcement-details/{id}','AnnouncementController@ArAnnouncement_details');
 
 Route::get('/ar/email','EmailController@Arindex');

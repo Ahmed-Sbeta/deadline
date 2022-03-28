@@ -76,7 +76,7 @@ class EmailController extends Controller
     public function forward($id){
       $users = User::where('company','=',Auth::user()->company)->get();
       $email = email::find($id);
-      return view('forward-compose',compact('email','users'));
+      return view('en.forward-compose',compact('email','users'));
     }
 
     public function sendforward(Request $request){

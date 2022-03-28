@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Company;
 use App\User;
+use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
@@ -19,6 +20,8 @@ class CompanyController extends Controller
       $company->subscription = request('subscription');
       $company->Code = Str::random(6);
       $company->email= request('email');
+      $now = Carbon::now()->addDay(31)->toDateString();
+      $company->exp_date= $now;
       $company->save();
       // dd($company);
       $user->firstName = request('firstName');
@@ -38,9 +41,9 @@ class CompanyController extends Controller
         $user->save();
       }else{
         //error
-        return redirect('/subscribe');
+        return redirect('/subscribe')->with('error','somthing went wrong');
       }
-      return redirect('/subscribe');
+      return redirect('/subscribe')->with('success','Company created successfuly , expect an email in the next 24 houres');
 
     }
 

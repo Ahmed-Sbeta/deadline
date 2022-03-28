@@ -20,6 +20,7 @@ class CreateCompaniesTable extends Migration
             $table->string('Code');
             $table->string('email')->unique();
             $table->string('location');
+            $table->string('exp_date')->nullable();
             $table->boolean('active')->default(False);
             $table->timestamps();
         });

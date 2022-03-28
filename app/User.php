@@ -49,13 +49,13 @@ class User extends Authenticatable
       return $this->hasMany('App\Tasks');
     }
     public function project(){
-      return $this->hasMany('App\projects');
+      return $this->hasMany('App\project');
     }
     public function events(){
       return $this->hasMany('App\events');
     }
     public function projects(){
-      return $this->belongsToMany('App\projects', 'user_project');
+      return $this->belongsToMany('App\project','user_projects');
     }
     public function email(){
       return $this->belongsToMany('App\email','user_email');

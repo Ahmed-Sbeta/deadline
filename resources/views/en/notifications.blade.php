@@ -8,7 +8,7 @@
               content="IE=edge">
         <meta name="viewport"
               content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Task details</title>
+        <title>Notifications</title>
 
         <!-- Prevent the demo from appearing in search engines -->
         <meta name="robots"
@@ -45,10 +45,7 @@
               href="{{asset('assets/css/app.css')}}"
               rel="stylesheet">
 
-        <!-- Dark Mode CSS (optional) -->
-        <link type="text/css"
-              href="{{asset('assets/css/dark-mode.css')}}"
-              rel="stylesheet">
+
 
     </head>
 
@@ -64,12 +61,7 @@
                 <div class="sk-chase-dot"></div>
             </div>
 
-            <!-- <div class="sk-bounce">
-    <div class="sk-bounce-dot"></div>
-    <div class="sk-bounce-dot"></div>
-  </div> -->
 
-            <!-- More spinner examples at https://github.com/tobiasahlin/SpinKit/blob/master/examples.html -->
         </div>
 
         <div class="mdk-drawer-layout js-mdk-drawer-layout"
@@ -79,57 +71,48 @@
 
                 <!-- Header -->
 
-              <div class="mdk-drawer-layout js-mdk-drawer-layout"
-             data-push
-             data-responsive-width="992px">
-            <div class="mdk-drawer-layout__content page-content">
+                <div class="mdk-drawer-layout js-mdk-drawer-layout"
+                data-push
+                data-responsive-width="992px">
+               <div class="mdk-drawer-layout__content page-content">
 
-                <!-- Header -->
+                   <!-- Header -->
 
-                <div class="navbar navbar-expand navbar-shadow px-0  pl-lg-16pt navbar-light bg-body"
-                     id="default-navbar"
-                     data-primary>
-
-                    <!-- Navbar toggler -->
-                    <button class="navbar-toggler d-block d-lg-none rounded-0"
-                            type="button"
-                            data-toggle="sidebar">
-                        <span class="material-icons">menu</span>
-                    </button>
-
-                    <!-- Navbar Brand -->
-                    <a href="index.html"
-                       class="navbar-brand mr-16pt d-lg-none">
-                        <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-                             src="assets/images/logo/logo.png"
-                             width="32"
-                             alt="Deadline">
-                    </a>
-
-                    <!-- <button class="btn navbar-btn mr-16pt" data-toggle="modal" data-target="#apps">Apps <i class="material-icons">arrow_drop_down</i></button> -->
+                   <div class="navbar navbar-expand navbar-shadow px-0  pl-lg-16pt navbar-light bg-body"
+                        id="default-navbar"
+                        data-primary>
 
 
-                    <div class="flex" ></div>
 
-                    <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
-                         style="white-space: nowrap;">
-                        <div class="nav-item dropdown d-none d-sm-flex" >
-                            <a href="#" hidden
-                               class="nav-link dropdown-toggle"
-                               data-toggle="dropdown">EN</a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-header"><strong>Select language</strong></div>
-                                <a class="dropdown-item active"
-                                   href="">English</a>
-                                <a class="dropdown-item"
-                                   href="">French</a>
-                                    <a class="dropdown-item"
-                                   href="">Romanian</a>
-                                <a class="dropdown-item"
-                                   href="">Spanish</a>
-                            </div>
-                        </div>
-                    </div>
+                       <!-- Navbar Brand -->
+                       <a href="index.html"
+                          class="navbar-brand mr-16pt d-lg-none">
+                           <img class="navbar-brand-icon mr-0 mr-lg-8pt"
+                                src="{{asset('assets/images/logo/logo.png')}}"
+                                width="32"
+                                alt="Deadline">
+                       </a>
+
+
+
+                       <div class="flex" ></div>
+
+                       <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
+                            style="white-space: nowrap;">
+                           <div class="nav-item dropdown d-none d-sm-flex" >
+                               <a href="#"
+                                  class="nav-link dropdown-toggle"
+                                  data-toggle="dropdown">EN</a>
+                               <div class="dropdown-menu dropdown-menu-right">
+                                   <div class="dropdown-header"><strong>Select language</strong></div>
+                                   <a class="dropdown-item active"
+                                      href="">English</a>
+                                   <a class="dropdown-item"
+                                      href="/ar/">العربية</a>
+
+                               </div>
+                           </div>
+                       </div>
 
                     <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
                       <div class="nav-item dropdown d-none d-sm-flex">
@@ -138,22 +121,25 @@
                              data-toggle="dropdown">
                               <img width="32"
                                    height="32"
-                                   class="rounded-circle mr-8pt "
+                                   class="rounded-circle mr-8pt"
                                    src="{{asset(Storage::url(Auth::user()->image))}}"
                                    alt="account" />
                               <span class="flex d-flex flex-column mr-8pt">
-                                  <span class="navbar-text-100">{{Auth::user()->name}}</span>
-                                  <small class="navbar-text-50">{{Auth::user()->role}}</small>
+                                <span class="navbar-text-100">{{Auth::user()->firstName}} {{Auth::user()->lastName}}</span>
+                                <small class="navbar-text-50">{{Auth::user()->role}}</small>
                               </span>
+                              <!-- sadasd -->
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
                               <div class="dropdown-header"><strong>Account</strong></div>
                               <a class="dropdown-item"
                                  href="\edit-account">Edit Account</a>
+                                 @if(Auth::user()->role == 'administrator')
                               <a class="dropdown-item"
                                  href="\subscription">Billing</a>
                               <a class="dropdown-item"
-                                 href="\billing-history">Payments</a>
+                                 href="\billing-payment">Payments</a>
+                                 @endif
                               <a class="dropdown-item"
                               href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">Logout</a>
@@ -170,60 +156,52 @@
                                     type="button"
                                     data-toggle="dropdown"
                                     data-dropdown-disable-document-scroll
-                                    data-caret="false">
-                                <i class="material-icons">notifications</i>
-                                <span class="badge badge-notifications badge-accent">2</span>
+                                    data-caret="false"
+                                    >
+                                <i class="material-icons" >notifications</i>
+                                <span class="badge badge-notifications badge-accent">{{Auth::user()->unreadNotifications->count()}}</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div data-perfect-scrollbar
                                      class="position-relative">
-                                    <div class="dropdown-header"><strong>System notifications</strong></div>
+                                    <div class="dropdown-header"><strong>Notifications</strong></div>
                                     <div class="list-group list-group-flush mb-0">
+                                      @forelse(Auth::user()->notifications->take(3) as $notification)
+                                        <a href=""
+                                           class="list-group-item list-group-item-action">
+                                            <span class="d-flex align-items-center mb-1">
+                                                <small class="text-black-50">{{(new Carbon\Carbon($notification->created_at))->diffForHumans()}}</small>
 
-                                        <a href="javascript:void(0);"
+                                                <span class="ml-auto bg-accent"></span>
+
+                                            </span>
+                                            <span class="d-flex">
+
+                                                </span>
+                                                <span class="flex d-flex flex-column">
+
+                                                    <span class="text-black-70" onclick="{{$notification->markAsRead()}}">{{$notification->data['text']}}<strong>{{$notification->data['name']}}</strong> </span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                        @empty
+                                        <a href="tasks-details.html"
                                            class="list-group-item list-group-item-action unread">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">3 minutes ago</small>
-
+                                                <small class="text-black-50"></small>
                                                 <span class="ml-auto unread-indicator bg-accent"></span>
-
                                             </span>
                                             <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <span class="avatar-title rounded-circle bg-light">
-                                                        <i class="material-icons font-size-16pt text-accent">account_circle</i>
-                                                    </span>
                                                 </span>
                                                 <span class="flex d-flex flex-column">
-
-                                                    <span class="text-black-70">Your profile information has not been synced correctly.</span>
+                                                    <span class="text-black-70">No notifications available </span>
                                                 </span>
                                             </span>
                                         </a>
-
-                                        <a href="javascript:void(0);"
+                                        @endforelse
+                                        <a href="/notifications"
                                            class="list-group-item list-group-item-action">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">5 hours ago</small>
-
-                                            </span>
-                                            <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <span class="avatar-title rounded-circle bg-light">
-                                                        <i class="material-icons font-size-16pt text-primary">group_add</i>
-                                                    </span>
-                                                </span>
-                                                <span class="flex d-flex flex-column">
-                                                    <strong class="text-black-100">Adrian. D</strong>
-                                                    <span class="text-black-70">Wants to join your private group.</span>
-                                                </span>
-                                            </span>
-                                        </a>
-
-                                        <a href="javascript:void(0);"
-                                           class="list-group-item list-group-item-action">
-                                            <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">1 day ago</small>
 
                                             </span>
                                             <span class="d-flex">
@@ -234,7 +212,7 @@
                                                 </span>
                                                 <span class="flex d-flex flex-column">
 
-                                                    <span class="text-black-70">Your deploy was successful.</span>
+                                                    <span class="text-black-70">See All Notifications</span>
                                                 </span>
                                             </span>
                                         </a>
@@ -259,72 +237,92 @@
                                      class="position-relative">
                                     <div class="dropdown-header"><strong>Messages</strong></div>
                                     <div class="list-group list-group-flush mb-0">
-
-                                        <a href="javascript:void(0);"
+                                      @forelse($receved as $res)
+                                      @foreach($email as $mail)
+                                      @if($res->email_id == $mail->id)
+                                        <a href="/email-details/{{$mail->id}}"
                                            class="list-group-item list-group-item-action unread">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">5 minutes ago</small>
+                                                <small class="text-black-50">{{(new Carbon\Carbon($mail->created_at))->diffForHumans()}}</small>
 
                                                 <span class="ml-auto unread-indicator bg-accent"></span>
 
                                             </span>
                                             <span class="d-flex">
                                                 <span class="avatar avatar-xs mr-2">
-                                                    <img src="assets/images/people/110/woman-5.jpg"
+                                                    <img src="{{asset(Storage::url($user->find($mail->creator)->image))}}"
                                                          alt="people"
                                                          class="avatar-img rounded-circle">
                                                 </span>
                                                 <span class="flex d-flex flex-column">
-                                                    <strong class="text-black-100">Michelle</strong>
-                                                    <span class="text-black-70">Clients loved the new design.</span>
+                                                    <strong class="text-black-100">{{$user->find($mail->creator)->name}}</strong>
+                                                    <span class="text-black-70">{{$mail->subject}}</span>
                                                 </span>
                                             </span>
                                         </a>
-
-                                        <a href="javascript:void(0);"
-                                           class="list-group-item list-group-item-action">
+                                        @endif
+                                        @endforeach
+                                        @empty
+                                        <a href="/email"
+                                           class="list-group-item list-group-item-action unread">
                                             <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">5 minutes ago</small>
+                                                <small class="text-black-50"></small>
+
+                                                <span class="ml-auto unread-indicator bg-accent"></span>
 
                                             </span>
                                             <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <img src="assets/images/people/110/woman-5.jpg"
-                                                         alt="people"
-                                                         class="avatar-img rounded-circle">
-                                                </span>
+
                                                 <span class="flex d-flex flex-column">
-                                                    <strong class="text-black-100">Michelle</strong>
-                                                    <span class="text-black-70">🔥 Superb job..</span>
+                                                    <strong class="text-black-100"></strong>
+                                                    <span class="text-black-70">No Mail available.</span>
                                                 </span>
                                             </span>
                                         </a>
+                                        @endforelse
+                                        <a href="/email"
+                                        class="list-group-item list-group-item-action">
+                                         <span class="d-flex align-items-center mb-1">
+
+                                         </span>
+                                         <span class="d-flex">
+                                             <span class="avatar avatar-xs mr-2">
+                                                 <span class="avatar-title rounded-circle bg-light">
+                                                     <i class="material-icons font-size-16pt text-warning">storage</i>
+                                                 </span>
+                                             </span>
+                                             <span class="flex d-flex flex-column">
+
+                                                 <span class="text-black-70">See All Messages</span>
+                                             </span>
+                                         </span>
+                                     </a>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- // END Notifications dropdown -->
-                    </div>
+                         <!-- // END Notifications dropdown -->
+                       </div>
 
 
-                </div>
+                   </div>
 
-                <!-- // END Header -->
+                   <!-- // END Header -->
 
-                <div class="border-bottom-2 py-32pt position-relative z-1">
+                   <div class="border-bottom-2 py-32pt position-relative z-1">
                     <div class="container-fluid page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
                          <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                             <h2 class="mb-0">Task Details</h2>
+                             <h2 class="mb-0">Notifications</h2>
 
                              <ol class="breadcrumb p-0 m-0">
-                                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
 
                                  <li class="breadcrumb-item active">
 
-                                     Productivity
+                                     All Notifications
 
                                  </li>
 
@@ -339,19 +337,19 @@
                         <!--Date and Time-->
                         <div class="row"
                         role="tablist">
-                       <div class="col-auto d-flex flex-column">
-                           <h6 class="m-0">{{ Carbon\Carbon::now()->format('H:i')}}</h6>
-                           <p class="text-50 mb-0 pr-1 d-flex align-items-center">
-                                 {{ Carbon\Carbon::now()->toDateString()}}
-                           </p>
-                       </div>
+                        <div class="col-auto d-flex flex-column">
+                            <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
+                            <p class="text-50 mb-0 pr-1 d-flex align-items-center">
+                                {{ Carbon\Carbon::now()->toDateString()}}
+                            </p>
+                        </div>
 
                        </div>
 
                         <div class="row"
                              role="tablist">
                             <div class="col-auto border-left" style="margin-left: 12px;">
-                                <a href="reminders.html"
+                                <a href="/reminders"
                                    class="btn btn-accent">Reminders</a>
                             </div>
                         </div>
@@ -359,124 +357,144 @@
                     </div>
                 </div>
 
-             <!-- // END Header -->
+                <div class="page-section">
+                    <div class="container-fluid page__container">
+                        <div class="row card-group-row">
+                          @foreach($notifications as $notification)
+                            <div class="col-md-6 card-group-row__col">
+                                <div class="card card--elevated card-group-row__card">
+                                    <div class="card-body d-flex">
+                                        <span class="icon-holder icon-holder--outline-muted rounded-circle d-inline-flex mr-16pt">
+                                            <i class="material-icons">question_answer</i>
+                                        </span>
+                                        <div class="flex">
+                                            <a class="card-title mb-4pt"
+                                               href="">{{$notification->data['name']}}</a>
+                                            <p class="text-70 mb-0">{{$notification->data['text']}}</p>
+                                        </div>
+                                    </div>
 
-                <div class="container-fluid page__container">
-                    <div class="page-section">
+                                </div>
+
+                            </div>
+                            @endforeach
+
+
+
+                        </div>
+
+                        <div class="card p-8pt mb-0 d-inline-block">
+
+                            <ul class="pagination justify-content-start pagination-xsm m-0">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{$notifications->previousPageUrl()}}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true"
+                                              class="material-icons">chevron_left</span>
+                                        <span>Prev</span>
+                                    </a>
+                                </li>
+                                <li class="page-item dropdown">
+                                    <a class="page-link dropdown-toggle"
+                                       data-toggle="dropdown"
+                                       href="#"
+                                       aria-label="Page">
+                                        <span>{{$notifications->currentPage()}}</span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                      {{ $notifications-> links() }}
+                                    </div>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{$notifications->nextPageUrl()}}"
+                                       aria-label="Next">
+                                        <span>Next</span>
+                                        <span aria-hidden="true"
+                                              class="material-icons">chevron_right</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <p></p>
+
 
                         <div class="row">
-                            <div class="col-md-11">
+                            <div class="col-lg-8">
 
-                                <h1 class="h3 mb-2">{{$task->title}}</h1>
-                                <p class="text-muted d-flex align-items-center mb-lg-32pt">
-                                    <a href="\tasks-board"
-                                       class="mr-3">Back to Tasks</a>
-
-                                </p>
-
-                                <div class="card card-body">
-                                    <div class="d-flex">
-                                        <a href=""
-                                           class="avatar avatar-32pt avatar-online mr-12pt">
-                                            <img src="{{asset(Storage::url($task->creater->image))}}"
-                                                 alt="people"
-                                                 class="avatar-img rounded-circle">
-                                        </a>
-                                        <div class="flex">
-                                            <p class="d-flex align-items-center mb-2">
-                                                <a href=""
-                                                   class="text-body mr-2"><strong>{{$task->creater->name}}</strong></a>
-                                                <small class="text-muted">2 min ago</small>
-                                            </p>
-                                            <p>{{$task->discription}}</p>
-                                            <div class="d-flex align-items-center">
-                                                    <a href="/download/{{$task->file}}"
-                                                       class="btn btn-sm btn-outline-secondary">{{$task->file}}<i class="icon--right material-icons">file_download</i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="page-separator">
+                                    <div class="page-separator__text">Ads Pannel</div>
                                 </div>
 
-                                <div class="d-flex mb-4">
-                                    <a href=""
-                                       class="avatar avatar-32pt mr-8pt">
-                                        <img src="{{asset(Storage::url(Auth::user()->image))}}"
-                                             alt="people"
-                                             class="avatar-img rounded-circle">
-                                    </a>
-                                    <div class="flex">
-                                        <div class="form-group">
-                                            <label for="comment"
-                                                   class="form-label">Your reply</label>
-                                            <textarea class="form-control"
-                                                      name="comment"
-                                                      id="comment"
-                                                      rows="3"
-                                                      placeholder="Type here to reply to Matney ...">
-                                                    </textarea>
-                                        </div>
-                                        <button class="btn btn-accent">Post comment</button>
-                                        <div class="d-inline-flex align-items-center">
-                                            <a href="#"
-                                               class="btn btn-sm btn-outline-secondary mr-16pt">Upload File <i class="icon--right material-icons">keyboard_arrow_up</i></a>
+                                <div class="card mb-lg-0">
+                                    <div class="card-header d-flex align-items-center">
+                                        <strong class="flex">Paid Ads</strong>
+
+                                    </div>
+                                    <div class="progress rounded-0"
+                                         style="height: 4px;">
+                                        <div class="progress-bar bg-primary"
+                                             role="progressbar"
+                                             style="width: 40%;"
+                                             aria-valuenow="40"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div>
+                                            <a href="tasks-list.html"><img src="{{asset('assets/images/quickers.jpg')}}" alt=" Tasks List"
+                                                style="width: 100%; height: auto; "></a>
 
                                         </div>
+
                                     </div>
+
                                 </div>
-                                <div class="pt-3">
-                                    <h4>2 Comments</h4>
-                                    <div class="d-flex mb-3">
-                                        <a href=""
-                                           class="avatar avatar-32pt mr-8pt">
-                                            <img src="assets/images/people/256/256_rsz_karl-s-973833-unsplash.jpg"
-                                                 alt="people"
-                                                 class="avatar-img rounded-circle">
-                                        </a>
-                                        <div class="flex">
-                                            <a href=""
-                                               class="text-body"><strong>Joseph S. Ferland</strong></a>
-                                            <span class="text-70">How can I load Charts on a page?</span><br>
-                                            <span class="text-50">on <a href=""
-                                                   class="text-50"
-                                                   style="text-decoration: underline;">Data Visualization With Chart.js</a></span><br>
-                                            <div class="d-flex align-items-center">
-                                                <small class="text-50 mr-2">27 min ago</small>
-                                                <a href=""
-                                                   class="text-50"><small>Liked</small></a>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="ml-sm-32pt mt-3 card p-3">
-                                        <div class="d-flex">
-                                            <a href="#"
-                                               class="avatar avatar-32pt mr-8pt">
-                                                <img src="assets/images/people/110/guy-6.jpg"
-                                                     alt="Guy"
-                                                     class="avatar-img rounded-circle">
-                                            </a>
-                                            <div class="flex">
-                                                <div class="d-flex align-items-center">
-                                                    <a href=""
-                                                       class="text-body"><strong>FrontendMatter</strong></a>
-                                                    <small class="ml-auto text-muted">just now</small>
-                                                </div>
-                                                <p class="mt-1 text-70">Hi Joseph,<br> Thank you for purchasing our course! <br><br>Please have a look at the charts library documentation <a href="#">here</a> and follow the instructions.</p>
-
-                                                <div class="d-flex align-items-center">
-                                                    <a href=""
-                                                       class="text-50 d-flex align-items-center text-decoration-0"><i class="material-icons mr-1"
-                                                           style="font-size: inherit;">favorite_border</i> 3</a>
-                                                    <a href=""
-                                                       class="text-50 d-flex align-items-center text-decoration-0 ml-3"><i class="material-icons mr-1"
-                                                           style="font-size: inherit;">thumb_up</i> 13</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                                                   </div>
+                            <div class="col-lg-4">
+
+                                <div class="page-separator">
+                                    <div class="page-separator__text">Ads Pannel</div>
+                                </div>
+
+                                <div class="card mb-lg-0">
+                                    <div class="card-header d-flex align-items-center">
+                                        <strong class="flex">Paid Ads</strong>
+                                    </div>
+                                    <div class="progress rounded-0"
+                                         style="height: 4px;">
+                                        <div class="progress-bar bg-accent"
+                                             role="progressbar"
+                                             style="width: 40%;"
+                                             aria-valuenow="40"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="list-group list-group-flush">
+
+
+
+                                        <div class="list-group-item p-16pt">
+
+
+                                                <a href="https:www.google.com"><img src="{{asset('assets/images/ads.jpg')}}" alt="Paid Ad"
+                                                    style="width: 100%; height: auto; "></a>
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
 
                     </div>
                 </div>
@@ -486,7 +504,7 @@
                     <div class="container-fluid page__container page-section d-flex flex-column">
                         <p class="text-70 brand mb-24pt">
                             <img class="brand-icon"
-                                 src="assets/images/logo/logo.png"
+                                 src="{{asset('assets/images/logo/logo.png')}}"
                                  width="30"
                                  alt="Deadline"> Deadline
                         </p>
@@ -500,12 +518,12 @@
                                         <p class="text-white-70 mb-8pt"><strong>Follow us</strong></p>
                                         <nav class="nav nav-links nav--flush">
                                             <a href="https://www.facebook.com/mawja"
-                                               class="nav-link mr-8pt"><img src="assets/images/icon/footer/facebook-square@2x.png"
+                                               class="nav-link mr-8pt"><img src="{{asset('assets/images/icon/footer/facebook-square@2x.png')}}"
                                                      width="24"
                                                      height="24"
                                                      alt="Facebook"></a>
 
-                                             <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="assets/images/icon/footer/youtube-square@2x.png"
+                                             <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="{{asset('assets/images/icon/footer/youtube-square@2x.png')}}"
                                                  width="24"
                                                   height="24"
                                                   alt="YouTube"></a>
@@ -533,17 +551,8 @@
                     <div class="sidebar sidebar-dark sidebar-left"
                          data-perfect-scrollbar>
 
-                        <!-- Navbar toggler -->
-                        <a href="compact-index.html"
-                           class="navbar-toggler navbar-toggler-right navbar-toggler-custom d-flex align-items-center justify-content-center position-absolute right-0 top-0"
-                           data-toggle="tooltip"
-                           data-title="Switch to Compact Vertical Layout"
-                           data-placement="right"
-                           data-boundary="window">
-                            <span class="material-icons">sync_alt</span>
-                        </a>
-
-                        <a href="\"
+                        <!--  SideBar -->
+                        <a href="index.html"
                            class="sidebar-brand ">
                             <img
                                  src="{{asset('assets/images/logo/logo.png')}}"
@@ -552,48 +561,53 @@
                         </a>
 
                         <div class="sidebar-account mx-16pt mb-16pt dropdown">
-                            <a href="#"
-                               class="nav-link d-flex align-items-center dropdown-toggle"
-                               data-toggle="dropdown"
-                               data-caret="false">
-                                <img width="32"
-                                     height="32"
-                                     class="rounded-circle mr-8pt"
-                                     src="{{asset(Storage::url(Auth::user()->image))}}"
-                                     alt="account" />
-                                <span class="flex d-flex flex-column mr-8pt">
-                                    <span class="text-black-100">{{Auth::user()->name}}</span>
-                                    <small class="text-black-50">{{Auth::user()->role}}</small>
-                                </span>
-                                <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
-                                <div class="dropdown-header"><strong>Account</strong></div>
-                                <a class="dropdown-item"
-                                   href="\edit-account">Edit Account</a>
-                                <a class="dropdown-item"
-                                   href="\subscription">Billing</a>
-                                <a class="dropdown-item"
-                                   href="\billing-history">Payments</a>
-                                   <a class="dropdown-item"
-                                   href="{{ route('adminlogout') }}" onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">Logout</a>
-                                   <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
-                                       @csrf
-                                   </form>
-                            </div>
+                          <a href="#"
+                             class="nav-link d-flex align-items-center dropdown-toggle"
+                             data-toggle="dropdown"
+                             data-caret="false">
+                              <img width="32"
+                                   height="32"
+                                   class="rounded-circle mr-8pt"
+                                   src="{{asset(Storage::url(Auth::user()->image))}}"
+                                   alt="account" />
+                              <span class="flex d-flex flex-column mr-8pt">
+                                  <span class="text-black-100">{{Auth::user()->name}}</span>
+                                  <small class="text-black-50">{{Auth::user()->role}}</small>
+                              </span>
+                              <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
+                              <div class="dropdown-header"><strong>Account</strong></div>
+                              <a class="dropdown-item"
+                                 href="\edit-account">Edit Account</a>
+                                 @if(Auth::user()->role == 'administrator')
+                              <a class="dropdown-item"
+                                 href="\subscription">Billing</a>
+                              <a class="dropdown-item"
+                                 href="\billing-payment">Payments</a>
+                                 @endif
+                                 <a class="dropdown-item"
+                                 href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">Logout</a>
+                                 <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                     @csrf
+                                 </form>
+                          </div>
                         </div>
 
+                        <p></p>
 
                         <div class="sidebar-heading">Deadlines</div>
                         <ul class="sidebar-menu">
-                          <li class="sidebar-menu-item">
+
+                            <li class="sidebar-menu-item active">
                                 <a class="sidebar-menu-button"
                                    href="\">
                                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
                                     <span class="sidebar-menu-text">Dashboard</span>
                                 </a>
                             </li>
+
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    data-toggle="collapse"
@@ -604,12 +618,14 @@
                                 </a>
                                 <ul class="sidebar-submenu collapse sm-indent"
                                     id="productivity_menu">
+                                    @if(Auth::user()->role <> 'employee')
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/projects">
                                             <span class="sidebar-menu-text">Projects</span>
                                         </a>
                                     </li>
+                                    @endif
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/tasks-board">
@@ -622,14 +638,20 @@
                                             <span class="sidebar-menu-text">Tasks List</span>
                                         </a>
                                     </li>
+                                      @if(Auth::user()->role <> 'employee')
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/reports">
                                             <span class="sidebar-menu-text">Reports</span>
                                         </a>
                                     </li>
+                                    @endif
+
                                 </ul>
                             </li>
+
+
+
                               <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    data-toggle="collapse"
@@ -638,6 +660,7 @@
                                     Account
                                     <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                 </a>
+
                                 <ul class="sidebar-submenu collapse show sm-indent"
                                     id="account_menu">
 
@@ -647,13 +670,21 @@
                                             <span class="sidebar-menu-text">Edit Account</span>
                                         </a>
                                     </li>
-
+                                    @if(Auth::user()->role == 'administrator')
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/subscription">
                                             <span class="sidebar-menu-text">Subscription</span>
                                         </a>
                                     </li>
+
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="/requests">
+                                            <span class="sidebar-menu-text">Requests</span>
+                                        </a>
+                                    </li>
+                                    @endif
 
                                 </ul>
                             </li>
@@ -683,6 +714,13 @@
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
+                                           href="/events">
+                                            <span class="sidebar-menu-text">Events</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
                                            href="/email">
                                             <span class="sidebar-menu-text">Email</span>
                                         </a>
@@ -690,6 +728,7 @@
                                 </ul>
                             </li>
                         </ul>
+
 
         <!-- App Settings FAB -->
 

@@ -85,10 +85,10 @@
 
 
                        <!-- Navbar Brand -->
-                       <a href="index.html"
+                       <a href="/"
                           class="navbar-brand mr-16pt d-lg-none">
                            <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-                                src="assets/images/logo/logo.png"
+                                src="{{asset('assets/images/logo/logo.png')}}"
                                 width="32"
                                 alt="Deadline">
                        </a>
@@ -98,21 +98,21 @@
                        <div class="flex" ></div>
 
                        <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
-                       style="white-space: nowrap;">
-                      <div class="nav-item dropdown d-none d-sm-flex" >
-                          <a href="#"
-                             class="nav-link dropdown-toggle"
-                             data-toggle="dropdown">EN</a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                              <div class="dropdown-header"><strong>Select language</strong></div>
-                              <a class="dropdown-item active"
-                                 href="">English</a>
-                              <a class="dropdown-item"
-                                 href="/مشروع التخرج/Deadline/Deadline/dist/Ar/events.html">العربية</a>
+                            style="white-space: nowrap;">
+                           <div class="nav-item dropdown d-none d-sm-flex" >
+                               <a href="#"
+                                  class="nav-link dropdown-toggle"
+                                  data-toggle="dropdown">EN</a>
+                               <div class="dropdown-menu dropdown-menu-right">
+                                   <div class="dropdown-header"><strong>Select language</strong></div>
+                                   <a class="dropdown-item active"
+                                      href="">English</a>
+                                   <a class="dropdown-item"
+                                      href="/ar/">العربية</a>
 
-                          </div>
-                      </div>
-                  </div>
+                               </div>
+                           </div>
+                       </div>
 
                   <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
                       <div class="nav-item dropdown d-none d-sm-flex">
@@ -133,10 +133,12 @@
                               <div class="dropdown-header"><strong>Account</strong></div>
                               <a class="dropdown-item"
                                  href="\edit-account">Edit Account</a>
+                                 @if(Auth::user()->role == 'administrator')
                               <a class="dropdown-item"
                                  href="\subscription">Billing</a>
                               <a class="dropdown-item"
-                                 href="\billing-history">Payments</a>
+                                 href="\billing-payment">Payments</a>
+                                 @endif
                               <a class="dropdown-item"
                               href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">Logout</a>
@@ -152,51 +154,50 @@
                                   type="button"
                                   data-toggle="dropdown"
                                   data-dropdown-disable-document-scroll
-                                  data-caret="false">
-                              <i class="material-icons">notifications</i>
-                              <span class="badge badge-notifications badge-accent">2</span>
+                                  data-caret="false"
+                                  >
+                              <i class="material-icons" >notifications</i>
+                              <span class="badge badge-notifications badge-accent">{{Auth::user()->unreadNotifications->count()}}</span>
                           </button>
                           <div class="dropdown-menu dropdown-menu-right">
                               <div data-perfect-scrollbar
                                    class="position-relative">
                                   <div class="dropdown-header"><strong>Notifications</strong></div>
                                   <div class="list-group list-group-flush mb-0">
+                                    @forelse(Auth::user()->notifications->take(3) as $notification)
+                                      <a href="#"
+                                         class="list-group-item list-group-item-action">
+                                          <span class="d-flex align-items-center mb-1">
+                                              <small class="text-black-50">{{(new Carbon\Carbon($notification->created_at))->diffForHumans()}}</small>
 
+                                              <span class="ml-auto bg-accent"></span>
+
+                                          </span>
+                                          <span class="d-flex">
+
+                                              </span>
+                                              <span class="flex d-flex flex-column">
+
+                                                  <span class="text-black-70" onclick="{{$notification->markAsRead()}}">{{$notification->data['text']}}<strong>{{$notification->data['name']}}</strong> </span>
+                                              </span>
+                                          </span>
+                                      </a>
+                                      @empty
                                       <a href="tasks-details.html"
                                          class="list-group-item list-group-item-action unread">
                                           <span class="d-flex align-items-center mb-1">
-                                              <small class="text-black-50">3 minutes ago</small>
-
+                                              <small class="text-black-50"></small>
                                               <span class="ml-auto unread-indicator bg-accent"></span>
-
                                           </span>
                                           <span class="d-flex">
-
                                               </span>
                                               <span class="flex d-flex flex-column">
-
-                                                  <span class="text-black-70">Your profile information has not been synced correctly.</span>
+                                                  <span class="text-black-70">No notifications available </span>
                                               </span>
                                           </span>
                                       </a>
-
-                                      <a href="project-details.html"
-                                         class="list-group-item list-group-item-action">
-                                          <span class="d-flex align-items-center mb-1">
-                                              <small class="text-black-50">5 hours ago</small>
-
-                                          </span>
-                                          <span class="d-flex">
-
-                                              </span>
-                                              <span class="flex d-flex flex-column">
-                                                  <strong class="text-black-100">Adrian. D</strong>
-                                                  <span class="text-black-70">Wants to join your private group.</span>
-                                              </span>
-                                          </span>
-                                      </a>
-
-                                      <a href="notifications.html"
+                                      @endforelse
+                                      <a href="/notifications"
                                          class="list-group-item list-group-item-action">
                                           <span class="d-flex align-items-center mb-1">
 
@@ -234,48 +235,50 @@
                                    class="position-relative">
                                   <div class="dropdown-header"><strong>Messages</strong></div>
                                   <div class="list-group list-group-flush mb-0">
-
-                                      <a href="email.html"
+                                    @forelse($receved as $res)
+                                    @foreach($email as $mail)
+                                    @if($res->email_id == $mail->id)
+                                      <a href="/email-details/{{$mail->id}}"
                                          class="list-group-item list-group-item-action unread">
                                           <span class="d-flex align-items-center mb-1">
-                                              <small class="text-black-50">5 minutes ago</small>
+                                              <small class="text-black-50">{{(new Carbon\Carbon($mail->created_at))->diffForHumans()}}</small>
 
                                               <span class="ml-auto unread-indicator bg-accent"></span>
 
                                           </span>
                                           <span class="d-flex">
                                               <span class="avatar avatar-xs mr-2">
-                                                  <img src="assets/images/people/110/woman-5.jpg"
+                                                  <img src="{{asset(Storage::url($user->find($mail->creator)->image))}}"
                                                        alt="people"
                                                        class="avatar-img rounded-circle">
                                               </span>
                                               <span class="flex d-flex flex-column">
-                                                  <strong class="text-black-100">Michelle</strong>
-                                                  <span class="text-black-70">Clients loved the new design.</span>
+                                                  <strong class="text-black-100">{{$user->find($mail->creator)->name}}</strong>
+                                                  <span class="text-black-70">{{$mail->subject}}</span>
                                               </span>
                                           </span>
                                       </a>
-
-                                      <a href="email.html"
-                                         class="list-group-item list-group-item-action">
+                                      @endif
+                                      @endforeach
+                                      @empty
+                                      <a href="/email"
+                                         class="list-group-item list-group-item-action unread">
                                           <span class="d-flex align-items-center mb-1">
-                                              <small class="text-black-50">5 minutes ago</small>
+                                              <small class="text-black-50"></small>
+
+                                              <span class="ml-auto unread-indicator bg-accent"></span>
 
                                           </span>
                                           <span class="d-flex">
-                                              <span class="avatar avatar-xs mr-2">
-                                                  <img src="assets/images/people/110/woman-5.jpg"
-                                                       alt="people"
-                                                       class="avatar-img rounded-circle">
-                                              </span>
+
                                               <span class="flex d-flex flex-column">
-                                                  <strong class="text-black-100">Michelle</strong>
-                                                  <span class="text-black-70">🔥 Superb job..</span>
+                                                  <strong class="text-black-100"></strong>
+                                                  <span class="text-black-70">No Mail available.</span>
                                               </span>
                                           </span>
                                       </a>
-
-                                      <a href="email.html"
+                                      @endforelse
+                                      <a href="/email"
                                       class="list-group-item list-group-item-action">
                                        <span class="d-flex align-items-center mb-1">
 
@@ -334,7 +337,7 @@
                         <div class="row"
                         role="tablist">
                         <div class="col-auto d-flex flex-column">
-                            <h6 class="m-0">{{ Carbon\Carbon::now()->format('H:i')}}</h6>
+                            <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
                             <p class="text-50 mb-0 pr-1 d-flex align-items-center">
                                 {{ Carbon\Carbon::now()->toDateString()}}
                             </p>
@@ -345,7 +348,7 @@
                         <div class="row"
                              role="tablist">
                             <div class="col-auto border-left" style="margin-left: 12px;">
-                                <a href="reminders.html"
+                                <a href="/reminders"
                                    class="btn btn-accent">Reminders</a>
                             </div>
                         </div>
@@ -615,7 +618,7 @@
                                         </div>
 
                                     </div>
-
+                                    @if(Auth::user()->role <> 'employee')
                                     <div class="page-separator">
                                         <div class="page-separator__text">Add New Event</div>
                                     </div>
@@ -708,6 +711,7 @@
                                         </div>
                                     </div>
                                   </form>
+                                  @endif
                                 </div>
                             </div>
 
@@ -737,7 +741,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div>
-                                        <a href="announcments.html"><img src="assets/images/quickers.jpg" alt="Announcments"
+                                        <a href="announcments.html"><img src="{{asset('assets/images/quickers.jpg')}}" alt="Announcments"
                                             style="width: 100%; height: auto; "></a>
 
                                     </div>
@@ -773,7 +777,7 @@
                                     <div class="list-group-item p-16pt">
 
 
-                                            <a href="https:www.google.com"><img src="assets/images/ads.jpg" alt="Paid Ad"
+                                            <a href="https:www.google.com"><img src="{{asset('assets/images/ads.jpg')}}" alt="Paid Ad"
                                                 style="width: 100%; height: auto; "></a>
 
 
@@ -793,7 +797,7 @@
                     <div class="container-fluid page__container page-section d-flex flex-column">
                         <p class="text-70 brand mb-24pt">
                             <img class="brand-icon"
-                                 src="assets/images/logo/logo.png"
+                                 src="{{asset('assets/images/logo/logo.png')}}"
                                  width="30"
                                  alt="Deadline"> Deadline
                         </p>
@@ -807,12 +811,12 @@
                                         <p class="text-white-70 mb-8pt"><strong>Follow us</strong></p>
                                         <nav class="nav nav-links nav--flush">
                                             <a href="https://www.facebook.com/mawja"
-                                               class="nav-link mr-8pt"><img src="assets/images/icon/footer/facebook-square@2x.png"
+                                               class="nav-link mr-8pt"><img src="{{asset('assets/images/icon/footer/facebook-square@2x.png')}}"
                                                      width="24"
                                                      height="24"
                                                      alt="Facebook"></a>
 
-                                             <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="assets/images/icon/footer/youtube-square@2x.png"
+                                             <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="{{asset('assets/images/icon/footer/youtube-square@2x.png')}}"
                                                  width="24"
                                                   height="24"
                                                   alt="YouTube"></a>
@@ -871,10 +875,12 @@
                                           <div class="dropdown-header"><strong>Account</strong></div>
                                           <a class="dropdown-item"
                                              href="\edit-account">Edit Account</a>
+                                             @if(Auth::user()->role == 'administrator')
                                           <a class="dropdown-item"
                                              href="\subscription">Billing</a>
                                           <a class="dropdown-item"
                                              href="\billing-payment">Payments</a>
+                                             @endif
                                              <a class="dropdown-item"
                                              href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">Logout</a>
@@ -909,12 +915,14 @@
                                             </a>
                                             <ul class="sidebar-submenu collapse sm-indent"
                                                 id="productivity_menu">
+                                                @if(Auth::user()->role <> 'employee')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/projects">
                                                         <span class="sidebar-menu-text">Projects</span>
                                                     </a>
                                                 </li>
+                                                @endif
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/tasks-board">
@@ -927,13 +935,14 @@
                                                         <span class="sidebar-menu-text">Tasks List</span>
                                                     </a>
                                                 </li>
-                                                <li class="sidebar-menu-item">
-                                                    <a class="sidebar-menu-button"
-                                                       href="/reports">
-                                                        <span class="sidebar-menu-text">Reports</span>
-                                                    </a>
-                                                </li>
-
+                                                @if(Auth::user()->role <> 'employee')
+                                              <li class="sidebar-menu-item">
+                                                  <a class="sidebar-menu-button"
+                                                     href="/reports">
+                                                      <span class="sidebar-menu-text">Reports</span>
+                                                  </a>
+                                              </li>
+                                              @endif
                                             </ul>
                                         </li>
 
@@ -958,6 +967,7 @@
                                                     </a>
                                                 </li>
 
+                                                @if(Auth::user()->role == 'administrator')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/subscription">
@@ -971,7 +981,7 @@
                                                         <span class="sidebar-menu-text">Requests</span>
                                                     </a>
                                                 </li>
-
+                                                @endif
                                             </ul>
                                         </li>
                                         <li class="sidebar-menu-item active">

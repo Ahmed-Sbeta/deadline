@@ -101,7 +101,7 @@
                        <a href="index.html"
                           class="navbar-brand mr-16pt d-lg-none">
                            <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-                                src="assets/images/logo/logo.png"
+                                src="{{asset('assets/images/logo/logo.png')}}"
                                 width="32"
                                 alt="Deadline">
                        </a>
@@ -114,7 +114,7 @@
                        <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
                             style="white-space: nowrap;">
                            <div class="nav-item dropdown d-none d-sm-flex" >
-                               <a href="#" hidden
+                               <a href="#"
                                   class="nav-link dropdown-toggle"
                                   data-toggle="dropdown">EN</a>
                                <div class="dropdown-menu dropdown-menu-right">
@@ -122,14 +122,12 @@
                                    <a class="dropdown-item active"
                                       href="">English</a>
                                    <a class="dropdown-item"
-                                      href="">French</a>
-                                       <a class="dropdown-item"
-                                      href="">Romanian</a>
-                                   <a class="dropdown-item"
-                                      href="">Spanish</a>
+                                      href="/ar/">العربية</a>
+
                                </div>
                            </div>
                        </div>
+
 
                        <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
                          <div class="nav-item dropdown d-none d-sm-flex">
@@ -150,10 +148,12 @@
                                  <div class="dropdown-header"><strong>Account</strong></div>
                                  <a class="dropdown-item"
                                     href="\edit-account">Edit Account</a>
+                                    @if(Auth::user()->role == 'administrator')
                                  <a class="dropdown-item"
                                     href="\subscription">Billing</a>
                                  <a class="dropdown-item"
-                                    href="\billing-history">Payments</a>
+                                    href="\billing-payment">Payments</a>
+                                    @endif
                                  <a class="dropdown-item"
                                  href="{{ route('adminlogout') }}" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">Logout</a>
@@ -163,147 +163,159 @@
                              </div>
                          </div>
 
-                           <!-- Notifications dropdown -->
-                           <div class="nav-item ml-16pt dropdown dropdown-notifications">
-                               <button class="nav-link btn-flush dropdown-toggle"
-                                       type="button"
-                                       data-toggle="dropdown"
-                                       data-dropdown-disable-document-scroll
-                                       data-caret="false">
-                                   <i class="material-icons">notifications</i>
-                                   <span class="badge badge-notifications badge-accent">2</span>
-                               </button>
-                               <div class="dropdown-menu dropdown-menu-right">
-                                   <div data-perfect-scrollbar
-                                        class="position-relative">
-                                       <div class="dropdown-header"><strong>System notifications</strong></div>
-                                       <div class="list-group list-group-flush mb-0">
+                         <!-- Notifications dropdown -->
+                         <div class="nav-item ml-16pt dropdown dropdown-notifications">
+                             <button class="nav-link btn-flush dropdown-toggle"
+                                     type="button"
+                                     data-toggle="dropdown"
+                                     data-dropdown-disable-document-scroll
+                                     data-caret="false"
+                                     >
+                                 <i class="material-icons" >notifications</i>
+                                 <span class="badge badge-notifications badge-accent">{{Auth::user()->unreadNotifications->count()}}</span>
+                             </button>
+                             <div class="dropdown-menu dropdown-menu-right">
+                                 <div data-perfect-scrollbar
+                                      class="position-relative">
+                                     <div class="dropdown-header"><strong>Notifications</strong></div>
+                                     <div class="list-group list-group-flush mb-0">
+                                       @forelse(Auth::user()->notifications->take(3) as $notification)
+                                         <a href="#"
+                                            class="list-group-item list-group-item-action">
+                                             <span class="d-flex align-items-center mb-1">
+                                                 <small class="text-black-50">{{(new Carbon\Carbon($notification->created_at))->diffForHumans()}}</small>
 
-                                           <a href="javascript:void(0);"
-                                              class="list-group-item list-group-item-action unread">
-                                               <span class="d-flex align-items-center mb-1">
-                                                   <small class="text-black-50">3 minutes ago</small>
+                                                 <span class="ml-auto bg-accent"></span>
 
-                                                   <span class="ml-auto unread-indicator bg-accent"></span>
+                                             </span>
+                                             <span class="d-flex">
 
-                                               </span>
-                                               <span class="d-flex">
-                                                   <span class="avatar avatar-xs mr-2">
-                                                       <span class="avatar-title rounded-circle bg-light">
-                                                           <i class="material-icons font-size-16pt text-accent">account_circle</i>
-                                                       </span>
-                                                   </span>
-                                                   <span class="flex d-flex flex-column">
+                                                 </span>
+                                                 <span class="flex d-flex flex-column">
 
-                                                       <span class="text-black-70">Your profile information has not been synced correctly.</span>
-                                                   </span>
-                                               </span>
-                                           </a>
+                                                     <span class="text-black-70" onclick="{{$notification->markAsRead()}}">{{$notification->data['text']}}<strong>{{$notification->data['name']}}</strong> </span>
+                                                 </span>
+                                             </span>
+                                         </a>
+                                         @empty
+                                         <a href="tasks-details.html"
+                                            class="list-group-item list-group-item-action unread">
+                                             <span class="d-flex align-items-center mb-1">
+                                                 <small class="text-black-50"></small>
+                                                 <span class="ml-auto unread-indicator bg-accent"></span>
+                                             </span>
+                                             <span class="d-flex">
+                                                 </span>
+                                                 <span class="flex d-flex flex-column">
+                                                     <span class="text-black-70">No notifications available </span>
+                                                 </span>
+                                             </span>
+                                         </a>
+                                         @endforelse
+                                         <a href="/notifications"
+                                            class="list-group-item list-group-item-action">
+                                             <span class="d-flex align-items-center mb-1">
 
-                                           <a href="javascript:void(0);"
-                                              class="list-group-item list-group-item-action">
-                                               <span class="d-flex align-items-center mb-1">
-                                                   <small class="text-black-50">5 hours ago</small>
+                                             </span>
+                                             <span class="d-flex">
+                                                 <span class="avatar avatar-xs mr-2">
+                                                     <span class="avatar-title rounded-circle bg-light">
+                                                         <i class="material-icons font-size-16pt text-warning">storage</i>
+                                                     </span>
+                                                 </span>
+                                                 <span class="flex d-flex flex-column">
 
-                                               </span>
-                                               <span class="d-flex">
-                                                   <span class="avatar avatar-xs mr-2">
-                                                       <span class="avatar-title rounded-circle bg-light">
-                                                           <i class="material-icons font-size-16pt text-primary">group_add</i>
-                                                       </span>
-                                                   </span>
-                                                   <span class="flex d-flex flex-column">
-                                                       <strong class="text-black-100">Adrian. D</strong>
-                                                       <span class="text-black-70">Wants to join your private group.</span>
-                                                   </span>
-                                               </span>
-                                           </a>
+                                                     <span class="text-black-70">See All Notifications</span>
+                                                 </span>
+                                             </span>
+                                         </a>
 
-                                           <a href="javascript:void(0);"
-                                              class="list-group-item list-group-item-action">
-                                               <span class="d-flex align-items-center mb-1">
-                                                   <small class="text-black-50">1 day ago</small>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <!-- // END Notifications dropdown -->
 
-                                               </span>
-                                               <span class="d-flex">
-                                                   <span class="avatar avatar-xs mr-2">
-                                                       <span class="avatar-title rounded-circle bg-light">
-                                                           <i class="material-icons font-size-16pt text-warning">storage</i>
-                                                       </span>
-                                                   </span>
-                                                   <span class="flex d-flex flex-column">
+                         <!-- Notifications dropdown -->
+                         <div class="nav-item ml-16pt dropdown dropdown-notifications">
+                             <button class="nav-link btn-flush dropdown-toggle"
+                                     type="button"
+                                     data-toggle="dropdown"
+                                     data-dropdown-disable-document-scroll
+                                     data-caret="false">
+                                 <i class="material-icons icon-24pt">mail_outline</i>
+                             </button>
+                             <div class="dropdown-menu dropdown-menu-right">
+                                 <div data-perfect-scrollbar
+                                      class="position-relative">
+                                     <div class="dropdown-header"><strong>Messages</strong></div>
+                                     <div class="list-group list-group-flush mb-0">
+                                       @forelse($receved as $res)
+                                       @foreach($email as $mail)
+                                       @if($res->email_id == $mail->id)
+                                         <a href="/email-details/{{$mail->id}}"
+                                            class="list-group-item list-group-item-action unread">
+                                             <span class="d-flex align-items-center mb-1">
+                                                 <small class="text-black-50">{{(new Carbon\Carbon($mail->created_at))->diffForHumans()}}</small>
 
-                                                       <span class="text-black-70">Your deploy was successful.</span>
-                                                   </span>
-                                               </span>
-                                           </a>
+                                                 <span class="ml-auto unread-indicator bg-accent"></span>
 
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <!-- // END Notifications dropdown -->
+                                             </span>
+                                             <span class="d-flex">
+                                                 <span class="avatar avatar-xs mr-2">
+                                                     <img src="{{asset(Storage::url($user->find($mail->creator)->image))}}"
+                                                          alt="people"
+                                                          class="avatar-img rounded-circle">
+                                                 </span>
+                                                 <span class="flex d-flex flex-column">
+                                                     <strong class="text-black-100">{{$user->find($mail->creator)->name}}</strong>
+                                                     <span class="text-black-70">{{$mail->subject}}</span>
+                                                 </span>
+                                             </span>
+                                         </a>
+                                         @endif
+                                         @endforeach
+                                         @empty
+                                         <a href="/email"
+                                            class="list-group-item list-group-item-action unread">
+                                             <span class="d-flex align-items-center mb-1">
+                                                 <small class="text-black-50"></small>
 
-                           <!-- Notifications dropdown -->
-                           <div class="nav-item ml-16pt dropdown dropdown-notifications">
-                               <button class="nav-link btn-flush dropdown-toggle"
-                                       type="button"
-                                       data-toggle="dropdown"
-                                       data-dropdown-disable-document-scroll
-                                       data-caret="false">
-                                   <i class="material-icons icon-24pt">mail_outline</i>
-                               </button>
-                               <div class="dropdown-menu dropdown-menu-right">
-                                   <div data-perfect-scrollbar
-                                        class="position-relative">
-                                       <div class="dropdown-header"><strong>Messages</strong></div>
-                                       <div class="list-group list-group-flush mb-0">
+                                                 <span class="ml-auto unread-indicator bg-accent"></span>
 
-                                           <a href="javascript:void(0);"
-                                              class="list-group-item list-group-item-action unread">
-                                               <span class="d-flex align-items-center mb-1">
-                                                   <small class="text-black-50">5 minutes ago</small>
+                                             </span>
+                                             <span class="d-flex">
 
-                                                   <span class="ml-auto unread-indicator bg-accent"></span>
+                                                 <span class="flex d-flex flex-column">
+                                                     <strong class="text-black-100"></strong>
+                                                     <span class="text-black-70">No Mail available.</span>
+                                                 </span>
+                                             </span>
+                                         </a>
+                                         @endforelse
+                                         <a href="/email"
+                                         class="list-group-item list-group-item-action">
+                                          <span class="d-flex align-items-center mb-1">
 
-                                               </span>
-                                               <span class="d-flex">
-                                                   <span class="avatar avatar-xs mr-2">
-                                                       <img src="assets/images/people/110/woman-5.jpg"
-                                                            alt="people"
-                                                            class="avatar-img rounded-circle">
-                                                   </span>
-                                                   <span class="flex d-flex flex-column">
-                                                       <strong class="text-black-100">Michelle</strong>
-                                                       <span class="text-black-70">Clients loved the new design.</span>
-                                                   </span>
-                                               </span>
-                                           </a>
+                                          </span>
+                                          <span class="d-flex">
+                                              <span class="avatar avatar-xs mr-2">
+                                                  <span class="avatar-title rounded-circle bg-light">
+                                                      <i class="material-icons font-size-16pt text-warning">storage</i>
+                                                  </span>
+                                              </span>
+                                              <span class="flex d-flex flex-column">
 
-                                           <a href="javascript:void(0);"
-                                              class="list-group-item list-group-item-action">
-                                               <span class="d-flex align-items-center mb-1">
-                                                   <small class="text-black-50">5 minutes ago</small>
+                                                  <span class="text-black-70">See All Messages</span>
+                                              </span>
+                                          </span>
+                                      </a>
 
-                                               </span>
-                                               <span class="d-flex">
-                                                   <span class="avatar avatar-xs mr-2">
-                                                       <img src="assets/images/people/110/woman-5.jpg"
-                                                            alt="people"
-                                                            class="avatar-img rounded-circle">
-                                                   </span>
-                                                   <span class="flex d-flex flex-column">
-                                                       <strong class="text-black-100">Michelle</strong>
-                                                       <span class="text-black-70">🔥 Superb job..</span>
-                                                   </span>
-                                               </span>
-                                           </a>
-
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <!-- // END Notifications dropdown -->
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                        <!-- // END Notifications dropdown -->
                        </div>
 
 

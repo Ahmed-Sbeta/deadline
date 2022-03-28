@@ -4,22 +4,29 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
-use App\User;
 use Auth;
+use App\User;
+use App\email;
+use App\user_email;
 use App\Company;
 
 
 class UsersController extends Controller
 {
     public function index(){
-      return view('en.edit-account');
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
+      return view('en.edit-account',compact('users','receved','email'));
     }
     public function employees(){
-      $users = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->get();
+      $users = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
+      $users = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->paginate(10);
       $EOM = User::Where('company','=',Auth::user()->company)->Where('EOM','=',true)->first();
-      $last = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->first();
-      // dd($last);
-      return view('en.employees',compact('users','EOM','last'));
+      $last = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->latest()->first();
+      return view('en.employees',compact('users','EOM','last','user','receved','email'));
     }
     public function eOfMonth(){
       $EOM = request('EOM');
@@ -30,14 +37,20 @@ class UsersController extends Controller
       return redirect()->back()->with('success','Employee of the month changed successfuly');
     }
     public function profile(){
+      $users = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $user = Auth::user();
-      return view('en.edit-account-profile',compact('user'));
+      return view('en.edit-account-profile',compact('user','users','receved','email'));
     }
     public function notifications(){
       return view('en.edit-account-notifications');
     }
     public function changepassword(){
-      return view('en.edit-account-password');
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
+      return view('en.edit-account-password',compact('user','receved','email'));
     }
     public function changeUserPassword(Request $request){
       $request->validate([
@@ -65,6 +78,9 @@ class UsersController extends Controller
     }
 
     public function search(Request $request){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $EOM = User::Where('company','=',Auth::user()->company)->Where('EOM','=',true)->first();
       $last = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->latest()->first();
     // Get the search value from the request
@@ -75,10 +91,10 @@ class UsersController extends Controller
         ->where('name', 'LIKE', "%{$search}%")
         ->where('company','=',Auth::user()->company)
         ->where('is_activated','=',True)
-        ->get();
+        ->paginate(10);
 
     // Return the search view with the resluts compacted
-    return view('en.employees',compact('users','EOM','last'));
+    return view('en.employees',compact('users','EOM','last','user','receved','email'));
 }
 
     //firstName,lastName and email save changes button.
@@ -136,9 +152,9 @@ class UsersController extends Controller
         $user->save();
       }else{
         //error
-        return redirect('/signup');
+        return redirect('/signup')->with('error','something went wrong');
       }
-      return redirect('/signup');
+      return redirect('/signup')->with('success','created successfuly');
 
     }
 
@@ -155,9 +171,12 @@ class UsersController extends Controller
     }
 
     public function requests(){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $i=1;
-      $users = User::where('company','=',Auth::user()->company)->where('is_activated','=',0)->get();
-      return view('en.user-approves',compact('users','i'));
+      $users = User::where('company','=',Auth::user()->company)->where('is_activated','=',0)->paginate(10);
+      return view('en.user-approves',compact('users','i','user','receved','email'));
     }
 
     public function approve(Request $request){
@@ -170,6 +189,14 @@ class UsersController extends Controller
       return redirect()->back();
     }
 
+    public function notific(){
+      $user = User::all();
+      $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+      $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
+      $notifications = Auth::user()->notifications()->paginate(4);
+      // dd($notifications);
+      return view('en.notifications',compact('notifications','user','receved','email'));
+    }
 
 
     //ar
