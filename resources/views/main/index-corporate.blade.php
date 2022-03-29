@@ -107,7 +107,7 @@
 															<i class="fas fa-angle-down"></i>
 														</a>
 														<div class="dropdown-menu" aria-labelledby="dropdownLanguage">
-															<a class="dropdown-item" href=""> AR</a>
+															<a class="dropdown-item" href="/ar/home"> AR</a>
 														</div>
 													</li>
 												</ul>

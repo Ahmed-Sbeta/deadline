@@ -49,7 +49,7 @@ Route::post('/closedTasks-cheked','TasksController@closedCheckedTasks')->name("c
 Route::get('/addreminder/{id}','TasksController@addreminder')->middleware('auth');
 Route::get('/reminders','TasksController@reminders')->middleware('auth');
 Route::get('/alert/{id}','UsersController@alert')->middleware('auth');
-Route::get('/Companyalert/{id}','UsersController@Companyalert')->middleware('auth');
+Route::get('/Companyalert/{id}','UsersController@Companyalert');
 
 
 Route::get('/reports','ReportsController@index')->middleware('auth');
@@ -79,7 +79,7 @@ Route::get('/deleteUser/{id}','UsersController@deleteUser')->middleware('auth');
 
 
 Route::post('/addcompany','CompanyController@addcompany')->name('addcompany');
-Route::get('/deleteCompany/{id}','CompanyController@deleteCompany')->middleware('auth');
+Route::get('/deleteCompany/{id}','CompanyController@deleteCompany');
 Route::post('/editCompany/{id}','CompanyController@editCompany')->name('editCompany');
 
 Route::get('/subscription','SubscriptionController@index')->middleware('auth');

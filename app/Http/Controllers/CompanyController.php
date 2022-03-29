@@ -74,7 +74,7 @@ class CompanyController extends Controller
         $user->save();
       }
       $company->delete();
-      return redirect('/admin/dashboard')->with('error','Company deleted successfuly');
+      return redirect('/admin/OwnersDashboard')->with('error','Company deleted successfuly');
 
     }
 }
