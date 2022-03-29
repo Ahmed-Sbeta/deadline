@@ -11,7 +11,18 @@ use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
-    public function addcompany(){
+    public function addcompany(Request $request){
+      $request->validate([
+        'name' => 'required',
+        'location' => 'required',
+        'subscription' => 'required',
+        'firstName' => 'required',
+        'dob' => 'required',
+        'email' => 'required|email|unique:users',
+        'phoneNumber' => 'required|numeric',
+        'password' => 'required',
+
+      ]);
       $company = new Company;
       $user = new User;
 
@@ -51,7 +62,7 @@ class CompanyController extends Controller
       $company = Company::find($id);
       $company->subscription = request('subscriptions');
       $company->save();
-      return redirect()->back();
+      return redirect()->back()->with('success','Company updated successfuly');
 
     }
 
@@ -63,7 +74,7 @@ class CompanyController extends Controller
         $user->save();
       }
       $company->delete();
-      return redirect('/admin/dashboard')->with('error','Company deleted successfuly');
+      return redirect('/admin/OwnersDashboard')->with('error','Company deleted successfuly');
 
     }
 }

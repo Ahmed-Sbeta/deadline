@@ -385,7 +385,7 @@
                                                     <p class="lh-1 text-muted mb-0"><small>after the free trial ends</small></p>
                                                 </div>
                                                 <div class="card-footer">
-                                                    <a href=""
+                                                    <a href="/billing-payment"
                                                        class="btn btn-accent">Get started</a>
                                                 </div>
                                             </div>
@@ -411,7 +411,7 @@
                                                     <p class="lh-1 text-muted mb-0"><small>after the free trial ends</small></p>
                                                 </div>
                                                 <div class="card-footer">
-                                                    <a href=""
+                                                    <a href="/billing-payment"
                                                        class="btn btn-outline-secondary">Get started</a>
                                                 </div>
                                             </div>
@@ -437,7 +437,7 @@
                                                     <p class="lh-1 text-muted mb-0"><small>after the free trial ends</small></p>
                                                 </div>
                                                 <div class="card-footer">
-                                                    <a href=""
+                                                    <a href="/billing-payment"
                                                        class="btn btn-outline-secondary">Get started</a>
                                                 </div>
                                             </div>

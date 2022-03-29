@@ -21,7 +21,7 @@ class TasksController extends Controller
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
-      $users = User::all()->where('company','=',Auth::user()->company);
+      $users = User::all()->where('company','=',Auth::user()->company)->where('is_activated','=', true);
       $projects = Project::whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);
         })->get();

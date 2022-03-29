@@ -21,9 +21,10 @@ class UsersSeeder extends Seeder
           'job' => 'Project manager',
           'company' => '1',
           'about' => 'idk',
-          'image' => 'public/avjdoquDeTDUi2WEBd78DKY6VHWEF0L4ZPy40Es6.jpg',
+          'image' => 'public/download.png',
           'email' => 'admin@gmail.com',
           'role' => 'administrator',
+          'is_activated' => True,
           'password' => Hash::make('12345678')
       ]);
       $suproviser = User::create([
@@ -34,7 +35,7 @@ class UsersSeeder extends Seeder
           'job' => 'Designer',
           'company' => '1',
           'about' => 'idc',
-          'image' => 'public/256_rsz_1andy-lee-642320-unsplash.jpg',
+          'image' => 'public/download.png',
           'email' => 'suproviser@gmail.com',
           'role' => 'suproviser',
           'password' => Hash::make('12345678')

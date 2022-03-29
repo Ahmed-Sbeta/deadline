@@ -28,7 +28,7 @@ class CompanySeeder extends Seeder
       $comp3 = Company::create([
           'name' => 'DATA',
           'subscription' => '1',
-          'Code' => 'aslfkm',
+          'Code' => 'brFrdj',
           'location'=> 'asd',
           'email' => 'DATA@gmail.com'
       ]);

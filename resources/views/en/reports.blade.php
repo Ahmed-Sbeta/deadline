@@ -523,11 +523,11 @@
                                                            for="question"
                                                            class="col-md-3 col-form-label form-label">Report Title</label>
                                                     <div class="col-md-9">
-                                                        <textarea id="question"
+                                                        <input id="question"
                                                                   rows="2"
                                                                   class="form-control"
                                                                     name="title"
-                                                                  ></textarea>
+                                                                  >
                                                     </div>
                                                 </div>
                                             </div>

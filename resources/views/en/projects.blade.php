@@ -969,11 +969,11 @@
                                                 for="question"
                                                 class="col-md-3 col-form-label form-label">Project Title</label>
                                          <div class="col-md-9">
-                                             <textarea id="question"
+                                             <input id="question"
                                                        rows="1"
                                                        class="form-control"
                                                          name="title"
-                                                       ></textarea>
+                                                       >
                                          </div>
                                      </div>
                                  </div>
@@ -1007,11 +1007,11 @@
                                                 for="question"
                                                 class="col-md-3 col-form-label form-label">Budget</label>
                                          <div class="col-md-9">
-                                             <textarea id="question"
+                                             <input type="number" id="question"
                                                        rows="1"
                                                        class="form-control"
                                                          name="budget"
-                                                       ></textarea>
+                                                       >    
                                          </div>
                                      </div>
                                  </div>

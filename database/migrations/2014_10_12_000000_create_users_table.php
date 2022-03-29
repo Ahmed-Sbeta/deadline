@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('employee');
-            $table->string('image')->nullable();
+            $table->string('image')->nullable()->default('public/download.png');
             $table->boolean('EOM')->default(false);
             $table->boolean('is_activated')->nullable()->default(false);
             $table->rememberToken();

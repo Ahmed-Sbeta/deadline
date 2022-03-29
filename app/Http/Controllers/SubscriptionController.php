@@ -10,35 +10,35 @@ use App\user_email;
 
 class SubscriptionController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
-      return view('en.subscription',compact('users','receved','email'));
+      return view('en.subscription',compact('user','receved','email'));
     }
     public function billingUpGrade(){
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
-      return view('en.billing-upgrade',compact('users','receved','email'));
+      return view('en.billing-upgrade',compact('user','receved','email'));
     }
     public function billingInvoice(){
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
-      return view('en.billing-invoice',compact('users','receved','email'));
+      return view('en.billing-invoice',compact('user','receved','email'));
     }
     public function billingHistory(){
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
-      return view('en.billing-history',compact('users','receved','email'));
+      return view('en.billing-history',compact('user','receved','email'));
     }
     public function billingPayment(){
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
-      return view('en.billing-payment',compact('users','receved','email'));
+      return view('en.billing-payment',compact('user','receved','email'));
     }
 
     //ar

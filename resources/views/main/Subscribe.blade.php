@@ -150,6 +150,9 @@
 						</div>
 					</div>
 				</section>
+				
+
+				<div class="container py-4">
 				@if (count($errors) > 0)
 				<div class = "alert alert-danger">
 					<ul>
@@ -164,8 +167,6 @@
 					{{ session()->get('success') }}
 				</div>
 				@endif
-
-				<div class="container py-4">
 
 					<div class="row justify-content-center">
 						<div class="col-md-12">
