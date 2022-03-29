@@ -153,6 +153,25 @@
 				</section>
 
 				<div class="container py-4">
+					@if (count($errors) > 0)
+					<div class = "alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+					@endif
+					@if(session()->has('error'))
+					<div class="alert alert-danger">
+						{{ session()->get('error') }}
+					</div>
+					@endif
+					@if(session()->has('success'))
+					<div class="alert alert-success">
+						{{ session()->get('success') }}
+					</div>
+					@endif
 
 					<div class="row justify-content-center">
 						<div class="col-md-12">
@@ -220,7 +239,7 @@
 													{{$company->exp_date}}
 												</td>
 												<td class="text-center">
-													{{$users->where('company','=',$company->id)->count()}}
+													{{$users->where('company','=',$company->id)->where('is_activated','=',True)->count()}}
 												</td>
 												<td class="text-center row">
 													<div class="col-6">
@@ -231,8 +250,9 @@
 												<form id="delete-Company" class="col-6" action="{{url('deleteCompany/'.$company->id)}}" method="GET">
 													@csrf
 													@method('DELETE')
-													<input type="submit" name="" class=" btn btn-danger" value="delete">
-
+													<a href="/Companyalert/{{$company->id}}">
+													<input type="button" name="" class=" btn btn-danger" value="delete">
+													</a>
 												</form>
 												</td>
 
@@ -255,7 +275,7 @@
 				<div class="container py-4">
 					<div class="row justify-content-md-center py-5 mt-3">
 						<div class="col-md-12 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start mb-5 mb-lg-0">
-							<a href="index.html"><img src="img/logo-flat-light.png" alt="Logo"></a>
+							<a href="index.html"><img src="{{asset('img/logo-flat-light.png')}}" alt="Logo"></a>
 						</div>
 						<div class="col-md-6 col-lg-2 text-center text-lg-start mb-5 mb-lg-0">
 							<h5 class="text-5 text-transform-none font-weight-semibold text-color-light mb-4">Pages</h5>

@@ -48,7 +48,7 @@ class LoginController extends Controller
        }
 
        if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_activated' => 1])) {
-         // return redirect()->intended('dashboard');
+         return redirect()->intended('/');
        }  else {
          $this->incrementLoginAttempts($request);
          return redirect()->back()->with('error','account not active !');
@@ -57,9 +57,7 @@ class LoginController extends Controller
        $this->incrementLoginAttempts($request);
        return $this->sendFailedLoginResponse($request);
      }
-     public function index(){
-       return view('adminLogin.index');
-     }
+     
      public function __construct()
      {
          $this->middleware('guest')->except('logout');
