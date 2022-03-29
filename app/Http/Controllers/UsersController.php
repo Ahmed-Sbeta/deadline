@@ -17,10 +17,10 @@ class UsersController extends Controller
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
-      return view('en.edit-account',compact('users','receved','email'));
+      return view('en.edit-account',compact('user','receved','email'));
     }
     public function employees(){
-      $users = User::all();
+      $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
       $users = User::Where('company','=',Auth::user()->company)->where('is_activated','=',True)->paginate(10);
@@ -125,7 +125,10 @@ class UsersController extends Controller
       return redirect('/edit-account/profile')->with('success','information Changed successfuly');
     }
 
-    public function addEmployee(){
+    public function addEmployee(Request $request){
+      $request->validate([
+        'email' => 'required|email|unique:users',
+      ]);
       $companyes = Company::all();
       $user= new User;
       $Companycode = request('Code');
@@ -133,6 +136,8 @@ class UsersController extends Controller
       foreach($companyes as $companies){
         if($companies->Code == $Companycode){
           $user->company = $companies->id;
+        }else{
+          return redirect('/signup')->with('error','wrong code');
         }
       }
       if($user->company == null){

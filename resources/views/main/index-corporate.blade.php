@@ -354,20 +354,22 @@
 					</div>
 
 					<div class="pricing-table pricing-table-no-gap mb-4">
-						<div class="col-md-4">
+					<div class="col-md-4">
 							<div class="plan">
 								<div class="plan-header">
-									<h3>Premium</h3>
+									<h3>Basic</h3>
 								</div>
 								<div class="plan-price">
-									<span class="price"><span class="price-unit">LYD</span>850</span>
+									<span class="price"><span class="price-unit">LYD</span>300</span>
 									<label class="price-label">PER MONTH</label>
 								</div>
 								<div class="plan-features">
 									<ul>
 
-										<li>30 TO 50 Employees</li>
-										<li>24/7 customer support</li>
+									<li>LESS THAN 15 Employees</li>
+										<li>Day time customer support</li>
+										<li>1 month free ads on Deadline</li>
+
 									</ul>
 								</div>
 								<div class="plan-footer">
@@ -386,8 +388,10 @@
 								</div>
 								<div class="plan-features">
 									<ul>
-										<li>15 TO 30 Employees</li>
+									<li>15 TO 30 Employees</li>
 										<li>Day time customer support</li>
+										<li>2 months free ads on Deadline</li>
+										<li>Special offers from MAWJA</li>
 
 									</ul>
 								</div>
@@ -399,18 +403,20 @@
 						<div class="col-md-4">
 							<div class="plan">
 								<div class="plan-header">
-									<h3>Basic</h3>
+									<h3>Premium</h3>
 								</div>
 								<div class="plan-price">
-									<span class="price"><span class="price-unit">LYD</span>300</span>
+									<span class="price"><span class="price-unit">LYD</span>850</span>
 									<label class="price-label">PER MONTH</label>
 								</div>
 								<div class="plan-features">
 									<ul>
 
-										<li>LESS THAN 15 Employees</li>
-										<li>Day time customer support</li>
-
+									<li>30 TO 50 Employees</li>
+										<li>24/7 customer support</li>
+										<li>6 Months free ads on Deadline</li>
+										<li>Marketing Services</li>
+										<li>Special offers from MAWJA</li>
 									</ul>
 								</div>
 								<div class="plan-footer">
@@ -418,6 +424,7 @@
 								</div>
 							</div>
 						</div>
+						
 					</div>
 
 					<div class="row align-items-center py-5 appear-animation" data-appear-animation="fadeInRightShorter">

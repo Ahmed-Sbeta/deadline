@@ -51,7 +51,7 @@ class CompanyController extends Controller
       $company = Company::find($id);
       $company->subscription = request('subscriptions');
       $company->save();
-      return redirect()->back();
+      return redirect()->back()->with('success','Company updated successfuly');
 
     }
 
@@ -59,7 +59,7 @@ class CompanyController extends Controller
       $company = Company::find($id);
       $users = User::where('company','=',$id)->delete();
       $company->delete();
-      return redirect()->back();
+      return redirect()->back()->with('error','Company deleted successfuly');
 
     }
 }

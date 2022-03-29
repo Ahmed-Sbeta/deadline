@@ -19,7 +19,7 @@ class AnnouncementController extends Controller
       $announcements = Announcement::with('creater')->whereHas('creater', function ($query) {
           return $query->where('company', '=', Auth::user()->company);
         })->latest()->paginate(5);
-      return view('en.Announcements',compact('announcements','users','receved','email'));
+      return view('en.Announcements',compact('announcements','user','receved','email'));
     }
 
     public function Announcement_details($id){
@@ -29,7 +29,7 @@ class AnnouncementController extends Controller
       $comments = comments::with('creater')->where('announcment_id','=',$id)->latest()->get();
       // dd($comments);
       $announcement = Announcement::find($id);
-      return view('en.announcement-details',compact('announcement','comments','users','receved','email'));
+      return view('en.announcement-details',compact('announcement','comments','user','receved','email'));
     }
 
     public function addComment($id,Request $request){
