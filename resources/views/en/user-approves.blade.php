@@ -360,6 +360,25 @@
               <!--End of head-->
 
                 <div class="container-fluid page__container">
+                  @if (count($errors) > 0)
+                  <div class = "alert alert-danger">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                  @endif
+                  @if(session()->has('error'))
+                  <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                  </div>
+                  @endif
+                  @if(session()->has('success'))
+                  <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                  </div>
+                  @endif
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="page-section">
@@ -473,10 +492,13 @@
                                                     </a>
                                                 </li>
                                                 <div class="col-auto border-left" style="margin-left: auto;">
-                                                    <input type="submit" name="" class="btn btn-accent" value="Approve">
-                                                       </form>
+                                                    <input type="submit" name="approve" class="btn btn-accent" value="Approve">
                                                 </div>
-                                                
+                                                <div class="col-auto border-left" style="margin-top: auto; margin-bottom: auto;" >
+                                                    <input
+                                                       class="btn btn btn-outline-dark" type="submit" name="approve" style="background-color: crimson; color: aliceblue;" value="Decline">
+                                                </div>
+                                              </form>
                                             </ul>
 
                                         </div>
@@ -617,14 +639,12 @@
                                             </a>
                                             <ul class="sidebar-submenu collapse sm-indent"
                                                 id="productivity_menu">
-                                                @if(Auth::user()->role <> 'employee')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/projects">
                                                         <span class="sidebar-menu-text">Projects</span>
                                                     </a>
                                                 </li>
-                                                @endif
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/tasks-board">

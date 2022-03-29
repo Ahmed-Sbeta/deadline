@@ -369,6 +369,20 @@
                     </div>
                 </div>
                 <div class="container-fluid page__container">
+                  @if (count($errors) > 0)
+                  <div class = "alert alert-danger">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                  @endif
+                  @if(session()->has('success'))
+                  <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                  </div>
+                  @endif
                     <div class="page-section">
 
                         <div class="page-separator">
@@ -604,12 +618,8 @@
 
 
                                             <td class="text-right">
-                                                <a href="{{ url('/addnotifiction/'.$task->id) }}" onclick="event.preventDefault();
-                                                document.getElementById('notifyMe').submit();"
-                                                   class="text-50"><i class="material-icons">notifications</i></a>
-                                                   <form id="notifyMe" action="{{ url('/addnotifiction/'.$task->id) }}" method="POST" style="display: none;">
-                                                       @csrf
-                                                   </form>
+                                              <a href="{{ url('/addreminder/'.$task->id) }}"
+                                                 class="text-50"><i class="material-icons">notifications</i></a>
                                             </td>
 
                                         </tr>
@@ -654,9 +664,9 @@
 
                                       <!--done button-->
                                       <div class="col-auto border-left" style="margin-left: 650px;">
-                                        <button
-                                          class="btn btn-accent" type="submit">Done</button>
-                                         </div>
+                                       <button
+                                         class="btn btn-accent" type="submit">Done</button>
+                                        </div>
                                        </form>
 
                                 </ul>
@@ -984,14 +994,12 @@
                                             </a>
                                             <ul class="sidebar-submenu collapse sm-indent"
                                                 id="productivity_menu">
-                                                @if(Auth::user()->role <> 'employee')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/projects">
                                                         <span class="sidebar-menu-text">Projects</span>
                                                     </a>
                                                 </li>
-                                                @endif
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/tasks-board">

@@ -769,14 +769,12 @@
                                 </a>
                                 <ul class="sidebar-submenu collapse sm-indent"
                                     id="productivity_menu">
-                                    @if(Auth::user()->role <> 'employee')
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/projects">
                                             <span class="sidebar-menu-text">Projects</span>
                                         </a>
                                     </li>
-                                    @endif
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/tasks-board">

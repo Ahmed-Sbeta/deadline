@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\EventNotification;
 use App\events;
 use carbon\carbon;
 use Auth;
@@ -47,6 +49,8 @@ class eventsController extends Controller
       $event->to = request('to');
       $event->creator = Auth::id();
       $event->save();
+      $users = User::all();
+      Notification::send($users,new EventNotification($request->title));
       return redirect()->back()->with('success','Event added successfuly');
     }
 }

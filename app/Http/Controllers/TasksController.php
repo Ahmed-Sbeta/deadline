@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\TaskNotification;
 use App\Tasks;
 use App\Project;
 use Auth;
@@ -78,6 +80,8 @@ class TasksController extends Controller
       $task->assignedTo = request('worker');
       $task->status = "open";
       $task->save();
+      $users = User::find($request->worker);
+      Notification::send($users,new TaskNotification($request->title));
       return redirect('/tasks-board')->with('success','Task added successfuly');
     }
 
@@ -123,7 +127,7 @@ class TasksController extends Controller
           return $query->where('company', '=', Auth::user()->company);
         })->get();
       $task = Tasks::find($id);
-      return view('en.TaskEdit',Compact('task','projects','users','user','receved','email'));
+      return view('en.taskEdit',Compact('task','projects','users','user','receved','email'));
     }
 
     public function view($id){
@@ -164,7 +168,7 @@ class TasksController extends Controller
       $task->reminder = True;
       // dd($task->reminder);
       $task->save();
-      return redirect()->back();
+      return redirect()->back()->with('success','Reminder added successfuly');
     }
 
     public function reminders(){
