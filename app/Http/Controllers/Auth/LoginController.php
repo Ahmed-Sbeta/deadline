@@ -57,9 +57,7 @@ class LoginController extends Controller
        $this->incrementLoginAttempts($request);
        return $this->sendFailedLoginResponse($request);
      }
-     public function index(){
-       return view('adminLogin.index');
-     }
+     
      public function __construct()
      {
          $this->middleware('guest')->except('logout');

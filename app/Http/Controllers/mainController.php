@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
 use App\Company;
-
+use Auth;
 class mainController extends Controller
 {
     public function index(){
@@ -19,18 +19,22 @@ class mainController extends Controller
     public function admin(){
       $companies = Company::with('suscription')->get();
       $users = User::all();
-      // dd($companies);
       return view('main.Admin',compact('companies','users'));
     }
 
+    public function adminLoginView(){
+      return view('adminLogin.index');
+    }
+
     public function adminLogin(){
+
       $email = request('name');
       $password = request('password');
       // dd($email);
       $user = User::where('role','=','admin')->first();
       if($email == $user->email & Hash::check($password, $user->password)){
         // dd('sadasd');
-        return redirect('/admin/dashboard');
+        return redirect('/admin/OwnersDashboard');
       }else{
         // dd('sssssss');
 

@@ -68,9 +68,13 @@ class CompanyController extends Controller
 
     public function deleteCompany($id){
       $company = Company::find($id);
-      $users = User::where('company','=',$id)->delete();
+      $users = User::where('company','=',$company->id)->get();
+      foreach($users as $user){
+        $user->is_activated = null;
+        $user->save();
+      }
       $company->delete();
-      return redirect()->back()->with('error','Company deleted successfuly');
+      return redirect('/admin/dashboard')->with('error','Company deleted successfuly');
 
     }
 }

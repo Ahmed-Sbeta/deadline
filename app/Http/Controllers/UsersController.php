@@ -211,6 +211,13 @@ class UsersController extends Controller
       return view('en.delete-alert',compact('user'));
     }
 
+    public function Companyalert($id){
+      $company = Company::find($id);
+
+      return view('en.delete-alert-company',compact('company'));
+    }
+
+
     public function notific(){
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();

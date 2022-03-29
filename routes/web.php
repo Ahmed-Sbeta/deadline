@@ -49,6 +49,7 @@ Route::post('/closedTasks-cheked','TasksController@closedCheckedTasks')->name("c
 Route::get('/addreminder/{id}','TasksController@addreminder')->middleware('auth');
 Route::get('/reminders','TasksController@reminders')->middleware('auth');
 Route::get('/alert/{id}','UsersController@alert')->middleware('auth');
+Route::get('/Companyalert/{id}','UsersController@Companyalert')->middleware('auth');
 
 
 Route::get('/reports','ReportsController@index')->middleware('auth');
@@ -117,9 +118,9 @@ Route::post('/addevents','eventsController@addEvent')->name('addevent');
 Route::get('/home','mainController@index');
 Route::get('/login','mainController@login');
 
-Route::get('/admin/login','Auth\LoginController@index');
-Route::post('/admin/login','mainController@adminLogin');
-Route::get('/admin/dashboard','mainController@admin');
+Route::get('/admin/login','mainController@adminLoginView');
+Route::post('/admin/login','mainController@adminLogin')->name('OwnerLogin');
+Route::get('/admin/OwnersDashboard','mainController@admin');
 
 Route::get('/lostPassword','mainController@lostPassword');
 Route::get('/signup','mainController@signup');
