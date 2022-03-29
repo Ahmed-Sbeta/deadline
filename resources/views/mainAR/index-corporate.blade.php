@@ -11,8 +11,8 @@
 		<meta name="keywords" content="HTML5 Template" />
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{asset('img/apple-touch-icon.png')}}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -60,7 +60,7 @@
 
 											<ul class="nav nav-pills" id="mainNav">
 												<li class="nav-item dropdown nav-item-left-border d-none d-sm-block nav-item-left-border-remove nav-item-left-border-md-show">
-													<a class="nav-link" href="#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<a class="nav-link" href="ar/home" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 														 AR
 														<i class="fas fa-angle-down"></i>
 													</a>
@@ -149,11 +149,11 @@
 											<div class="d-flex flex-column align-items-center">
 												<h3 class="position-relative text-color-light text-4 line-height-5 font-weight-medium px-4 mb-2 appear-animation" data-appear-animation="fadeInDownShorterPlus" data-plugin-options="{'minWindowWidth': 0}">
 													<span class="position-absolute right-100pct top-50pct transform3dy-n50 opacity-3">
-														<img src="img/slides/slide-title-border.png" class="w-auto appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
+														<img src="{{asset('img/slides/slide-title-border.png')}}" class="w-auto appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
 													</span>
 													قم بإدارة أعمالك
 													<span class="position-absolute left-100pct top-50pct transform3dy-n50 opacity-3">
-														<img src="img/slides/slide-title-border.png" class="w-auto appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
+														<img src="{{asset('img/slides/slide-title-border.png')}}" class="w-auto appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
 													</span>
 												</h3>
 												<h2 class="porto-big-title text-color-light font-weight-extra-bold mb-3" data-plugin-animated-letters data-plugin-options="{'startDelay': 1000, 'minWindowWidth': 0, 'animationSpeed': 250, 'animationName': 'fadeInRightShorterOpacity', 'letterClass': 'd-inline-block'}">DEADLINE</h2>
@@ -174,7 +174,7 @@
 												<p class="text-4-5 text-color-light font-weight-light opacity-7 text-center mb-4" data-plugin-animated-letters data-plugin-options="{'startDelay': 1000, 'minWindowWidth': 0, 'animationSpeed': 25}">إدارة المشاريع والحسابات، متابعة المهام، ونظام رسائل متكامل </p>
 												<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="3300">
 													<div class="d-flex align-items-center mt-2">
-														<a href="#" class="btn btn-primary btn-modern font-weight-bold text-2 py-3 btn-px-4 ms-4"><i class="fas fa-arrow-left ms-2"></i>&nbsp; إشترك الأن </a>
+														<a href="/subscribe" class="btn btn-primary btn-modern font-weight-bold text-2 py-3 btn-px-4 ms-4"><i class="fas fa-arrow-left ms-2"></i>&nbsp; إشترك الأن </a>
 													</div>
 												</div>
 											</div>
@@ -198,7 +198,7 @@
 							<div class="col-lg-8">
 								<p>
 									<div class="get-started text-end text-lg-start">
-										<a href="Subscribe.html" class="btn btn-primary btn-lg text-3 font-weight-semibold px-4 py-3">إشترك الأن</a>
+										<a href="/subscribe" class="btn btn-primary btn-lg text-3 font-weight-semibold px-4 py-3">إشترك الأن</a>
 									</div>
 								</p>
 							</div>
@@ -213,7 +213,7 @@
 					</div>
 				</div>
 
-				<section class="section section-parallax section-height-3 border-0 m-0" id="about"  data-plugin-parallax data-plugin-options="{'speed': 7, 'parallaxHeight': '150%', 'offset': 100}" data-image-src="img/parallax/parallax-corporate-1-1.jpg">
+				<section class="section section-parallax section-height-3 border-0 m-0" id="about"  data-plugin-parallax data-plugin-options="{'speed': 7, 'parallaxHeight': '150%', 'offset': 100}" data-image-src="{{asset('img/parallax/parallax-corporate-1-1.jpg')}}">
 					<div class="container row-md-1">
 						<div class="row text-center row-md-1">
 							<div class="col-md-10 mx-md-auto row-md-1 ">
@@ -373,7 +373,7 @@
 									</ul>
 								</div>
 								<div class="plan-footer">
-									<a href="Subscribe.html" class="btn btn-dark btn-modern btn-outline py-2 px-4">إبدأ</a>
+									<a href="ar/subscribe" class="btn btn-dark btn-modern btn-outline py-2 px-4">إبدأ</a>
 								</div>
 							</div>
 						</div>
@@ -394,7 +394,7 @@
 									</ul>
 								</div>
 								<div class="plan-footer">
-									<a href="Subscribe.html" class="btn btn-primary btn-modern py-2 px-4">إبدا</a>
+									<a href="ar/subscribe" class="btn btn-primary btn-modern py-2 px-4">إبدا</a>
 								</div>
 							</div>
 						</div>
@@ -416,7 +416,7 @@
 									</ul>
 								</div>
 								<div class="plan-footer">
-									<a href="Subscribe.html" class="btn btn-dark btn-modern btn-outline py-2 px-4">إبدأ</a>
+									<a href="ar/subscribe" class="btn btn-dark btn-modern btn-outline py-2 px-4">إبدأ</a>
 								</div>
 							</div>
 						</div>
@@ -441,7 +441,7 @@
 							<a href="https://MAWJA.LY">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img src="img/projects/project.jpg" class="img-fluid" alt="">
+										<img src="{{asset('img/projects/project.jpg')}}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">موجة</span>
 											<span class="thumb-info-type">زيارة</span>
@@ -458,7 +458,7 @@
 							<a href="https://LIBYANA.LY">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img src="img/projects/project-2.jpg" class="img-fluid" alt="">
+										<img src="{{asset('img/projects/project-2.jpg')}}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">ليبيانا</span>
 											<span class="thumb-info-type">زيارة</span>
@@ -475,7 +475,7 @@
 							<a href="https://LIBYANWINGS.LY">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img src="img/projects/project-4.jpg" class="img-fluid" alt="">
+										<img src="{{asset('img/projects/project-4.jpg')}}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">الأجنحة الليبية</span>
 											<span class="thumb-info-type">زيارة</span>
@@ -492,7 +492,7 @@
 							<a href="https://MARCA.LY">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img src="img/projects/project-5.jpg" class="img-fluid" alt="">
+										<img src="{{asset('img/projects/project-5.jpg')}}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">ماركا</span>
 											<span class="thumb-info-type">زيارة</span>
@@ -509,7 +509,7 @@
 							<a href="https://al-mada.ly">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img src="img/projects/project-6.jpg" class="img-fluid" alt="">
+										<img src="{{asset('img/projects/project-6.jpg')}}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">المدى</span>
 											<span class="thumb-info-type">زيارة</span>
@@ -540,7 +540,7 @@
 										<div class="col">
 											<div class="testimonial testimonial-style-2 testimonial-with-quotes mb-0">
 												<div class="testimonial-author">
-													<img src="img/clients/client-1.jpg" class="img-fluid rounded-circle" alt="">
+													<img src="{{asset('img/clients/client-1.jpg')}}" class="img-fluid rounded-circle" alt="">
 												</div>
 												<blockquote>
 													<p>As Stream’s communication’s officer, I have dealt with MAWJA for more than 9 months and I have known them and worked with them on both personal and professional level, and they never disappoint! their work is so creative and professional, they always show up on time and deliver on time! They are truly hard-working, talented and they provide nothing but the best, I’m actually very proud of them and constantly impressed by what they’re able to achieve! If you want to add a new flavour to your website, create a mind-blowing catalogue, or make a stunning out-of-the-box promotional video then don’t think twice and make every wave count!. </p>
@@ -555,7 +555,7 @@
 										<div class="col">
 											<div class="testimonial testimonial-style-2 testimonial-with-quotes mb-0">
 												<div class="testimonial-author">
-													<img src="/مشروع التخرج/Deadline/Deadline/dist/Home - Ar/img/clients/client-2.jpg" class="img-fluid rounded-circle" alt="">
+													<img src="{{asset('img/clients/client-2.jpg')}}" class="img-fluid rounded-circle" alt="">
 												</div>
 												<blockquote>
 													<p>بصفتي مديرة الاتصالات بمنظمة ستريم تعاملت مع شركة موجة على الصعيد المهني و الشخصي لأكثر من 9 اشهر و لم يخيبوا ظني على الاطلاق. يقوم الفريق بعمل رائع و بشكل محترف للغاية و دائما ما يكونون على موعدهم و ينتهون من عملهم في الوقت المحدد. هم مجدين في العمل و مبدعين و دائما ما يقدمون أفضل ما لديهم. أنا فخورة جدا بهم و معجبة جداً بالإنجازات التي استطاعوا تحقيقها. اذا كنت تريد إضافة لمسة خاصة لموقعك أو صناعة كتالوج مذهل أو إنتاج فيديو إعلاني بأفكار مبتكره فلا تتردد وكن مع موجة لكي تتحصل على الأفضل. </p>
@@ -663,14 +663,14 @@
 				<div class="container py-4">
 					<div class="row justify-content-md-center py-5 mt-3">
 						<div class="col-md-12 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start mb-5 mb-lg-0">
-							<a href="index.html"><img src="img/logo-flat-light.png" alt="Logo"></a>
+							<a href="ar/home"><img src="{{asset('img/logo-flat-light.png')}}" alt="Logo"></a>
 						</div>
 						<div class="col-md-6 col-lg-2 text-center text-lg-start mb-5 mb-lg-0">
 							<h5 class="text-5 text-transform-none font-weight-semibold text-color-light mb-4">الصفحات</h5>
 							<ul class="list list-unstyled">
-								<li class="mb-1"><a href="../Home - Ar/Login.html" class="link-hover-style-1"> دخول </a></li>
-								<li class="mb-1"><a href="../Home - Ar/Signup.html" class="link-hover-style-1"> تسجيل </a></li>
-								<li class="mb-1"><a href="../Home - Ar/Subscribe.html" class="link-hover-style-1"> إشتراك </a></li>
+								<li class="mb-1"><a href="ar/login" class="link-hover-style-1"> دخول </a></li>
+								<li class="mb-1"><a href="ar/signup" class="link-hover-style-1"> تسجيل </a></li>
+								<li class="mb-1"><a href="ar/subscribe" class="link-hover-style-1"> إشتراك </a></li>
 							</ul>
 						</div>
 

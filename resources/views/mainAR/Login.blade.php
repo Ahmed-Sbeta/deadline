@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{asset('img/apple-touch-icon.png')}}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -64,22 +64,22 @@
 
 											<ul class="nav nav-pills" id="mainNav">
 												<li class="nav-item dropdown nav-item-left-border d-none d-sm-block nav-item-left-border-remove nav-item-left-border-md-show">
-													<a class="nav-link" href="#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<a class="nav-link" href="ar/home" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 														 AR
 														<i class="fas fa-angle-down"></i>
 													</a>
 													<div class="dropdown-menu" aria-labelledby="dropdownLanguage">
-														<a class="dropdown-item" href="/مشروع التخرج/Deadline/Deadline/dist/Home - En/Login.html"> EN</a>
+														<a class="dropdown-item" href="/home"> EN</a>
 													</div>
 												</li>
 
 
 												<li>
-													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="../Home - Ar/index-corporate.html#contact"> تواصل معنا</a>
+													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="ar/home#contact"> تواصل معنا</a>
 												</li>
 
 												<li>
-													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="../Home - Ar/index-corporate.html#clients"> عملائنا</a>
+													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="ar/home#clients"> عملائنا</a>
 												</li>
 
 												<li class="dropdown">
@@ -89,27 +89,27 @@
 														الحساب
 													</a>
 													<ul class="dropdown-menu">
-														<li><a class="nav-link" href="../Home - Ar/Login.html">دخول</a></li>
-														<li><a class="nav-link" href="../Home - Ar/Signup.html">التسجيل</a></li>
-														<li><a class="nav-link" href="../Home - Ar/Subscribe.html">الإشتراك</a></li>
+														<li><a class="nav-link" href="ar/login">دخول</a></li>
+														<li><a class="nav-link" href="ar/signup">التسجيل</a></li>
+														<li><a class="nav-link" href="ar/subscribe">الإشتراك</a></li>
 
 													</ul>
 												</li>
 
 												<li>
-													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="../Home - Ar/index-corporate.html#packages">الباقات</a>
+													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="ar/home#packages">الباقات</a>
 												</li>
 
 												<li>
-													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="../Home - Ar/index-corporate.html#features">الميزات</a>
+													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="ar/home#features">الميزات</a>
 												</li>
 
 												<li>
-													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="../Home - Ar/index-corporate.html#about">من نحن</a>
+													<a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68" href="ar/home#about">من نحن</a>
 												</li>
 
 												<li class="dropdown">
-													<a data-hash class="nav-link active" href="../Home - Ar/index-corporate.html#home">
+													<a data-hash class="nav-link active" href="ar/home#home">
 														الرئيسية
 													</a>
 
@@ -127,8 +127,8 @@
 											<i class="fas fa-bars"></i>
 										</button>
 										<div class="header-logo">
-											<a href="../Home - Ar/index-corporate.html">
-												<img alt="Deadline"   src="/مشروع التخرج/Deadline/Deadline/dist/Home - En/img/deadline logo.png">
+											<a href="ar/home">
+												<img alt="Deadline"   src="{{asset('img/deadline logo.png')}}">
 											</a>
 										</div>
 									</div>
@@ -149,7 +149,7 @@
 							</div>
 							<div class="col-md-12 align-self-center order-1">
 								<ul class="breadcrumb d-block text-center">
-									<li><a href="../Home - Ar/index-corporate.html">الرئيسية</a></li>
+									<li><a href="ar/home">الرئيسية</a></li>
 									<li class="active">الصفحات</li>
 								</ul>
 							</div>
@@ -183,7 +183,7 @@
 										</div>
 									</div>
 									<div class="form-group col-md-auto">
-										<a class="text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold text-2" href="../Home - Ar/Lost Password.html">نسيت كلمة المرور</a>
+										<a class="text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold text-2" href="ar/LostPassword">نسيت كلمة المرور</a>
 									</div>
 								</div>
 								<div class="row">
@@ -205,14 +205,14 @@
 				<div class="container py-4">
 					<div class="row justify-content-md-center py-5 mt-3">
 						<div class="col-md-12 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start mb-5 mb-lg-0">
-							<a href="../Home - Ar/index-corporate.html"><img src="img/logo-flat-light.png" alt="Logo"></a>
+							<a href="ar/home"><img src="{{asset('img/logo-flat-light.png')}}" alt="Logo"></a>
 						</div>
 						<div class="col-md-6 col-lg-2 text-center text-lg-start mb-5 mb-lg-0">
 							<h5 class="text-5 text-transform-none font-weight-semibold text-color-light mb-4">الصفحات</h5>
 							<ul class="list list-unstyled">
-								<li class="mb-1"><a href="../Home - Ar/Login.html" class="link-hover-style-1"> دخول </a></li>
-								<li class="mb-1"><a href="../Home - Ar/Signup.html" class="link-hover-style-1"> تسجيل </a></li>
-								<li class="mb-1"><a href="../Home - Ar/Subscribe.html" class="link-hover-style-1"> إشتراك </a></li>
+								<li class="mb-1"><a href="ar/login" class="link-hover-style-1"> دخول </a></li>
+								<li class="mb-1"><a href="ar/signup" class="link-hover-style-1"> تسجيل </a></li>
+								<li class="mb-1"><a href="ar/subscribe" class="link-hover-style-1"> إشتراك </a></li>
 							</ul>
 						</div>
 

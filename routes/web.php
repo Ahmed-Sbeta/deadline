@@ -79,7 +79,7 @@ Route::get('/deleteUser/{id}','UsersController@deleteUser')->middleware('auth');
 
 
 Route::post('/addcompany','CompanyController@addcompany')->name('addcompany');
-Route::get('/deleteCompany/{id}','CompanyController@deleteCompany')->middleware('auth');
+Route::get('/deleteCompany/{id}','CompanyController@deleteCompany');
 Route::post('/editCompany/{id}','CompanyController@editCompany')->name('editCompany');
 
 Route::get('/subscription','SubscriptionController@index')->middleware('auth');

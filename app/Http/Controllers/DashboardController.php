@@ -81,11 +81,44 @@ class DashboardController extends Controller
 
 public function Arindex(){
   $announcement = Announcement::latest('created_at')->first();
-  $project = Project::whereHas('creater', function ($query) {
+  $project = Project::where('active','=',True)->whereHas('creater', function ($query) {
     return $query->where('company', '=', Auth::user()->company);
   })->latest()->take(5)->get();
   $project_workers = user_project::all();
   $user = User::all();
-  return view('ar.index',compact('announcement','project','project_workers','user'));
+  $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
+  $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
+  $totalTasks= Tasks::whereHas('creater', function ($query) {
+    return $query->where('company', '=', Auth::user()->company);
+  })->count();
+  $tasksInProgress = Tasks::where('status','<>','closed')->whereHas('creater', function ($query) {
+    return $query->where('company', '=', Auth::user()->company);
+  })->count();
+  $tasksClosed = Tasks::where('status','=','closed')->whereHas('creater', function ($query) {
+    return $query->where('company', '=', Auth::user()->company);
+  })->count();
+  $totalProjects = Project::whereHas('creater', function ($query) {
+    return $query->where('company', '=', Auth::user()->company);
+  })->count();
+  $activeProjects =  Project::where('active','=',True)->whereHas('creater', function ($query) {
+    return $query->where('company', '=', Auth::user()->company);
+  })->count();
+  $closedProjects =  Project::where('active','=',false)->whereHas('creater', function ($query) {
+    return $query->where('company', '=', Auth::user()->company);
+  })->count();
+  if($totalProjects <> 0){
+  $inProgress= $activeProjects/$totalProjects*100;
+  $inProgress = number_format((float)$inProgress, 1, '.', '');
+  // dd($inProgress);
+  $Done =number_format((float)$closedProjects/$totalProjects*100, 1, '.', '');
+  }else{
+  $inProgress = 0;
+  $Done =0;
+  // dd($inProgress);
+  }
+
+
+  return view('ar.index',compact('announcement','project','project_workers','user','tasksClosed','tasksInProgress','totalTasks',
+  'inProgress','Done','activeProjects','closedProjects','receved','email'));
 }
 }

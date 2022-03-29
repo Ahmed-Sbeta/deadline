@@ -12,9 +12,9 @@ class CompanySeeder extends Seeder
     public function run()
     {
       $comp1 = Company::create([
-          'name' => 'mawja',
-          'subscription' => '1',
-          'Code' => 'abc123',
+          'name' => 'MAWJA',
+          'subscription' => '2',
+          'Code' => 'mdmoet',
           'location'=> 'asd',
           'email' => 'mawja@gmail.com'
       ]);
@@ -26,11 +26,11 @@ class CompanySeeder extends Seeder
           'email' => 'lybotics@gmail.com'
       ]);
       $comp3 = Company::create([
-          'name' => 'flag',
+          'name' => 'DATA',
           'subscription' => '1',
-          'Code' => 'abc12345',
+          'Code' => 'aslfkm',
           'location'=> 'asd',
-          'email' => 'flag@gmail.com'
+          'email' => 'DATA@gmail.com'
       ]);
     }
 }

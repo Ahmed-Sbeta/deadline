@@ -83,7 +83,7 @@
               <a href="index.html"
                  class="navbar-brand mr-16pt d-lg-none">
                   <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-                       src="assets/images/logo/logo.png"
+                       src="{{asset('assets/images/logo/logo.png')}}"
                        width="32"
                        alt="Deadline">
               </a>
@@ -111,29 +111,34 @@
 
               <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
                   <div class="nav-item dropdown d-none d-sm-flex">
-                      <a href="#"
-                         class="nav-link d-flex align-items-center dropdown-toggle"
-                         data-toggle="dropdown">
-                          <img width="32"
-                               height="32"
-                               class="rounded-circle mr-8pt"
-                               src="assets/images/people/50/guy-3.jpg"
-                               alt="account" />
-                          <span class="flex d-flex flex-column mr-8pt">
-                              <span class="navbar-text-100">Abdo Daeki</span>
-                              <small class="navbar-text-50">Administrator</small>
-                          </span>
-                      </a>
+                    <a href="#"
+                       class="nav-link d-flex align-items-center dropdown-toggle"
+                       data-toggle="dropdown">
+                        <img width="32"
+                             height="32"
+                             class="rounded-circle mr-8pt"
+                             src="{{asset(Storage::url(Auth::user()->image))}}"
+                             alt="account" />
+                        <span class="flex d-flex flex-column mr-8pt">
+                          <span class="navbar-text-100">{{Auth::user()->firstName}} {{Auth::user()->lastName}}</span>
+                          <small class="navbar-text-50">{{Auth::user()->role}}</small>
+                        </span>
+                        <!-- sadasd -->
+                    </a>
                       <div class="dropdown-menu dropdown-menu-right">
                           <div class="dropdown-header"><strong>الحساب الشخصي</strong></div>
                           <a class="dropdown-item"
-                             href="edit-account.html">تعديل الحساب</a>
+                             href="\ar\edit-account">تعديل الحساب</a>
                           <a class="dropdown-item"
-                             href="billing.html">الإشتراك</a>
+                             href="\ar\subscription">الإشتراك</a>
                           <a class="dropdown-item"
-                             href="billing-history.html">الدفع</a>
-                          <a class="dropdown-item"
-                             href="login.html">خروج</a>
+                             href="\ar\billing-payment">الدفع</a>
+                             <a class="dropdown-item"
+                             href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">نسجيل الخروج</a>
+                             <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                 @csrf
+                             </form>
                       </div>
                   </div>
 
@@ -143,51 +148,50 @@
                               type="button"
                               data-toggle="dropdown"
                               data-dropdown-disable-document-scroll
-                              data-caret="false">
-                          <i class="material-icons">notifications</i>
-                          <span class="badge badge-notifications badge-accent">2</span>
+                              data-caret="false"
+                              >
+                          <i class="material-icons" >notifications</i>
+                          <span class="badge badge-notifications badge-accent">{{Auth::user()->unreadNotifications->count()}}</span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-right">
                           <div data-perfect-scrollbar
                                class="position-relative">
-                              <div class="dropdown-header"><strong>الإشعارات</strong></div>
+                              <div class="dropdown-header"><strong>Notifications</strong></div>
                               <div class="list-group list-group-flush mb-0">
+                                @forelse(Auth::user()->notifications->take(3) as $notification)
+                                  <a href="#"
+                                     class="list-group-item list-group-item-action">
+                                      <span class="d-flex align-items-center mb-1">
+                                          <small class="text-black-50">{{(new Carbon\Carbon($notification->created_at))->diffForHumans()}}</small>
 
+                                          <span class="ml-auto bg-accent"></span>
+
+                                      </span>
+                                      <span class="d-flex">
+
+                                          </span>
+                                          <span class="flex d-flex flex-column">
+
+                                              <span class="text-black-70" onclick="{{$notification->markAsRead()}}">{{$notification->data['text']}}<strong>{{$notification->data['name']}}</strong> </span>
+                                          </span>
+                                      </span>
+                                  </a>
+                                  @empty
                                   <a href="tasks-details.html"
                                      class="list-group-item list-group-item-action unread">
                                       <span class="d-flex align-items-center mb-1">
-                                          <small class="text-black-50">منذ 3 ساعات</small>
-
+                                          <small class="text-black-50"></small>
                                           <span class="ml-auto unread-indicator bg-accent"></span>
-
                                       </span>
                                       <span class="d-flex">
-
                                           </span>
                                           <span class="flex d-flex flex-column">
-
-                                              <span class="text-black-70">Your profile information has not been synced correctly.</span>
+                                              <span class="text-black-70">No notifications available </span>
                                           </span>
                                       </span>
                                   </a>
-
-                                  <a href="project-details.html"
-                                     class="list-group-item list-group-item-action">
-                                      <span class="d-flex align-items-center mb-1">
-                                          <small class="text-black-50">منذ 5 ساعات</small>
-
-                                      </span>
-                                      <span class="d-flex">
-
-                                          </span>
-                                          <span class="flex d-flex flex-column">
-                                              <strong class="text-black-100">Adrian. D</strong>
-                                              <span class="text-black-70">Wants to join your private group.</span>
-                                          </span>
-                                      </span>
-                                  </a>
-
-                                  <a href="notifications.html"
+                                  @endforelse
+                                  <a href="/notifications"
                                      class="list-group-item list-group-item-action">
                                       <span class="d-flex align-items-center mb-1">
 
@@ -200,7 +204,7 @@
                                           </span>
                                           <span class="flex d-flex flex-column">
 
-                                              <span class="text-black-70">مشاهدة كل الإشعارات</span>
+                                              <span class="text-black-70">See All Notifications</span>
                                           </span>
                                       </span>
                                   </a>
@@ -225,48 +229,50 @@
                                class="position-relative">
                               <div class="dropdown-header"><strong>الرسائل</strong></div>
                               <div class="list-group list-group-flush mb-0">
-
-                                  <a href="email.html"
+                                @forelse($receved as $res)
+                                @foreach($email as $mail)
+                                @if($res->email_id == $mail->id)
+                                  <a href="/email-details/{{$mail->id}}"
                                      class="list-group-item list-group-item-action unread">
                                       <span class="d-flex align-items-center mb-1">
-                                          <small class="text-black-50">منذ 5 دقائق</small>
+                                          <small class="text-black-50">{{(new Carbon\Carbon($mail->created_at))->diffForHumans()}}</small>
 
                                           <span class="ml-auto unread-indicator bg-accent"></span>
 
                                       </span>
                                       <span class="d-flex">
                                           <span class="avatar avatar-xs mr-2">
-                                              <img src="assets/images/people/110/woman-5.jpg"
+                                              <img src="{{asset(Storage::url($user->find($mail->creator)->image))}}"
                                                    alt="people"
                                                    class="avatar-img rounded-circle">
                                           </span>
                                           <span class="flex d-flex flex-column">
-                                              <strong class="text-black-100">Michelle</strong>
-                                              <span class="text-black-70">Clients loved the new design.</span>
+                                              <strong class="text-black-100">{{$user->find($mail->creator)->name}}</strong>
+                                              <span class="text-black-70">{{$mail->subject}}</span>
                                           </span>
                                       </span>
                                   </a>
-
-                                  <a href="email.html"
-                                     class="list-group-item list-group-item-action">
+                                  @endif
+                                  @endforeach
+                                  @empty
+                                  <a href="/email"
+                                     class="list-group-item list-group-item-action unread">
                                       <span class="d-flex align-items-center mb-1">
-                                          <small class="text-black-50">منذ 5 دقائق</small>
+                                          <small class="text-black-50"></small>
+
+                                          <span class="ml-auto unread-indicator bg-accent"></span>
 
                                       </span>
                                       <span class="d-flex">
-                                          <span class="avatar avatar-xs mr-2">
-                                              <img src="assets/images/people/110/woman-5.jpg"
-                                                   alt="people"
-                                                   class="avatar-img rounded-circle">
-                                          </span>
+
                                           <span class="flex d-flex flex-column">
-                                              <strong class="text-black-100">Michelle</strong>
-                                              <span class="text-black-70">🔥 Superb job..</span>
+                                              <strong class="text-black-100"></strong>
+                                              <span class="text-black-70">لايوجد رسائل</span>
                                           </span>
                                       </span>
                                   </a>
-
-                                  <a href="email.html"
+                                  @endforelse
+                                  <a href="/email"
                                   class="list-group-item list-group-item-action">
                                    <span class="d-flex align-items-center mb-1">
 
@@ -279,7 +285,7 @@
                                        </span>
                                        <span class="flex d-flex flex-column">
 
-                                           <span class="text-black-70">مشاهدة كل الرسائل</span>
+                                           <span class="text-black-70">See All Messages</span>
                                        </span>
                                    </span>
                                </a>
@@ -310,7 +316,7 @@
 
                               <li class="breadcrumb-item active">
 
-                                  @User Name
+                                {{Auth::user()->name}}
 
                               </li>
 
@@ -325,19 +331,19 @@
                   <!--Date and Time-->
                   <div class="row"
                   role="tablist">
-                 <div class="col-auto d-flex flex-column">
-                     <h6 class="m-0">&dollar;12.3k</h6>
-                     <p class="text-50 mb-0 d-flex align-items-center">
-                         Date and time
-                     </p>
-                 </div>
+                  <div class="col-auto d-flex flex-column">
+                      <h6 class="m-0">{{ Carbon\Carbon::now()->addHour(2)->format('H:i')}}</h6>
+                      <p class="text-50 mb-0 pr-1 d-flex align-items-center">
+                          {{ Carbon\Carbon::now()->toDateString()}}
+                      </p>
+                  </div>
 
                  </div>
 
                   <div class="row"
                        role="tablist">
                       <div class="col-auto border-left" style="margin-left: 12px;">
-                          <a href="reminders.html"
+                          <a href="/ar/reminders"
                              class="btn btn-accent">التذكيرات</a>
                       </div>
                   </div>
@@ -351,31 +357,34 @@
           <div class="container-fluid page__container">
               <div class="page-section">
 
+                @if($announcement)
                   <div class="page-separator">
-                      <div class="page-separator__text">إعلان جديد</div>
+                      <div class="page-separator__text">اعلان جديد</div>
                   </div>
 
                   <div class="btn-accent">
 
                       <div class="card-body">
-
                           <section class="call-to-action call-to-action-primary mb-5">
                               <div class="col-sm-9 col-lg-9">
                                   <div class="call-to-action-content">
-                                     <p></p> <h3>ديدلاين هو كل ماتحتاجه لإدارة مهامك.</h3>
-                                      <p class="mb-0 opacity-7">ديدلاين عبارة عن واجهة مستخدم مصممة بشكل جميل لشركات الأعمال الحديثة التي تقدم خدمات متعددة ، فهي تساعد الإدارة على متابعة عملية إدارة المشروع، إدارة المهام، نظام رسائل بسيط وإدارة الحسابات.</p>
+                                     <p></p> <h3>{{$announcement->title}}</h3>
+                                      <p class="mb-0 opacity-7">{{$announcement->discription}}</p>
                                   </div>
                               </div>
                               <p></p>
                               <div class="col-sm-3 col-lg-3">
                                   <div class="call-to-action-btn">
-                                      <a href="announcment-details.html" target="_blank" class="btn btn-modern text-2 btn-light border-0">الإطلاع على الإعلان</a>
+                                      <a href="/announcement-details/{{$announcement->id}}" target="_blank" class="btn btn-modern text-2 btn-light border-0">أطلاع علي الاعلان</a>
                                   </div>
                               </div>
                           </section>
+
+
                       </div>
                   </div>
                   <p></p>
+                  @endif
 
                     <!-- Upcoming Deadlines div-->
 
@@ -425,7 +434,7 @@
                               </thead>
                               <tbody class="list"
                                      id="tasks">
-
+                                      @foreach($project as $proj)
                                   <tr class="selected">
 
                                       <td class="pr-0">
@@ -435,7 +444,7 @@
                                       <td>
 
                                           <div class="d-flex align-items-center">
-                                              <strong class="flex js-lists-values-name">Add Fluid Layout Featuring A Vertical Menu With Icons Only</strong>
+                                              <strong class="flex js-lists-values-name">{{$proj->title}}</strong>
 
 
 
@@ -450,220 +459,31 @@
                                           </div>
                                       </td>
                                       <td>
-                                          <small class="js-lists-values-date text-50">02/01/20</small>
-                                      </td>
-                                      <td>
-                                          <div class="d-flex align-items-center">
-                                              <div class="avatar-group flex mr-8pt">
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_luke-porter-261779-unsplash.jpg"
-                                                               alt="Avatar"
-                                                               class="avatar-img rounded-circle"></a>
-                                                  </div>
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_michael-dam-258165-unsplash.jpg"
-                                                               alt="Avatar"
-                                                               class="avatar-img rounded-circle"></a>
-                                                  </div>
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_rsz_1andy-lee-642320-unsplash.jpg"
-                                                               alt="Avatar"
-                                                               class="avatar-img rounded-circle"></a>
-                                                  </div>
-
-
-                                              </div>
-                                          </div>
-                                      </td>
-                                  </tr>
-
-                                  <tr>
-
-                                      <td class="pr-0">
-
-                                      </td>
-
-                                      <td>
-
-                                          <div class="d-flex align-items-center">
-                                              <strong class="flex js-lists-values-name">Add Initial Documentation Covering Basic Features</strong>
-
-                                          </div>
-
-                                      </td>
-                                      <td>
-                                          <div class="d-flex align-items-center">
-
-
-
-                                          </div>
-                                      </td>
-                                      <td>
-                                          <small class="js-lists-values-date text-50">03/01/20</small>
+                                          <small class="js-lists-values-date text-50">{{$proj->dueOn}}</small>
                                       </td>
                                       <td>
                                           <div class="d-flex align-items-center">
                                               <div class="avatar-group flex mr-8pt">
 
+                                                @foreach($project_workers as $worker)
+                                                  @if($worker->project_id == $proj->id)
                                                   <div class="avatar avatar-xs"
                                                        data-toggle="tooltip"
                                                        data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_michael-dam-258165-unsplash.jpg"
+                                                       title="{{$user->find($worker->user_id)->name}}">
+                                                      <a href=""><img src="{{asset(Storage::url($user->find($worker->user_id)->image))}}"
                                                                alt="Avatar"
                                                                class="avatar-img rounded-circle"></a>
                                                   </div>
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_luke-porter-261779-unsplash.jpg"
-                                                               alt="Avatar"
-                                                               class="avatar-img rounded-circle"></a>
-                                                  </div>
+                                                  @endif
+                                                  @endforeach
 
                                               </div>
                                           </div>
                                       </td>
-
                                   </tr>
+                                  @endforeach
 
-                                  <tr>
-
-                                      <td class="pr-0">
-
-                                      </td>
-
-                                      <td>
-
-                                          <div class="d-flex align-items-center">
-                                              <strong class="flex js-lists-values-name">Refactor HTML Markup To Be More SEO Friendly</strong>
-
-
-
-                                          </div>
-
-                                      </td>
-                                      <td>
-                                          <div class="d-flex align-items-center">
-
-
-                                          </div>
-                                      </td>
-                                      <td>
-                                          <small class="js-lists-values-date text-50">03/01/20</small>
-                                      </td>
-                                      <td>
-                                          <div class="d-flex align-items-center">
-                                              <div class="avatar-group flex mr-8pt">
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="LB">
-                                                      <a href=""><span class="avatar-title bg-white border text-black-100 rounded-circle">LB</span></a>
-                                                  </div>
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="AD">
-                                                      <a href=""><span class="avatar-title bg-white border text-black-100 rounded-circle">AD</span></a>
-                                                  </div>
-
-                                              </div>
-                                          </div>
-                                      </td>
-
-                                  </tr>
-
-                                  <tr>
-
-                                      <td class="pr-0">
-
-                                      </td>
-
-                                      <td>
-
-                                          <div class="media flex-nowrap align-items-center"
-                                               style="white-space: nowrap;">
-                                              <div class="avatar avatar-32pt mr-8pt">
-
-                                                  <img src="assets/images/stories/256_rsz_jared-rice-388260-unsplash.jpg"
-                                                       alt="Avatar"
-                                                       class="avatar-img rounded">
-
-                                              </div>
-                                              <div class="media-body">
-
-                                                  <div class="d-flex align-items-center">
-                                                      <strong class="flex js-lists-values-name">Add Layout Options</strong>
-
-                                                  </div>
-
-                                              </div>
-                                          </div>
-
-                                      </td>
-                                      <td>
-                                          <div class="d-flex align-items-center">
-
-
-
-                                          </div>
-                                      </td>
-                                      <td>
-                                          <small class="js-lists-values-date text-50">04/01/20</small>
-                                      </td>
-                                      <td>
-                                          <div class="d-flex align-items-center">
-                                              <div class="avatar-group flex mr-8pt">
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_rsz_1andy-lee-642320-unsplash.jpg"
-                                                               alt="Avatar"
-                                                               class="avatar-img rounded-circle"></a>
-                                                  </div>
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_michael-dam-258165-unsplash.jpg"
-                                                               alt="Avatar"
-                                                               class="avatar-img rounded-circle"></a>
-                                                  </div>
-
-                                                  <div class="avatar avatar-xs"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="Janell D.">
-                                                      <a href=""><img src="assets/images/256_luke-porter-261779-unsplash.jpg"
-                                                               alt="Avatar"
-                                                               class="avatar-img rounded-circle"></a>
-                                                  </div>
-
-                                              </div>
-                                          </div>
-                                      </td>
-
-                                  </tr>
 
                               </tbody>
                           </table>
@@ -729,7 +549,11 @@
           <div class="d-flex align-items-center">
               <div class="position-relative mr-16pt">
                   <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                      <small>80%</small>
+                    @if($inProgress)
+                      <small>{{$inProgress}}%</small>
+                      @else
+                      <small>0%</small>
+                      @endif
                   </div>
                   <canvas width="48"
                           height="48"
@@ -741,7 +565,11 @@
               <div class="flex">
                   <strong>قيد التنفيذ</strong>
               </div>
-              <div class="text-50">60</div>
+              @if($activeProjects)
+              <div class="text-50">{{$activeProjects}}</div>
+              @else
+              <div class="text-50">0</div>
+              @endif
           </div>
       </div>
   </div>
@@ -752,7 +580,11 @@
           <div class="d-flex align-items-center">
               <div class="position-relative mr-16pt">
                   <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                      <small>20%</small>
+                    @if($Done)
+                    <small>{{$Done}}%</small>
+                    @else
+                    <small>{{$Done}}%</small>
+                    @endif
                   </div>
                   <canvas width="48"
                           height="48"
@@ -764,7 +596,11 @@
               <div class="flex">
                   <strong>انتهت</strong>
               </div>
-              <div class="text-50">15</div>
+              @if($closedProjects)
+              <div class="text-50">{{$closedProjects}}</div>
+              @else
+              <div class="text-50">{{$closedProjects}}</div>
+              @endif
           </div>
       </div>
   </div>
@@ -788,7 +624,7 @@
           <div class="chart"
                style="height: 262px;">
               <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                  <h2 class="m-0">275</h2>
+                <h2 class="m-0">{{$totalTasks}}</h2>
                   <strong>إجمالي المهام</strong>
               </div>
               <canvas class="chart-canvas position-relative z-1"
@@ -805,7 +641,7 @@
                    role="tablist">
                   <div class="col-auto">
                       <div class=" flex">
-                          <div class="h1 mb-0 mr-3"><p></p>34</div>
+                        <div class="h1 mb-0 mr-3"><p></p>{{$tasksClosed}}</div>
                           <div class="flex">
                               <p class="mb-0"><strong>المهام المكتملة</strong></p>
                               <p class="text-50 mb-0 lh-1">
@@ -840,7 +676,7 @@
             <div class="container-fluid page__container page-section d-flex flex-column">
                 <p class="text-70 brand mb-24pt">
                     <img class="brand-icon"
-                         src="assets/images/logo/logo.png"
+                         src="{{asset('assets/images/logo/logo.png')}}"
                          width="30"
                          alt="Deadline"> Deadline
                 </p>
@@ -854,12 +690,12 @@
                                 <p class="text-white-70 mb-8pt"><strong>تابعونا عبر </strong></p>
                                 <nav class="nav nav-links nav--flush">
                                     <a href="https://www.facebook.com/mawja"
-                                       class="nav-link mr-8pt"><img src="assets/images/icon/footer/facebook-square@2x.png"
+                                       class="nav-link mr-8pt"><img src="{{asset('assets/images/icon/footer/facebook-square@2x.png')}}"
                                              width="24"
                                              height="24"
                                              alt="Facebook"></a>
 
-                                     <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="assets/images/icon/footer/youtube-square@2x.png"
+                                     <a href="https://www.youtube.com/channel/UCKNlvCnoC8tEJDId3d9QelA" class="nav-link"><img src="{{asset('assets/images/icon/footer/youtube-square@2x.png')}}"
                                          width="24"
                                           height="24"
                                           alt="YouTube"></a>
@@ -890,7 +726,7 @@
                         <!--  SideBar -->
 
 
-                        <a href="index.html"
+                        <a href="/ar/"
                            class="sidebar-brand ">
                             <img
                                  src="assets/images/logo/logo.png"
@@ -903,28 +739,31 @@
                                class="nav-link d-flex align-items-center dropdown-toggle"
                                data-toggle="dropdown"
                                data-caret="false">
-                                <img width="32"
-                                     height="32"
-                                     class="rounded-circle mr-8pt"
-                                     src="assets/images/people/50/guy-3.jpg"
-                                     alt="account" />
-                                <span class="flex d-flex flex-column mr-8pt">
-                                    <span class="text-black-100">Abdo Daeki</span>
-                                    <small class="text-black-50">Administrator</small>
-                                </span>
+                               <img width="32"
+                                    height="32"
+                                    class="rounded-circle mr-8pt"
+                                    src="{{asset(Storage::url(Auth::user()->image))}}"
+                                    alt="account" />
+                               <span class="flex d-flex flex-column mr-8pt">
+                                   <span class="text-black-100">{{Auth::user()->name}}</span>
+                                   <small class="text-black-50">{{Auth::user()->role}}</small>
+                               </span>
                                 <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
+                            <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-header"><strong>الحساب الشخصي</strong></div>
                                 <a class="dropdown-item"
-                                   href="edit-account.html">تعديل الحساب</a>
+                                   href="\ar\edit-account">تعديل الحساب</a>
                                 <a class="dropdown-item"
-                                   href="billing.html">الإشتراك</a>
+                                   href="\ar\subscription">الإشتراك</a>
                                 <a class="dropdown-item"
-                                   href="billing-history.html">الدفع</a>
-                                <a class="dropdown-item"
-                                   href="login.html">خروج</a>
-
+                                   href="\ar\billing-payment">الدفع</a>
+                                   <a class="dropdown-item"
+                                   href="{{ route('adminlogout') }}" onclick="event.preventDefault();
+                                   document.getElementById('logout-form').submit();">نسجيل الخروج</a>
+                                   <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" style="display: none;">
+                                       @csrf
+                                   </form>
                             </div>
                         </div>
 
@@ -955,25 +794,25 @@
                                     id="productivity_menu">
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="projects.html">
+                                           href="/ar/projects">
                                             <span class="sidebar-menu-text">المشاريع</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="tasks-board.html">
+                                           href="/ar/tasks-board">
                                             <span class="sidebar-menu-text">لوحة المهام</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="tasks-list.html">
+                                           href="/ar/tasks-list">
                                             <span class="sidebar-menu-text">قائمة المهام</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="reports.html">
+                                           href="/ar/reports">
                                             <span class="sidebar-menu-text">التقارير</span>
                                         </a>
                                     </li>
@@ -997,21 +836,21 @@
 
                                    <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="edit-account.html">
+                                           href="/ar/edit-account">
                                             <span class="sidebar-menu-text">تعديل الحساب</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="billing.html">
+                                           href="/ar/billing">
                                             <span class="sidebar-menu-text">الإشتراك</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="user-approves.html">
+                                           href="/ar/requests">
                                             <span class="sidebar-menu-text">الطلبات</span>
                                         </a>
                                     </li>
@@ -1031,28 +870,28 @@
                                     id="community_menu">
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="employees.html">
+                                           href="/ar/employees">
                                             <span class="sidebar-menu-text">الموظفين</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="announcments.html">
+                                           href="/ar/announcments">
                                             <span class="sidebar-menu-text">الإعلانات</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="events.html">
+                                           href="/ar/events">
                                             <span class="sidebar-menu-text">الأحداث</span>
                                         </a>
                                     </li>
 
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="email.html">
+                                           href="/ar/email">
                                             <span class="sidebar-menu-text">الرسائل</span>
                                         </a>
                                     </li>

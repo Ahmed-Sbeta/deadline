@@ -13,32 +13,32 @@ class eventsSeeder extends Seeder
     public function run()
     {
       $event = events::create([
-          'title' => 'meeting',
-          'date' => '2022-03-12',
+          'title' => 'Designers Meeting',
+          'date' => '2022-04-2',
           'from' => '11:00',
           'to' => '12:00',
           'creator' => '1'
       ]);
       $event2 = events::create([
-          'title' => 'meeting',
-          'date' => '2022-03-11',
+          'title' => 'New Idintaty Meeting',
+          'date' => '2022-04-1',
           'from' => '11:00',
           'to' => '12:00',
           'creator' => '1'
       ]);
       $event3 = events::create([
-          'title' => 'meeting',
-          'date' => '2022-03-10',
+          'title' => 'Three Years Of Mawja',
+          'date' => '2022-03-31',
           'from' => '11:00',
           'to' => '12:00',
           'creator' => '1'
       ]);
       $event4 = events::create([
-          'title' => 'meeting',
-          'date' => '2022-03-15',
+          'title' => 'Activity Day',
+          'date' => '2022-04-3',
           'from' => '11:00',
           'to' => '12:00',
-          'creator' => '4'
+          'creator' => '1'
       ]);
     }
 }

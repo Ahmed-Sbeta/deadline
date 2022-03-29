@@ -69,7 +69,7 @@
 														<i class="fas fa-angle-down"></i>
 													</a>
 													<div class="dropdown-menu" aria-labelledby="dropdownLanguage">
-														<a class="dropdown-item" href="/مشروع التخرج/Deadline/Deadline/dist/Home - En/Signup.html"> EN</a>
+														<a class="dropdown-item" href="/home"> EN</a>
 													</div>
 												</li>
 

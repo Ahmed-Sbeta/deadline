@@ -107,7 +107,7 @@
 															<i class="fas fa-angle-down"></i>
 														</a>
 														<div class="dropdown-menu" aria-labelledby="dropdownLanguage">
-															<a class="dropdown-item" href=""> AR</a>
+															<a class="dropdown-item" href="/ar/home"> AR</a>
 														</div>
 													</li>
 												</ul>
@@ -165,7 +165,7 @@
 							</div>
 
 							<!-- Carousel Slide 2 -->
-							<div class="owl-item position-relative overlay overlay-show overlay-op-8" style="background-image: url(img/slides/slide-corporate-1-2.jpg); background-size: cover; background-position: center;">
+							<div class="owl-item position-relative overlay overlay-show overlay-op-8" style="background-image: url('img/slides/slide-corporate-1-2.jpg'); background-size: cover; background-position: center;">
 								<div class="container position-relative z-index-3 h-100">
 									<div class="row justify-content-center align-items-center h-100">
 										<div class="col-lg-7">
@@ -174,7 +174,7 @@
 												<p class="text-4-5 text-color-light font-weight-light opacity-7 text-center mb-4" data-plugin-animated-letters data-plugin-options="{'startDelay': 1000, 'minWindowWidth': 0, 'animationSpeed': 25}">Project Management, Tasks, Messaging and Account Management.</p>
 												<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="3300">
 													<div class="d-flex align-items-center mt-2">
-														<a href="#" class="btn btn-primary btn-modern font-weight-bold text-2 py-3 btn-px-4 ms-4">GET STARTED NOW <i class="fas fa-arrow-right ms-2"></i></a>
+														<a href="/subscribe" class="btn btn-primary btn-modern font-weight-bold text-2 py-3 btn-px-4 ms-4">GET STARTED NOW <i class="fas fa-arrow-right ms-2"></i></a>
 													</div>
 												</div>
 											</div>
@@ -203,7 +203,7 @@
 							</div>
 							<div class="col-lg-4">
 								<div class="get-started text-start text-lg-end">
-									<a href="Subscribe.html" class="btn btn-primary btn-lg text-3 font-weight-semibold px-4 py-3">Get Started Now!</a>
+									<a href="/subscribe" class="btn btn-primary btn-lg text-3 font-weight-semibold px-4 py-3">Get Started Now!</a>
 								</div>
 							</div>
 						</div>

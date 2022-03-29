@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{asset('img/apple-touch-icon.png')}}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -63,7 +63,7 @@
 
 											<ul class="nav nav-pills" id="mainNav">
 												<li class="nav-item dropdown nav-item-left-border d-none d-sm-block nav-item-left-border-remove nav-item-left-border-md-show">
-													<a class="nav-link" href="#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<a class="nav-link" href="/ar/home" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 														 AR
 														<i class="fas fa-angle-down"></i>
 													</a>
@@ -321,14 +321,14 @@
 				<div class="container py-4">
 					<div class="row justify-content-md-center py-5 mt-3">
 						<div class="col-md-12 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start mb-5 mb-lg-0">
-							<a href="../Home - Ar/index-corporate.html"><img src="img/logo-flat-light.png" alt="Logo"></a>
+							<a href="ar/home"><img src="{{asset('img/logo-flat-light.png')}}" alt="Logo"></a>
 						</div>
 						<div class="col-md-6 col-lg-2 text-center text-lg-start mb-5 mb-lg-0">
 							<h5 class="text-5 text-transform-none font-weight-semibold text-color-light mb-4">الصفحات</h5>
 							<ul class="list list-unstyled">
-								<li class="mb-1"><a href="../Home - Ar/Login.html" class="link-hover-style-1"> دخول </a></li>
-								<li class="mb-1"><a href="../Home - Ar/Signup.html" class="link-hover-style-1"> تسجيل </a></li>
-								<li class="mb-1"><a href="../Home - Ar/Subscribe.html" class="link-hover-style-1"> إشتراك </a></li>
+								<li class="mb-1"><a href="ar/Login" class="link-hover-style-1"> دخول </a></li>
+								<li class="mb-1"><a href="ar/signup" class="link-hover-style-1"> تسجيل </a></li>
+								<li class="mb-1"><a href="ar/subscribe" class="link-hover-style-1"> إشتراك </a></li>
 							</ul>
 						</div>
 
@@ -346,7 +346,7 @@
 							</form>
                             <p class="mt-3 mb-0 text-center text-lg-start">
                                 <i class="fab fa-whatsapp text-color-primary"></i><span class="text-color-light opacity-7 ps-2">(218) 92 5160515</span>
-                                <i class="far fa-envelope text-color-primary ms-4"></i><a href="mailto:info@deadlinee.com" class="opacity-7 ps-2 text-color-light">info@Deadline.com</a>
+                                <i class="far fa-envelope text-color-primary ms-4"></i><a href="{{asset('mailto:info@deadlinee.com')}}" class="opacity-7 ps-2 text-color-light">info@Deadline.com</a>
                             </p>
 						</div>
 					</div>
