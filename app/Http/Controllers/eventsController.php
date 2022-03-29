@@ -30,9 +30,10 @@ class eventsController extends Controller
         })->get();
 
       $dob = User::Where('company','=',Auth::user()->company)->where('dob','=',Carbon::now()->format('Y-m-d'))->first();
+      $user = Auth::user();
       // dd($dob);
 
-      return view('en.events',compact('today','upcoming','events','dob','receved','email'));
+      return view('en.events',compact('today','upcoming','events','dob','receved','email','user'));
     }
 
     public function addEvent(Request $request){

@@ -11,7 +11,18 @@ use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
-    public function addcompany(){
+    public function addcompany(Request $request){
+      $request->validate([
+        'name' => 'required',
+        'location' => 'required',
+        'subscription' => 'required',
+        'firstName' => 'required',
+        'dob' => 'required',
+        'email' => 'required|email|unique:users',
+        'phoneNumber' => 'required|numeric',
+        'password' => 'required',
+
+      ]);
       $company = new Company;
       $user = new User;
 

@@ -197,7 +197,7 @@
                                                </span>
                                            </a>
                                            @empty
-                                           <a href="tasks-details.html"
+                                           <a href=""
                                               class="list-group-item list-group-item-action unread">
                                                <span class="d-flex align-items-center mb-1">
                                                    <small class="text-black-50"></small>
@@ -450,7 +450,7 @@
                                             <td>
 
                                                 <div class="d-flex align-items-center">
-                                                    <strong class="flex js-lists-values-name"><a href="tasks-details.html">{{$task->title}}</a></strong>
+                                                    <strong class="flex js-lists-values-name"><a href="/task/{{$task->id}}">{{$task->title}}</a></strong>
 
 
 
@@ -460,7 +460,7 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
 
-                                                    <a href="project-details.html"
+                                                <a href="/task/{{$task->id}}"
                                                        class="mr-4pt">{{$task->projects->title}}</a>
 
 
@@ -604,7 +604,7 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
 
-                                                    <a href="project-details.html"
+                                                    <a href="/task/{{$task->id}}"
                                                        class="mr-4pt">{{$task->projects->title}}</a>
 
                                                 </div>

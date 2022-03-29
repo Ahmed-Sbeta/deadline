@@ -36,8 +36,8 @@ class ProjectsController extends Controller
           return $query->where('company', '=', Auth::user()->company);
         })->orderBy('dueOn', 'ASC')->take(2)->get();
 
-      $users = User::all()->Where('company','=',Auth::user()->company);
-      $supervisers = User::Where('role','=','suproviser')->Where('company','=',Auth::user()->company)->get();
+      $users = User::all()->Where('company','=',Auth::user()->company)->where('is_activated','=', true);
+      $supervisers = User::Where('role','=','suproviser')->Where('company','=',Auth::user()->company)->where('is_activated','=', true)->get();
       $j=1;
       // dd($closest2);
       return view('en.projects',compact('users','closest','closest2','projects','supervisers','j','archive','receved','email','user'));
@@ -70,7 +70,7 @@ class ProjectsController extends Controller
       $this->validate($request,[
          'title'=>'required',
          'discription'=>'required',
-         'budget'=>'required',
+         'budget'=>'required|numeric',
          'dueOn'=>'required',
          'file'=>'required',
          'contributors'=>'required'

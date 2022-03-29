@@ -385,7 +385,7 @@
                                         </span>
                                         <div class="flex">
                                             <a class="card-title mb-4pt"
-                                               href="">{{$reminder->title}}</a>
+                                               href="/task/{{$reminder->id}}">{{$reminder->title}}</a>
                                             <p class="text-70 mb-0" style="width: 350px; overflow: hidden;">{{$reminder->discription}}</p>
                                         </div>
                                     </div>

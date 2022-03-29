@@ -10,7 +10,7 @@ use App\user_email;
 
 class SubscriptionController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
       $user = User::all();
       $receved = user_email::where("user_id","=",Auth::id())->take(2)->latest()->get();
       $email = email::where("creator","=",Auth::id())->where('deleted','=',False)->take(2)->latest()->get();
