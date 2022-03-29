@@ -662,7 +662,7 @@
                                             </td>
                                             <td>
                                               @if(Auth::user()->role == 'administrator')
-                                               <a href="/deleteUser/{{$user->id}}">
+                                               <a href="alert/{{$user->id}}">
                                                    <button type="button"
                                                      class="btn btn-sm btn-outline-secondary" style="background-color: crimson;">
                                                  <i class="material-icons" style="color: white;">close</i>

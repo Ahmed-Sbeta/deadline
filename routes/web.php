@@ -48,6 +48,7 @@ Route::post('/inProgressTasks-cheked','TasksController@inProgressCheckedTasks')-
 Route::post('/closedTasks-cheked','TasksController@closedCheckedTasks')->name("closedcheked");
 Route::get('/addreminder/{id}','TasksController@addreminder')->middleware('auth');
 Route::get('/reminders','TasksController@reminders')->middleware('auth');
+Route::get('/alert/{id}','UsersController@alert')->middleware('auth');
 
 
 Route::get('/reports','ReportsController@index')->middleware('auth');
