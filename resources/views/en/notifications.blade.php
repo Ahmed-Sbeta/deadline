@@ -85,7 +85,7 @@
 
 
                        <!-- Navbar Brand -->
-                       <a href="index.html"
+                       <a href="/"
                           class="navbar-brand mr-16pt d-lg-none">
                            <img class="navbar-brand-icon mr-0 mr-lg-8pt"
                                 src="{{asset('assets/images/logo/logo.png')}}"
@@ -552,7 +552,7 @@
                          data-perfect-scrollbar>
 
                         <!--  SideBar -->
-                        <a href="index.html"
+                        <a href="/"
                            class="sidebar-brand ">
                             <img
                                  src="{{asset('assets/images/logo/logo.png')}}"
@@ -618,14 +618,12 @@
                                 </a>
                                 <ul class="sidebar-submenu collapse sm-indent"
                                     id="productivity_menu">
-                                    @if(Auth::user()->role <> 'employee')
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/projects">
                                             <span class="sidebar-menu-text">Projects</span>
                                         </a>
                                     </li>
-                                    @endif
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/tasks-board">

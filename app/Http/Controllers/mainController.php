@@ -49,4 +49,32 @@ class mainController extends Controller
     public function subscribe(){
       return view('main.Subscribe');
     }
+
+    //ar
+
+    public function Arindex(){
+      return view('mainAR.index-corporate');
+    }
+
+    public function Arlogin(){
+      return view('mainAR.Login');
+    }
+
+    public function Aradmin(){
+      $companies = Company::with('suscription')->get();
+      $users = User::all();
+      // dd($companies);
+      return view('mainAR.Admin',compact('companies','users'));
+    }
+    public function ArlostPassword(){
+      return view('mainAR.LostPassword');
+    }
+
+    public function Arsignup(){
+      return view('mainAR.Signup');
+    }
+
+    public function Arsubscribe(){
+      return view('mainAR.Subscribe');
+    }
 }

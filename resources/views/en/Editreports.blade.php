@@ -649,12 +649,15 @@
                                                         <span class="sidebar-menu-text">Tasks List</span>
                                                     </a>
                                                 </li>
+                                                @if(Auth::user()->role <> 'employee')
+
                                                 <li class="sidebar-menu-item active">
                                                     <a class="sidebar-menu-button"
                                                        href="/reports">
                                                         <span class="sidebar-menu-text">Reports</span>
                                                     </a>
                                                 </li>
+                                                @endif
 
                                             </ul>
                                         </li>
@@ -680,6 +683,7 @@
                                                     </a>
                                                 </li>
 
+                                                @if(Auth::user()->role == 'administrator')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/subscription">
@@ -693,6 +697,8 @@
                                                         <span class="sidebar-menu-text">Requests</span>
                                                     </a>
                                                 </li>
+                                                @endif
+
 
                                             </ul>
                                         </li>

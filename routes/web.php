@@ -128,6 +128,17 @@ Route::get('/subscribe','mainController@subscribe');
 
 
 //ar
+Route::get('/ar/lostPassword','mainController@ArlostPassword');
+Route::get('/ar/signup','mainController@Arsignup');
+Route::get('/ar/subscribe','mainController@Arsubscribe');
+Route::get('/ar/home','mainController@Arindex');
+Route::get('/ar/login','mainController@Arlogin');
+Route::get('/ar/admin/dashboard','mainController@Aradmin');
+
+
+
+
+
 Route::get('/ar/home','mainController@Arindex');
 Route::get('/ar/login','mainController@Arlogin');
 Route::get('/ar/admin','mainController@Aradmin');

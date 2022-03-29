@@ -57,7 +57,7 @@
 							<div class="header-column">
 								<div class="header-row">
 									<div class="header-logo">
-										<a href="../Home - Ar/index-corporate.html"><img alt="Deadline"  src="{{asset('img/deadline logo.png')}}"></a>
+										<a href="/home"><img alt="Deadline"  src="{{asset('img/deadline logo.png')}}"></a>
 									</div>
 								</div>
 							</div>
@@ -108,7 +108,7 @@
 															<i class="fas fa-angle-down"></i>
 														</a>
 														<div class="dropdown-menu" aria-labelledby="dropdownLanguage">
-															<a class="dropdown-item" href=""> AR</a>
+															<a class="dropdown-item" href="/ar/home"> AR</a>
 														</div>
 													</li>
 												</ul>
@@ -143,7 +143,7 @@
 							</div>
 							<div class="col-md-12 align-self-center order-1">
 								<ul class="breadcrumb d-block text-center">
-									<li><a href="index-corporate.html">Home</a></li>
+									<li><a href="/home">Home</a></li>
 									<li class="active">Pages</li>
 								</ul>
 							</div>

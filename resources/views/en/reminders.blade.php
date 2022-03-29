@@ -8,7 +8,7 @@
               content="IE=edge">
         <meta name="viewport"
               content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>FAQ</title>
+        <title>Reminders</title>
 
         <!-- Prevent the demo from appearing in search engines -->
         <meta name="robots"
@@ -386,7 +386,7 @@
                                         <div class="flex">
                                             <a class="card-title mb-4pt"
                                                href="">{{$reminder->title}}</a>
-                                            <p class="text-70 mb-0">{{$reminder->discription}}</p>
+                                            <p class="text-70 mb-0" style="width: 350px; overflow: hidden;">{{$reminder->discription}}</p>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex lh-1 px-16pt py-8pt">
@@ -560,14 +560,12 @@
                                             </a>
                                             <ul class="sidebar-submenu collapse sm-indent"
                                                 id="productivity_menu">
-                                                @if(Auth::user()->role <> 'employee')
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/projects">
                                                         <span class="sidebar-menu-text">Projects</span>
                                                     </a>
                                                 </li>
-                                                @endif
                                                 <li class="sidebar-menu-item">
                                                     <a class="sidebar-menu-button"
                                                        href="/tasks-board">

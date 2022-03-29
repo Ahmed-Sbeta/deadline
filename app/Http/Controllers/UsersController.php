@@ -168,8 +168,9 @@ class UsersController extends Controller
       if($user->role == "administrator"){
         return redirect('/employees')->with('error','You can not delete an administrator');
       }else{
-        $user->delete();
-        return redirect('/employees')->with('success','Employee Deleted successfuly');;
+        $user->is_activated = null;
+        $user->save();
+        return redirect('/employees')->with('success','Employee Deleted successfuly');
       }
 
 
@@ -185,13 +186,24 @@ class UsersController extends Controller
     }
 
     public function approve(Request $request){
+      // dd($request->all());
+      if($request->approve == "Approve"){
       $cheks = $request->input('doneCheck');
       foreach($cheks as $check => $value){
         $user = User::find($value);
         $user->is_activated = True;
         $user->save();
       }
-      return redirect()->back();
+      return redirect()->back()->with('success','Added successfuly');
+    }else{
+      $cheks = $request->input('doneCheck');
+      foreach($cheks as $check => $value){
+        $user = User::find($value);
+        $user->is_activated = NULL;
+        $user->save();
+      }
+      return redirect()->back()->with('error','deleted successfuly');
+    }
     }
 
     public function notific(){

@@ -93,7 +93,7 @@ class ProjectsController extends Controller
 
       $users = User::find($request->contributors);
       Notification::send($users,new ProjectNotification($request->title));
-      return redirect()->back()->with('success','Project added successfuly');
+      return redirect('/projects')->with('success','Project added successfuly');
     }
     public function UpdateProject(Request $request,$id){
       $this->validate($request,[

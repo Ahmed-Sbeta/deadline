@@ -576,11 +576,11 @@
                                            <th style="width: 48px;">
                                               Status
                                            </th>
-
+                                           @if(Auth::user()->role <> 'employee')
                                            <th style="width: 48px;">
                                               Budget
                                            </th>
-
+                                           @endif
                                            <th style="width: 48px;">
                                               Due
                                            </th>
@@ -652,13 +652,14 @@
                                                    <span class="indicator-line rounded bg-warning"></span>
                                                </div>
                                            </td>
-
+                                           @if(Auth::user()->role <> 'employee')
                                            <td>
                                                <div class="d-flex flex-column">
                                                    <small class="js-lists-values-budget"><strong>&dollar;{{$project->budget}}</strong></small>
                                                    <small class="text-50">Invoice Sent</small>
                                                </div>
                                            </td>
+                                           @endif
 
                                            <td>
                                                <div class="d-flex flex-column">
@@ -666,6 +667,7 @@
                                                    <small class="text-50">{{(new Carbon\Carbon($project->dueOn))->diffForHumans()}}</small>
                                                </div>
                                            </td>
+                                            @if(Auth::user()->role <> 'employee')
                                            <td class="text-right">
                                                <a href="#"
                                                class="nav-link d-flex align-items-center dropdown-toggle"
@@ -678,6 +680,7 @@
                                                    <a class="dropdown-item"
                                                       href="/deleteProject/{{$project->id}}">Delete</a>
                                            </td>
+                                           @endif
                                        </tr>
                                        @endforeach
 
@@ -799,10 +802,11 @@
                                            <th style="width: 48px;">
                                               Status
                                            </th>
-
+                                           @if(Auth::user()->role <> 'employee')
                                            <th style="width: 48px;">
                                               Budget
                                            </th>
+                                           @endif
 
                                            <th style="width: 48px;">
                                               Due
@@ -860,20 +864,21 @@
                                                    <span class="indicator-line rounded bg-accent"></span>
                                                </div>
                                            </td>
-
+                                           @if(Auth::user()->role <> 'employee')
                                            <td>
                                                <div class="d-flex flex-column">
                                                    <small class="js-lists-values-budget"><strong>&dollar; {{$archiv->budget}}</strong></small>
                                                    <small class="text-50">Invoice Sent</small>
                                                </div>
                                            </td>
-
+                                           @endif
                                            <td>
                                                <div class="d-flex flex-column">
                                                    <small class="js-lists-values-date"><strong>{{$archiv->dueOn}}</strong></small>
                                                    <small class="text-50">{{(new Carbon\Carbon($archiv->dueOn))->diffForHumans()}}</small>
                                                </div>
                                            </td>
+                                            @if(Auth::user()->role <> 'employee')
                                            <td class="text-right">
                                                <a href="#"
                                                class="nav-link d-flex align-items-center dropdown-toggle"
@@ -886,6 +891,7 @@
                                                    <a class="dropdown-item"
                                                       href="/deleteProject/{{$archiv->id}}">Delete</a>
                                            </td>
+                                           @endif
                                        </tr>
                                        @endforeach
 
@@ -947,6 +953,7 @@
                          {{ session()->get('success') }}
                        </div>
                        @endif
+                        @if(Auth::user()->role <> 'employee')
                          <div class="page-separator">
                              <div class="page-separator__text">Add New Project</div>
                          </div>
@@ -1067,6 +1074,7 @@
                              </div>
                          </div>
                          </form>
+                         @endif
 
 
 
@@ -2729,14 +2737,12 @@
                                 </a>
                                 <ul class="sidebar-submenu collapse sm-indent"
                                     id="productivity_menu">
-                                    @if(Auth::user()->role <> 'employee')
                                     <li class="sidebar-menu-item active">
                                         <a class="sidebar-menu-button"
                                            href="/projects">
                                             <span class="sidebar-menu-text">Projects</span>
                                         </a>
                                     </li>
-                                    @endif
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="/tasks-board">
